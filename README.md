@@ -23,16 +23,8 @@
 
 ### Run project
 
-1. `node -v` check if you have installed some version of *Node.js* ~8 because *npm* ("No package manager" equivalent for *yarn*) is insatalled with Node.
+1. `node -v` check if you have installed some version of *Node.js* ~8 because *npm* ("Node package manager" equivalent for *yarn*) is insatalled with Node.
 If not install Node.js from https://nodejs.org/en/download/
 
 2. `npm install` install all packages for project ("The packages are not pushed on remote")
 3. `npm start`  - will start project and run on local http://localhost:3000/. If some change is made the local server reloads itselfs.
-
-
-
-
-
-
-
-</ol>
