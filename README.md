@@ -28,3 +28,4 @@ If not install Node.js from https://nodejs.org/en/download/
 
 2. `npm install` install all packages for project ("The packages are not pushed on remote")
 3. `npm start`  - will start project and run on local http://localhost:3000/. If some change is made the local server reloads itselfs.
+  ...
