@@ -2,7 +2,6 @@ import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
-import { withStyles } from '@material-ui/core/styles';
 
 // A theme with custom primary and secondary color.
 // It's optional.
