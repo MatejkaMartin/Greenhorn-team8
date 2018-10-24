@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import logo from './logo.jpg';
+import React, {Component} from 'react';
+import {BrowserRouter} from 'react-router-dom';
+import ScrollToTop from 'react-router-scroll-top';
+
+import {LoginPage} from './components/pages/LoginPage'
+import {AppRoutes} from './AppRoutes';
 import './App.css';
-import LoginButton from './components/LoginButton.js'
-import withRoot from './withRoot';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-            <p>This is GreenHorn!</p>
-        </header>
-        <LoginButton></LoginButton>
-      </div>
-    );
+    return (<BrowserRouter>
+      <ScrollToTop>
+        <AppRoutes/>
+      </ScrollToTop>
+    </BrowserRouter>);
   }
 }
-export default withRoot(App);
+export default App;
