@@ -10,7 +10,7 @@ export class PageHeader extends Component {
       <Layout className="header">
         <Link className="navbar-brand text-muted" to="/">
         <img src={logo} className="App-logo" alt="logo" width="10%" height="10%"/>
-        <img src={name} className="App-logo" alt="logo" width="40%" height="40%"/>
+        <img src={name} className="App-logo" alt="logo" width="20%" height="20%"/>
         </Link>
       </Layout>
     );

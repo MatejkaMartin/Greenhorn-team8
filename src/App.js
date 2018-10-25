@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 
-import {LoginPage} from './components/pages/LoginPage'
 import {AppRoutes} from './AppRoutes';
 import './App.css';
 

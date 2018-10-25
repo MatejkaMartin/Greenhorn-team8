@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+//import Button from '@material-ui/core/Button';
 
 export const Button = ({
   title,
@@ -9,14 +10,10 @@ export const Button = ({
   className,
   children,
   ...rest
-}) => (<button className={classNames(
-    'btn', `btn-${variant}`, size
-    ? `btn-${size}`
-    : null,
-  className,)} type={type} {...rest}>
-  {
-    title
-      ? title
-      : children
-  }
-</button>);
+}) => (
+  <button
+    className={classNames('btn', `btn-${variant}`, size ? `btn-${size}`: null,className,)}
+    type={type} {...rest}>
+    {title ? title : children}
+</button>
+);
