@@ -12,7 +12,7 @@ export const Button = ({
   ...rest
 }) => (
   <button
-    className={classNames('btn', `btn-${variant}`, size ? `btn-${size}`: null,className,)}
+    className={classNames('btn btn-lg btn-success', `btn-${variant}`, size ? `btn-${size}`: null,className,)}
     type={type} {...rest}>
     {title ? title : children}
 </button>

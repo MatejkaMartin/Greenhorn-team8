@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from '../atoms/Link';
 import { Layout } from '../atoms/Layout';
-import logo from '../../ghlogo.png';
-import name from '../../ghname.png';
+import logo from '../../img/ghlogo.png';
+import name from '../../img/ghname.png';
 
 export class PageHeader extends Component {
   render() {

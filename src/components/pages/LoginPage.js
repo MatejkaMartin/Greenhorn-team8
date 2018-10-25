@@ -14,11 +14,11 @@ export class LoginPage extends Component {
         <LoginForm/>
       </Layout>
 
-      <Link className="btn btn-lg btn-success" to="/admin">
+      <Link className="btn" to="/admin">
         Login as admin
       </Link>
       <br/>
-      <Link className="btn btn-lg btn-success" to="/user">
+      <Link className="btn" to="/user">
         Login as user
       </Link>
 
