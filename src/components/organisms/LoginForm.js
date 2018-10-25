@@ -20,8 +20,8 @@ export class LoginForm extends Component {
         <h2>Login</h2>
         <Row>
           <Layout className="login-form">
-            <InputWithLabel id="name" label="Name" placeholder="Your name" value={values.name} onChange={handleChange} onBlur={handleBlur}/>
             <InputWithLabel id="email" label="Email" placeholder="Your email" type="email" value={values.email} onChange={handleChange} onBlur={handleBlur}/>
+            <InputWithLabel id="password" label="Password" placeholder="Your password" value={values.name} onChange={handleChange} onBlur={handleBlur}/>
           </Layout>
         </Row>
         <Button title="Login" type="submit" disabled={isSubmitting}/>
