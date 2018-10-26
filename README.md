@@ -51,5 +51,65 @@ or
 
 Read the rest at https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
 
+## UI 
+
+In project we use two packages for design: 
+1. https://tailwindcss.com
+2. https://material-ui.com
+
+### How use *tailwind*
+
+`import './css/tailwind.css';`
+
+#### Basic use
+Tailwind is pre-definiend classes which you can apply on components.
+Soo basicly you can find the name on the webside and entry it to a className of component. 
+
+e.g. : one `<button className="text-black" />` or many `<button className="text-black text-xs text-letft bg-green />` and thats it. 
+
+#### Define own class
+You can define your own className in `src/css/tailwind.src.css`
+
+e.g:
+`.btn {
+   @apply font-bold py-2 px-4 rounded;
+ }`
+You group many classNames together and than you can just use `<button className="btn" />`
+
+### How use *Material-ui* 
+
+Find a component and use it.
+
+`import AppBar from '@material-ui/core/AppBar';`
+`<AppBar>`
+
+
+#### Icons
+Find you icon here: https://material.io/tools/icons/ -> name of icon e.g. `card-giftcard` -> 
+-> text transform `CardGiftCard` 
+-> you can add type of icon on the end 
+* Filled -> `CardGiftCardFilled`
+* Outlined -> `CardGiftCardOutlined`
+* Rounded ... 
+* Two Tone ... 
+* Sharp ..
+* Edge-cases .. 
+-> make import `import GiftIcon from '@material-ui/icons/CardGiftcardRounded`
+
+or many imports at ones 
+`import { CardGiftcardRounded, Send } from '@material-ui/icons';`
+
+`<CardGiftcardRounded />
+<Send />`
+
+### Tailwind and Material-ui together
+You can apply class names from tailwind on material-ui components.
+
+eg.
+`<AppBar className="bg-green">`
+
+
+
+
 
 
