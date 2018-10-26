@@ -71,9 +71,9 @@ e.g. : one `<button className="text-black" />` or many `<button className="text-
 You can define your own className in `src/css/tailwind.src.css`
 
 e.g:
-`.btn {
-   @apply font-bold py-2 px-4 rounded;
- }`
+`.btn {`
+   `@apply font-bold py-2 px-4 rounded;`
+` }`
 You group many classNames together and than you can just use `<button className="btn" />`
 
 ### How use *Material-ui* 
@@ -81,15 +81,15 @@ You group many classNames together and than you can just use `<button className=
 Find a component and use it.
 
 `import AppBar from '@material-ui/core/AppBar';`
-`<AppBar>`
+`<AppBar />`
 
 
 #### Icons
 Find you icon here: https://material.io/tools/icons/ -> name of icon e.g. `card-giftcard` -> 
--> text transform `CardGiftCard` 
+-> text transform `CardGiftcard` 
 -> you can add type of icon on the end 
-* Filled -> `CardGiftCardFilled`
-* Outlined -> `CardGiftCardOutlined`
+* Filled -> `CardGiftcardFilled`
+* Outlined -> `CardGiftcardOutlined`
 * Rounded ... 
 * Two Tone ... 
 * Sharp ..
