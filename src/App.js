@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
-
 import {AppRoutes} from './AppRoutes';
-import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 class App extends Component {
