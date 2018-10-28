@@ -16,12 +16,13 @@ export class LoginForm extends Component {
         console.log('---> submit', values);
         actions.setSubmitting(false);
       }} render={({values, handleBlur, handleChange, handleSubmit, isSubmitting}) => (<form onSubmit={handleSubmit}>
-        <h2>Login</h2>
         <Row>
           <Layout>
             <InputWithLabel id="email" label="Email" placeholder="Your email" type="text" value={values.email} onChange={handleChange} onBlur={handleBlur}/>
+            <br/>
             <InputWithLabel id="password" label="Password" placeholder="Your password" type="password" value={values.name} onChange={handleChange} onBlur={handleBlur}/>
           </Layout>
+          <br/>
         </Row>
         <Button title="Login" type="submit" disabled={isSubmitting}/>
       </form>)}/>);

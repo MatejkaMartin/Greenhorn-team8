@@ -30,7 +30,7 @@ export class Input extends Component {
 
     return (
       <input
-      className="bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-green"
+      className="shadow-md bg-grey-lighter appearance-none border-2 border-grey-lighter rounded w-full py-2 px-4 text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-green"
       id={id}
       type={type}
       placeholder={placeholder}

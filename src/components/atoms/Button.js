@@ -12,7 +12,7 @@ export const Button = ({
   ...rest
 }) => (
     <button
-      className="bg-transparent hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green hover:border-transparent rounded"
+      className="bg-transparent shadow-md hover:bg-green text-green-dark font-semibold hover:text-white py-2 px-4 border border-green hover:border-transparent rounded"
       type={type} {...rest}>
       {title ? title : children}
     </button>
