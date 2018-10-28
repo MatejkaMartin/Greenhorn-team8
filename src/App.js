@@ -5,8 +5,6 @@ import {AppRoutes} from './AppRoutes';
 import './App.css';
 import './css/tailwind.css';
 import withRootTemplate from './withRootTemplate';
-import MenuIcon from '@material-ui/icons/Menu';
-import Typography from '@material-ui/core/Typography';
 
 class App extends Component {
   render() {

@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
 import {LoginForm} from '../organisms/LoginForm';
-import {PageHeader} from '../molecules/PageHeader';
-import {PageFooter} from '../molecules/PageFooter';
-import {Layout} from '../atoms/Layout';
-import { Link } from '../atoms/Link';
 import logo from '../../img/greenhornlogo.png';
 
 export class LoginPage extends Component {

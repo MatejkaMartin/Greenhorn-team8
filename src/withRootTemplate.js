@@ -17,6 +17,9 @@ const theme = createMuiTheme({
       main: purple[500],
       dark: purple[700],
     },
+    none: {
+      main: "#FFFFFF",
+    }
   },
 });
 

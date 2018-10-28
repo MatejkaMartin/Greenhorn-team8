@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from '../atoms/Link';
-import { Layout } from '../atoms/Layout';
 
 export class PageMenu extends Component {
   render() {
@@ -25,7 +23,7 @@ export class PageMenu extends Component {
               PEOPLE
             </button>
           </li>
-          
+
         </ul>
       </div>
     );

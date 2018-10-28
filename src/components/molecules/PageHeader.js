@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from '../atoms/Link';
-import { Layout } from '../atoms/Layout';
 import logo from '../../img/greenhornlogo.png';
-import name from '../../img/ghname.png';
-import {PageMenu} from '../molecules/PageMenu';
 import {Button} from '../atoms/Button';
 
 export class PageHeader extends Component {
   render() {
     return (
-      <nav class="shadow-lg fixed w-full flex items-center justify-between bg-cover bg-grey-lighter py-1 px-3">
+      <nav class="shadow-lg fixed w-100 flex items-center justify-between bg-cover bg-grey-lighter py-1 px-3">
 
         <div class="flex items-center flex-no-shrink">
           <Button href="#">
@@ -29,7 +26,6 @@ export class PageHeader extends Component {
               </Button>
             </div>
         </div>
-
       </nav>
     );
   }
