@@ -155,10 +155,9 @@ class ResponsiveDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           { /*  Contentt of the page */ }
-
           <div>
             <br/>
-              <h2 class="mt-24">Welcome XXX, nice to meet you again. </h2>
+              <h2 class="mt-4">Welcome XXX, nice to meet you again. </h2>
             <br/>
           </div>
             {/*IF USER PAK*/}
@@ -173,7 +172,7 @@ class ResponsiveDrawer extends React.Component {
               <h2>Your employees:</h2>
               <br/>
             </div>
-            <img src={employee} className="" alt="employee"/>
+            <img src={employee} className="mb-10" alt="employee"/>
           <PageFooter/>
 
         </main>
