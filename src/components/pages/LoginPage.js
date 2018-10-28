@@ -9,19 +9,13 @@ export class LoginPage extends Component {
   render() {
     return (
       <Layout>
-        <PageHeader/>
         <hr/>
         <Layout>
           <LoginForm/>
         </Layout>
-        <Link to="/admin">
-          Login as admin
+        <Link to="/first">
+          LINK NA FIRST STRANKU PO UPRAVE SMAZAT
         </Link>
-        <br/>
-        <Link to="/user">
-          Login as user
-        </Link>
-        <hr/>
         <PageFooter/>
       </Layout>);
   }

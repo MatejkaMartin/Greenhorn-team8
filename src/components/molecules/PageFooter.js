@@ -5,9 +5,9 @@ import {Paragraph} from '../atoms/Paragraph';
 export class PageFooter extends Component {
   render() {
     return (
-      <Layout className="p-10">
-        <Paragraph>© Team08 {new Date().getFullYear()}</Paragraph>
-      </Layout>
+      <div class="shadow-inner sticky pin-x pin-b p-1 bg-grey-light text-grey-dark">
+        © Team08 - GREENHORN - {new Date().getFullYear()}
+      </div>
     );
   }
 }
