@@ -6,19 +6,16 @@ export class LoginPage extends Component {
   render() {
     return (
       <div class=" bg-grey-lighter absolute pin font-sans">
-        <hr/>
-        <div class="container mx-auto h-full flex justify-center items-center">
+      <div class="container mx-auto h-full flex justify-center items-center">
         <div class="w-1/3">
-        <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
-
-        <img src={logo} className="h-16" alt="logo"/>
-        <br/>
-            <h1 class="font-hairline mb-6 text-center">Login to our Website</h1>
+          <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+            <img src={logo} className="h-17" alt="logo"/>
+            <br/><br/>
+            <h2 class="font-hairline text-center">Login Form</h2>
             <LoginForm/>
-            </div>
+          </div>
         </div>
-    </div>
-
-      </div>);
+      </div>
+    </div>);
   }
 }

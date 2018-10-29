@@ -9,6 +9,7 @@ export class FirstPage extends Component {
         <div>
           <NavigationBar />
         </div>
-      </Layout>);
+      </Layout>
+    );
   }
 }
