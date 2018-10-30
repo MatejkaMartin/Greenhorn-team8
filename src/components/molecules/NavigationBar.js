@@ -18,10 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-
-
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Assessment';
 import TasksIcon from '@material-ui/icons/Assignment';
@@ -70,7 +69,7 @@ class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
     anchorEl: null,
-    selectedIndex: null,
+    selectedIndex: null
   };
 
   handleProfileMenuOpen = event => {
@@ -155,7 +154,7 @@ class ResponsiveDrawer extends React.Component {
 
           <div className={classes.grow}/>
           <div className={classes.sectionDesktop}>
-            <IconButton color="inherit" onClick={console.log('bla', pageName )}>
+            <IconButton color="inherit" onClick={console.log('bla', pageName)}>
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon/>
               </Badge>
