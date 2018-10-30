@@ -44,7 +44,7 @@ export class LoginForm extends Component {
 
               <Layout class="flex items-center justify-between">
                 <Button className="baton" class="bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" title="Login" type="submit" disabled={isSubmitting}/>
-                <Link class="no-underline" to="/home">Forgot password?</Link>
+                <Link class="no-underline" to="/dashboard">Forgot password?</Link>
               </Layout>
             </Form>
           </form>)}/>

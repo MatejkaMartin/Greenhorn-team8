@@ -23,7 +23,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 
 
 import PeopleIcon from '@material-ui/icons/People';
-import MailIcon from '@material-ui/icons/Mail';
+import DashboardIcon from '@material-ui/icons/Assessment';
+import TasksIcon from '@material-ui/icons/Assignment';
 
 import {Link} from '../atoms/Link'
 
@@ -40,10 +41,11 @@ const styles = theme => ({
     }
   },
   appBar: {
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`
-    }
+    zIndex: theme.zIndex.drawer + 1,
+    //marginLeft: drawerWidth,
+    //[theme.breakpoints.up('sm')]: {
+    //  width: `calc(100% - ${drawerWidth}px)`
+    //}
   },
   menuButton: {
     marginRight: 20,
@@ -110,10 +112,10 @@ class ResponsiveDrawer extends React.Component {
       <div className={classes.toolbar}/>
       <Divider/>
       <List>
-        <Link className="no-underline" to="/home">
+        <Link className="no-underline" to="/dashboard">
           <ListItem button="button" selected={this.state.selectedIndex === 0} onClick={event => this.handleListItemClick(event, 0)}>
             <ListItemIcon>
-              <MailIcon/>
+              <DashboardIcon/>
             </ListItemIcon>
             <ListItemText primary="Dashboard"/>
           </ListItem>
@@ -122,7 +124,7 @@ class ResponsiveDrawer extends React.Component {
         <Link className="no-underline" to="/tasks">
           <ListItem button="button" selected={this.state.selectedIndex === 1} onClick={event => this.handleListItemClick(event, 1)}>
             <ListItemIcon>
-              <MailIcon/>
+              <TasksIcon/>
             </ListItemIcon>
             <ListItemText primary="Tasks"/>
           </ListItem>
@@ -178,9 +180,10 @@ class ResponsiveDrawer extends React.Component {
             }} ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}>
-
+            {renderDrawer}
           </Drawer>
         </Hidden>
+
         <Hidden xsDown="xsDown" implementation="css">
           <Drawer classes={{
               paper: classes.drawerPaper
