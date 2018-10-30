@@ -8,16 +8,11 @@ import withRootTemplate from './withRootTemplate';
 
 class App extends Component {
   render() {
-    return (
-      <div className="text-center">
-        <BrowserRouter>
-        <ScrollToTop>
+    return (<BrowserRouter>
+      <ScrollToTop>
         <AppRoutes/>
-        </ScrollToTop>
-        </BrowserRouter>
-      </div>
-    );
+      </ScrollToTop>
+    </BrowserRouter>);
   }
 }
-// export default withRootTemplate(App);
 export default withRootTemplate(App);
