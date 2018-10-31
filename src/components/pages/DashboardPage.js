@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import Chart from '../atoms/Chart'
 import Table from '../atoms/Table'
+import GridList from '../atoms/GridList'
 import NavigationBar from '../organisms/NavigationBar'
 
 export class DashboardPage extends Component {
@@ -10,7 +10,7 @@ export class DashboardPage extends Component {
       <Layout className="dp-1">
         <NavigationBar className="Dashboard" idmenu="0">
           <Layout className="dp-2">
-            <Chart/>
+            <GridList/>
             <Table/>
           </Layout>
         </NavigationBar>

@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import Table from '../atoms/Table'
+import TableSortable from '../atoms/TableSortable'
 
 export class TasksTable extends Component {
   render() {
     return (
       <Layout className="tt-1">
-        <Table/>
+        <TableSortable/>
       </Layout>
     );
   }
