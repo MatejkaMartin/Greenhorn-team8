@@ -5,13 +5,14 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   root: {
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    marginBottom: 30,
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -19,54 +20,30 @@ const styles = theme => ({
     transform: 'translateZ(0)',
   },
   title: {
-    color: theme.palette.primary.light,
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+
   },
 });
 
 const tileData = [
   {
-    img: 'images/grid-list/00-52-29-429_640.jpg',
     title: 'Breakfast',
-    author: 'jill111',
+    author: 'Jan Pippal',
+    deadline: '1.11.2018'
   },
   {
-    img: 'images/grid-list/burger-827309_640.jpg',
     title: 'Tasty burger',
-    author: 'pashminu',
+    author: 'Martin Matějka',
+    deadline: '1.11.2018'
   },
   {
-    img: 'images/grid-list/camera-813814_640.jpg',
     title: 'Camera',
-    author: 'Danson67',
+    author: 'Matěj Ďurica',
+    deadline: '1.11.2018'
   },
   {
-    img: 'images/grid-list/morning-819362_640.jpg',
     title: 'Morning',
-    author: 'fancycrave1',
-  },
-  {
-    img: 'images/grid-list/hats-829509_640.jpg',
-    title: 'Hats',
-    author: 'Hans',
-  },
-  {
-    img: 'images/grid-list/honey-823614_640.jpg',
-    title: 'Honey',
-    author: 'fancycravel',
-  },
-  {
-    img: 'images/grid-list/vegetables-790022_640.jpg',
-    title: 'Vegetables',
-    author: 'jill111',
-  },
-  {
-    img: 'images/grid-list/water-plant-821293_640.jpg',
-    title: 'Water plant',
-    author: 'BkrmadtyaKarki',
+    author: 'Karel Novák',
+    deadline: '1.11.2018'
   },
 ];
 
@@ -75,24 +52,24 @@ function SingleLineGridList(props) {
 
   return (
     <div className={classes.root}>
-      <GridList className={classes.gridList} cols={2.5}>
+      <GridList className={classes.gridList} cols={3}>
+
         {tileData.map(tile => (
           <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
+            <p>Task Owner: {tile.author}</p>
+            <p>Deadline: {tile.deadline}</p>
             <GridListTileBar
               title={tile.title}
               classes={{
                 root: classes.titleBar,
-                title: classes.title,
-              }}
+                title: classes.title,}}
               actionIcon={
                 <IconButton>
-                  <StarBorderIcon className={classes.title} />
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))}
+                  <EditIcon className={classes.title} />
+                </IconButton>}
+              />
+          </GridListTile>))}
+
       </GridList>
     </div>
   );

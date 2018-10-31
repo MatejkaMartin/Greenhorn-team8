@@ -34,7 +34,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -52,7 +52,7 @@ function SignIn(props) {
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
-        
+
 
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -84,8 +84,7 @@ function SignIn(props) {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
-            >
+              className={classes.submit}>
               Login
             </Button>
           </form>
