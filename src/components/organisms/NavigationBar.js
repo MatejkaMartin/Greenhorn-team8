@@ -95,6 +95,8 @@ class ResponsiveDrawer extends React.Component {
     const {anchorEl} = this.state;
     const isMenuOpen = Boolean(anchorEl);
     const pageName = this.props.className;
+    const children = this.props.children;
+    const pageindex = this.props.idmenu;
 
     const renderProfileMenu = (<Menu anchorEl={anchorEl} anchorOrigin={{
         vertical: 'top',
@@ -103,8 +105,12 @@ class ResponsiveDrawer extends React.Component {
         vertical: 'top',
         horizontal: 'right'
       }} open={isMenuOpen} onClose={this.handleMenuClose}>
-      <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+      <Link to="/setting" class="no-underline">
+      <MenuItem onClick={this.handleMenuClose}>Settings</MenuItem>
+      </Link>
+      <Link to="/" class="no-underline">
+      <MenuItem onClick={this.handleMenuClose}>Logout</MenuItem>
+      </Link>
     </Menu>);
 
     const renderDrawer = (<div>
@@ -141,7 +147,8 @@ class ResponsiveDrawer extends React.Component {
       <Divider/>
     </div>);
 
-    return (<div className={classes.root}>
+    return (
+      <div className={classes.root}>
       <CssBaseline/>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -154,7 +161,7 @@ class ResponsiveDrawer extends React.Component {
 
           <div className={classes.grow}/>
           <div className={classes.sectionDesktop}>
-            <IconButton color="inherit" onClick={console.log('bla', pageName)}>
+            <IconButton color="inherit" onClick={console.log('bla', pageindex)}>
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon/>
               </Badge>
@@ -177,26 +184,25 @@ class ResponsiveDrawer extends React.Component {
               : 'left'} open={this.state.mobileOpen} onClose={this.handleDrawerToggle} classes={{
               paper: classes.drawerPaper
             }} ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}>
             {renderDrawer}
           </Drawer>
         </Hidden>
-
         <Hidden xsDown="xsDown" implementation="css">
           <Drawer classes={{
               paper: classes.drawerPaper
             }} variant="permanent" open="open">
-
             {renderDrawer}
-
           </Drawer>
         </Hidden>
       </nav>
+
       <main className={classes.content}>
         <div className={classes.toolbar}/>
-
+        <article>{children}</article>
       </main>
+
     </div>);
   }
 }

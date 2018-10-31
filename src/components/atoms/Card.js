@@ -9,22 +9,20 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const drawerWidth = 240;
-
 const styles = {
   card: {
-    marginLeft: drawerWidth + 20,
     maxWidth: 345,
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.
-    objectFit: 'cover',
+    //objectFit: 'cover',
+    height: 140,
   },
 };
 
 function ImgMediaCard(props) {
   const { classes } = props;
-  const src = props.src;
+  const src = props.src
 
   return (
     <Card className={classes.card}>

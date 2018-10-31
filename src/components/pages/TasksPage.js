@@ -1,13 +1,17 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import NavigationBar from '../molecules/NavigationBar'
-import TasksTable from '../molecules/TasksTable'
+import NavigationBar from '../organisms/NavigationBar'
+import {TasksTable} from '../molecules/TasksTable'
 
 export class TasksPage extends Component {
   render() {
-    return (<Layout className="fp-1">
-      <NavigationBar className="Tasks" id="1"/>
-      <TasksTable/>
-    </Layout>);
+    return (
+      <Layout className="tp-1">
+        <NavigationBar className="Tasks" idmenu="1">
+          <Layout className="tp-2">
+            <TasksTable/>
+          </Layout>
+        </NavigationBar>
+      </Layout>);
+    }
   }
-}

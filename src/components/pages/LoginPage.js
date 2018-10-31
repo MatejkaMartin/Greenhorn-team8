@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import {LoginForm} from '../organisms/LoginForm';
+import LoginForm from '../molecules/LoginForm';
 import {Layout} from '../atoms/Layout';
+import {Link} from '../atoms/Link';
 
 export class LoginPage extends Component {
   render() {
     return (
-      <Layout class="flex items-center h-screen bg-grey-lightest">
-        <Layout class="container mx-auto">
+      <Layout className="lp-1">
           <LoginForm/>
-        </Layout>
+          <Link class="no-underline" to="/dashboard">Go to Dashboard</Link>
       </Layout>
     );
   }
