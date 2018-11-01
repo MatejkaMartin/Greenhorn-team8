@@ -15,17 +15,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Assessment';
 import TasksIcon from '@material-ui/icons/Assignment';
 
 import {Link} from '../atoms/Link'
+import ProfileList from '../atoms/ProfileList'
+import NotificationList from '../atoms/NotificationList'
+import Logo from '../../img/gh.png';
 
 const drawerWidth = 240;
 
@@ -43,9 +40,16 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 1,
     //marginLeft: drawerWidth,
     //[theme.breakpoints.up('sm')]: {
-    //  width: `calc(100% - ${drawerWidth}px)`
+    //width: `calc(100% - ${drawerWidth}px)`
     //}
   },
+  toolbarIcon: {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-center',
+  //padding: '0 8px',
+  ...theme.mixins.toolbar,
+},
   menuButton: {
     marginRight: 20,
     [theme.breakpoints.up('sm')]: {
@@ -54,7 +58,7 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   content: {
     flexGrow: 1,
@@ -68,16 +72,7 @@ const styles = theme => ({
 class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
-    anchorEl: null,
     selectedIndex: null
-  };
-
-  handleProfileMenuOpen = event => {
-    this.setState({anchorEl: event.currentTarget});
-  };
-
-  handleMenuClose = () => {
-    this.setState({anchorEl: null});
   };
 
   handleDrawerToggle = () => {
@@ -92,26 +87,8 @@ class ResponsiveDrawer extends React.Component {
 
   render() {
     const {classes, theme} = this.props;
-    const {anchorEl} = this.state;
-    const isMenuOpen = Boolean(anchorEl);
     const pageName = this.props.className;
     const children = this.props.children;
-    const pageindex = this.props.idmenu;
-
-    const renderProfileMenu = (<Menu anchorEl={anchorEl} anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }} transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }} open={isMenuOpen} onClose={this.handleMenuClose}>
-      <Link to="/setting" class="no-underline">
-      <MenuItem onClick={this.handleMenuClose}>Settings</MenuItem>
-      </Link>
-      <Link to="/" class="no-underline">
-      <MenuItem onClick={this.handleMenuClose}>Logout</MenuItem>
-      </Link>
-    </Menu>);
 
     const renderDrawer = (<div>
       <div className={classes.toolbar}/>
@@ -160,22 +137,10 @@ class ResponsiveDrawer extends React.Component {
           </Typography>
 
           <div className={classes.grow}/>
-          <div className={classes.sectionDesktop}>
-            <IconButton color="inherit" onClick={console.log('bla', pageindex)}>
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon/>
-              </Badge>
-            </IconButton>
-            <IconButton aria-owns={isMenuOpen
-                ? 'material-appbar'
-                : undefined} aria-haspopup="true" onClick={this.handleProfileMenuOpen} color="inherit">
-              <AccountCircle/>
-            </IconButton>
-          </div>
+          <NotificationList/>
+          <ProfileList name="Admin HR Katka"/>
         </Toolbar>
       </AppBar>
-
-      {renderProfileMenu}
 
       <nav className={classes.drawer}>
         <Hidden smUp="smUp" implementation="css">

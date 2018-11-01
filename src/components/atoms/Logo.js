@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Logo from '../../img/greenhornlogo.png';
+import Logo from '../../img/ghlogo.png';
 
 const styles = theme => ({
   heroContent: {
@@ -21,7 +21,7 @@ function Album(props) {
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              <img src={Logo} title="logo"/>
+              <img src={Logo} alt="logo" title="logo"/>
             </Typography>
             <Typography variant="h6" align="center" color="textSecondary" paragraph>
               ...for easy start in new job.
