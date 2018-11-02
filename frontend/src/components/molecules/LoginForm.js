@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,8 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { connect } from 'react-redux';
+import { login } from '../../actions/user.actions';
 
 const styles = theme => ({
   layout: {
@@ -45,8 +47,61 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
-  const { classes } = props;
+class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      errorMessage: this.props.errorMessage,
+    };
+  }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value } );
+  }
+
+  validate = () => {
+      if(this.state.email.length===0 || this.state.password.length===0) {
+      this.setState({ errorMessage : 'Credentials can´t be empty' })
+    } else {
+      this.setState({ errorMessage : '' })
+    }
+  }
+
+
+  handleSubmit = (e) => {
+      this.validate();
+      e.preventDefault();
+      const { email, password } = this.state;
+      if (email && password) {
+        const { login } = this.props;
+        login(email,password);
+      }
+  }
+
+  errorMessage = () => {
+    if (this.state.errorMessage) {
+      return (
+        <div className="text-red">
+          {this.state.errorMessage}
+        </div>
+      );
+    }
+    if (this.props.errorMessage) {
+      return (
+        <div className="text-red">
+          {this.props.errorMessage}
+        </div>
+      );
+    }
+  }
+
+
+
+    render() {
+      const { email, password } = this.state;
+      const { classes } = this.props;
 
   return (
     <React.Fragment>
@@ -61,10 +116,10 @@ function SignIn(props) {
           <Typography component="h1" variant="h5">
             Login to Greenhorn
           </Typography>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={ this.handleSubmit }>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input id="email" name="email" autoComplete="email" value={ email } onChange={ this.handleChange } autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
@@ -73,6 +128,8 @@ function SignIn(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={ this.handleChange }
+                value={ password }
               />
             </FormControl>
             <FormControlLabel
@@ -93,9 +150,23 @@ function SignIn(props) {
     </React.Fragment>
   );
 }
+}
 
-SignIn.propTypes = {
+LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+
+function mapStateToProps(state) {
+    return {
+      errorMessage: state.authentication.error
+    };
+}
+
+const mapDispatchToProps = {
+  login,
+};
+const loginFormWithStyles = withStyles(styles)(LoginForm);
+
+const connectedLoginForm = connect(mapStateToProps,mapDispatchToProps)(loginFormWithStyles);
+export {connectedLoginForm as LoginForm} ;
