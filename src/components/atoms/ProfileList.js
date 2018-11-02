@@ -9,8 +9,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { withStyles } from '@material-ui/core/styles';
 
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import {Link} from '../atoms/Link'
+import ImageAvatar from '../atoms/Avatar'
+import Logo from '../../img/roman.jpg';
 
 const styles = theme => ({
   root: {
@@ -55,7 +56,7 @@ class MenuListComposition extends React.Component {
              color="inherit"
             onClick={this.handleToggle}
           >
-            <AccountCircle/>
+            <ImageAvatar src={Logo}/>
             {name}
           </Button>
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
