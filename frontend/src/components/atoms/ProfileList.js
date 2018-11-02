@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {Link} from '../atoms/Link'
 import ImageAvatar from '../atoms/Avatar'
-import Logo from '../../img/roman.jpg';
 
 const styles = theme => ({
   root: {
@@ -56,7 +55,7 @@ class MenuListComposition extends React.Component {
              color="inherit"
             onClick={this.handleToggle}
           >
-            <ImageAvatar src={Logo}/>
+            <ImageAvatar src="https://www.obchod-rybareni.cz/fotky58279/fotos/58279_71413__vyr_71412kapr-supinac.jpg"/>
             {name}
           </Button>
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
