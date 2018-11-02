@@ -18,7 +18,6 @@ constructor(props) {
   };
   this.validate = this.validate.bind(this);
   this.handleChange = this.handleChange.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this);
 }
 
 handleChange(e) {
@@ -34,7 +33,7 @@ validate() {
 }
 
 
-handleSubmit(e) {
+handleSubmit = (e) => {
     this.validate();
     e.preventDefault();
     const { email, password } = this.state;

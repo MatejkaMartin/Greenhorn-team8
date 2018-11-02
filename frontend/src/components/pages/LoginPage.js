@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import LoginForm from '../molecules/LoginForm';
+import { LoginForm } from '../molecules/LoginForm';
 import {Layout} from '../atoms/Layout';
 import {Link} from '../atoms/Link';
 import Logo from '../atoms/Logo';

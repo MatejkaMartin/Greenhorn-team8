@@ -13,13 +13,13 @@ import {CreateEmployeePage} from './components/pages/CreateEmployeePage';
 
 export const AppRoutes = () => (
 <Switch>
-  <Route path="/" exact="exact" component={LoginPage}/>
+  <Route path="/" exact component={LoginPage}/>
   <PrivateRoute path="/first" exact component={FirstPage}/>
+  <PrivateRoute path="/dashboard" exact component={DashboardPage}/>
+  <PrivateRoute path="/tasks" exact component={TasksPage}/>
+  <PrivateRoute path="/people" exact component={PeoplePage}/>
+  <PrivateRoute path="/setting" exact component={SettingPage}/>
+  <PrivateRoute path="/createtask" exact component={CreateTaskPage}/>
+  <PrivateRoute path="/createemployee" exact component={CreateEmployeePage}/>
   <Route path="*" component={PageNotFound} />
-  <Route path="/dashboard" exact="exact" component={DashboardPage}/>
-  <Route path="/tasks" exact="exact" component={TasksPage}/>
-  <Route path="/people" exact="exact" component={PeoplePage}/>
-  <Route path="/setting" exact="exact" component={SettingPage}/>
-  <Route path="/createtask" exact="exact" component={CreateTaskPage}/>
-  <Route path="/createemployee" exact="exact" component={CreateEmployeePage}/>
 </Switch>);

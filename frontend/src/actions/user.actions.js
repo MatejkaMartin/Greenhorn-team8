@@ -48,7 +48,7 @@ export const login = (email,password) => (dispatch, getState, { api }) => {
     .then(function (response) {
       setToken(response.data)
       dispatch(loginSuccess(response.data));
-      history.push('/first')
+      history.push('/dashboard')
     })
     .catch(function (error) {
     if (error.response) {
