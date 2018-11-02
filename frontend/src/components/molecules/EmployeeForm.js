@@ -8,7 +8,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
+import PersonalInfoForm from './PersonalInfoForm';
 import Review from './Review';
 
 const styles = theme => ({
@@ -48,12 +48,12 @@ const styles = theme => ({
   },
 });
 
-const steps = ['Shipping address', 'Review your order'];
+const steps = ['Personal information', 'Review information'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <PersonalInfoForm />;
     case 1:
       return <Review />;
     default:
@@ -94,7 +94,7 @@ class Checkout extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Settings
+              Create an Employee
             </Typography>
 
             <Stepper activeStep={activeStep} className={classes.stepper}>
