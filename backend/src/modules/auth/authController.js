@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export const authController = async (req, res, next) => {
   const { body } = req;
-  const user = await db.users.findAll({
+  const user = await db.User.findAll({
   attributes: ['id','email','name','role'],
   where: {
     email: body.email,
@@ -15,7 +15,7 @@ export const authController = async (req, res, next) => {
 
   const token = jwt.sign(userJson, 'shhhhh', {expiresIn: 60 * 60 * 24});
 
-  db.tokens.create({ user_id: userJson.id, token: token, expiresAt: jwt.decode(token,).exp}, { fields: [ 'user_id','token','expiresAt' ] })
+  db.Token.create({ user_id: userJson.id, token: token, expiresAt: jwt.decode(token,).exp}, { fields: [ 'user_id','token','expiresAt' ] })
   return res.json({
     user: userJson,
     token: token
