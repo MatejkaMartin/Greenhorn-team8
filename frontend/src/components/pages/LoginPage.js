@@ -1,24 +1,20 @@
+
 import React, {Component} from 'react';
-import {LoginForm} from '../organisms/LoginForm';
-import logo from '../../img/greenhornlogo.png';
-
+import LoginForm from '../molecules/LoginForm';
+import {Layout} from '../atoms/Layout';
+import {Link} from '../atoms/Link';
+import Logo from '../atoms/Logo';
+import Typography from '@material-ui/core/Typography';
 export class LoginPage extends Component {
-  render() {
-    return (
-      <div className=" bg-grey-lighter absolute pin font-sans">
-        <hr/>
-        <div className="container mx-auto h-full flex justify-center items-center">
-        <div className="w-1/3">
-        <div className="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
-
-        <img src={logo} className="h-16" alt="logo"/>
-        <br/>
-            <h1 className="font-hairline mb-6 text-center">Login to our Website</h1>
-            <LoginForm/>
-            </div>
-        </div>
-    </div>
-
-      </div>);
-  }
+ render() {
+  return (
+   <Layout className="lp-1">
+    <Logo/>
+     <LoginForm/>
+     <Link class="no-underline" to="/dashboard"><Typography align="center">
+      Login as Admin
+     </Typography></Link>
+   </Layout>
+  );
+ }
 }
