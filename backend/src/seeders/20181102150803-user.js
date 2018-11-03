@@ -2,45 +2,63 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert('Users',
 
-      return queryInterface.bulkInsert('Users', [{
+      [{
         name: 'Karel Zaměstnanec',
         email: 'karel.zamestnanec@greenhorn.com',
         password: 'karel',
-        role: 'employee',
+        mobile:'686493573',
+        avatarURL:'',
+        roleID: '1',
+        departmentID:'1',
+        jobPositionID:'1',
         createdAt: new Date(),
         updatedAt: new Date()
       },
+
       {
         name: 'Marie AdminHR',
-        email: 'Marie.AdminHR@greenhorn.com',
+        email: 'marie.AdminHR@greenhorn.com',
         password: 'marie',
-        role: 'AdminHR',
+        mobile:'653553537',
+        avatarURL:'',
+        roleID: '1',
+        departmentID:'1',
+        jobPositionID:'1',
         createdAt: new Date(),
         updatedAt: new Date()
       },
+
       {
         name: 'Anna AdminIT',
         email: 'anna.AdminIT@greenhorn.com',
         password: 'anna',
-        role: 'AdminIT',
+        mobile:'686493573',
+        avatarURL:'',
+        roleID: '1',
+        departmentID:'1',
+        jobPositionID:'1',
         createdAt: new Date(),
         updatedAt: new Date()
       },
+
       {
         name: 'Tudor AdminAcc',
         email: 'tudor.AdminAcc@greenhorn.com',
         password: 'tudor',
-        role: 'AdminAcc',
+        mobile:'686493573',
+        avatarURL:'',
+        roleID: '1',
+        departmentID:'1',
+        jobPositionID:'1',
         createdAt: new Date(),
         updatedAt: new Date()
-      }], {});
-
+      }],
+    {});
   },
 
   down: (queryInterface, Sequelize) => {
-
-      return queryInterface.bulkDelete('Users', null, {});
-
+    return queryInterface.bulkDelete('Users', null, {});
   }
 };

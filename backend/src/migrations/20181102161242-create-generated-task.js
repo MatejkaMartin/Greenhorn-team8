@@ -1,40 +1,30 @@
 'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tokens', {
+    return queryInterface.createTable('Generated_Tasks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-
-      user_id: {
+      jobPositionID: {
         type: Sequelize.INTEGER
       },
-
-      token: {
-        type: Sequelize.STRING
+      taskTemplateID: {
+        type: Sequelize.INTEGER
       },
-
-      expiresAt: {
-        type: Sequelize.DATE
-      },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
-
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tokens');
+    return queryInterface.dropTable('Generated_Tasks');
   }
 };

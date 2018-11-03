@@ -1,40 +1,48 @@
 'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tokens', {
+    return queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-
-      user_id: {
-        type: Sequelize.INTEGER
-      },
-
-      token: {
+      name: {
         type: Sequelize.STRING
       },
-
-      expiresAt: {
-        type: Sequelize.DATE
+      email: {
+        type: Sequelize.STRING
       },
-
+      password: {
+        type: Sequelize.STRING
+      },
+      mobile: {
+        type: Sequelize.INTEGER
+      },
+      avatarURL: {
+        type: Sequelize.STRING
+      },
+      roleID: {
+        type: Sequelize.INTEGER
+      },
+      departmentID: {
+        type: Sequelize.INTEGER
+      },
+      jobPositionID: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
-
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tokens');
+    return queryInterface.dropTable('Users');
   }
 };
