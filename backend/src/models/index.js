@@ -26,6 +26,15 @@ if (config.use_env_variable) {
 const modelModules = [
   require('./user'),
   require('./token'),
+  require('./department'),
+  require('./document'),
+  require('./generated_task'),
+  require('./job_position'),
+  require('./notification'),
+  require('./role'),
+  require('./state'),
+  require('./task_template'),
+  require('./task'),  
 ];
 
 modelModules.forEach(modelModule => {
