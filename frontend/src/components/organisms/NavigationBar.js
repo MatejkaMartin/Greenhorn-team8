@@ -22,7 +22,6 @@ import TasksIcon from '@material-ui/icons/Assignment';
 import {Link} from '../atoms/Link'
 import ProfileList from '../atoms/ProfileList'
 import NotificationList from '../atoms/NotificationList'
-// import Logo from '../../img/gh.png';
 
 const drawerWidth = 240;
 
@@ -138,7 +137,7 @@ class ResponsiveDrawer extends React.Component {
 
           <div className={classes.grow}/>
           <NotificationList/>
-          <ProfileList name="Admin HR Katka"/>
+          <ProfileList name="Admin HR Kapr"/>
         </Toolbar>
       </AppBar>
 

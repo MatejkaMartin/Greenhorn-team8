@@ -8,7 +8,6 @@ import {Link } from '../atoms/Link'
 export class PeoplePage extends Component {
 
   render() {
-    // const {classes} = this.props;
     return (
       <Layout className="pp-1">
         <NavigationBar className="People" idmenu="2">

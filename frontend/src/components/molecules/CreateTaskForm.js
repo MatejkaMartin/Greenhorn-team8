@@ -8,7 +8,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
+import TaskInfoForm from './TaskInfoForm';
 import Review from './Review';
 
 const styles = theme => ({
@@ -53,7 +53,7 @@ const steps = ['Shipping address', 'Review your order'];
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <TaskInfoForm/>;
     case 1:
       return <Review />;
     default:

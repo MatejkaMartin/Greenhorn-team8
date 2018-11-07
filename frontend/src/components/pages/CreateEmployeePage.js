@@ -8,7 +8,7 @@ export class CreateEmployeePage extends Component {
   render() {
     return (
       <Layout className="cep-1">
-        <NavigationBar className="Create a Employee" idmenu="2">
+        <NavigationBar className="Create an Employee" idmenu="2">
           <Layout className="cep-2">
             <EmployeeForm/>
           </Layout>
