@@ -12,8 +12,8 @@ export class PeoplePage extends Component {
       <Layout className="pp-1">
         <NavigationBar className="People" idmenu="2">
           <Layout className="pp-2">
-            <Link to="/createemployee" class="no-underline">
-            <ButtonCreate title="creat a new employee"/>
+            <Link to="/people/add" class="no-underline">
+            <ButtonCreate title="create a new employee"/>
             </Link>
             <PeopleCard>
             </PeopleCard>

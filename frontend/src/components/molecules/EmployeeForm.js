@@ -9,7 +9,9 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PersonalInfoForm from './PersonalInfoForm';
-import Review from './Review';
+import NameForm from './NameForm';
+import EmailMobileForm from './EmailMobileForm';
+import AssignmentForm from './AssignmentForm';
 
 const styles = theme => ({
   appBar: {
@@ -48,23 +50,62 @@ const styles = theme => ({
   },
 });
 
-const steps = ['Personal information', 'Review information'];
+const steps = [
+'Name',
+'Email & Phone',
+'Assignment'
+];
 
-function getStepContent(step) {
+function getStepContent(step,values,handleChange,jobPositions,departments,roles) {
   switch (step) {
     case 0:
-      return <PersonalInfoForm />;
+      return <NameForm
+      values={ values }
+      handleChange={ handleChange }
+      />;
     case 1:
-      return <Review />;
+      return <EmailMobileForm
+      values={ values }
+      handleChange={ handleChange }
+      />;
+    case 2:
+      return <AssignmentForm
+      values={ values }
+      handleChange={ handleChange }
+      jobPositions={ jobPositions }
+      departments={ departments }
+      roles={ roles }
+      />;
     default:
       throw new Error('Unknown step');
   }
 }
 
-class Checkout extends React.Component {
-  state = {
+function giveMeButton(step) {
+switch (step) {
+  case 0:
+    return 'Set email & Phone';
+  case 1:
+    return 'Assign user';
+  case 2:
+    return 'Create';
+}
+}
+
+class Checkout extends React.Component{
+  constructor(props) {
+  super(props)
+  this.state = {
     activeStep: 0,
-  };
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    role: 0,
+    department: 0,
+    jobPosition: 0
+    }
+  }
 
   handleNext = () => {
     this.setState(state => ({
@@ -84,10 +125,15 @@ class Checkout extends React.Component {
     });
   };
 
-  render() {
-    const { classes } = this.props;
-    const { activeStep } = this.state;
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value },function() {console.log(this.state)});
+  }
 
+  render() {
+    const { classes,departments,roles,jobPositions } = this.props;
+    const { activeStep } = this.state;
+    const { firstName,lastName,email,phone,role,department,jobPosition } = this.state;
+    const values = { firstName,lastName,email,phone,role,department,jobPosition }
     return (
       <React.Fragment>
         <CssBaseline />
@@ -96,7 +142,6 @@ class Checkout extends React.Component {
             <Typography component="h1" variant="h4" align="center">
               Create an Employee
             </Typography>
-
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map(label => (
                 <Step key={label}>
@@ -105,19 +150,8 @@ class Checkout extends React.Component {
               ))}
             </Stepper>
             <React.Fragment>
-              {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography variant="h5" gutterBottom>
-                    Thank you for your order.
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Your order number is #2001539. We have emailed your order confirmation, and will
-                    send you an update when your order has shipped.
-                  </Typography>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {getStepContent(activeStep,values,this.handleChange,jobPositions,departments,roles)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button onClick={this.handleBack} className={classes.button}>
@@ -129,12 +163,12 @@ class Checkout extends React.Component {
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    >{
+                      giveMeButton(activeStep)
+                    }
                     </Button>
                   </div>
                 </React.Fragment>
-              )}
             </React.Fragment>
           </Paper>
         </main>

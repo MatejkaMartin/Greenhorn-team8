@@ -10,11 +10,11 @@ export class LoginPage extends Component {
   return (
    <Layout className="lp-1">
     <Logo/>
-     <LoginForm/>
+     <LoginForm />
      <Link class="no-underline" to="/dashboard"><Typography align="center">
       Login as Admin
      </Typography></Link>
    </Layout>
   );
- }
+}
 }

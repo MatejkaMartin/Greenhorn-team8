@@ -11,8 +11,15 @@ import Select from '@material-ui/core/Select';
 class PersonalInfoForm extends React.Component {
   state = {
     role: '',
+    department: '',
+    jobPosition: '',
     labelWidth: 0,
   };
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render() {
   return (
     <React.Fragment>
@@ -87,9 +94,11 @@ class PersonalInfoForm extends React.Component {
               name: 'role',
               id: 'role',
             }}
-            >
-            <MenuItem value="admin">Amin</MenuItem>
-            <MenuItem value="user">User</MenuItem>
+            >{
+              this.props.roles.map(role => (
+                <MenuItem index={role.id} value={role.name}>{role.name}</MenuItem>
+              ))
+            }
           </Select>
         </FormControl>
         </Grid>
@@ -98,30 +107,41 @@ class PersonalInfoForm extends React.Component {
         <FormControl required fullWidth>
           <InputLabel htmlFor="department">Department</InputLabel>
           <Select
-            value={this.state.role}
+            value={this.state.department}
             onChange={this.handleChange}
             inputProps={{
               name: 'department',
               id: 'department',
             }}
             >
-            <MenuItem value="hr">HR</MenuItem>
-            <MenuItem value="it">IT</MenuItem>
-            <MenuItem value="accounting">Accounting</MenuItem>
-            <MenuItem value="finanace">Finance</MenuItem>
+            {
+              this.props.departments.map(department => (
+                <MenuItem index={department.id} value={department.name}>{department.name}</MenuItem>
+              ))
+            }
           </Select>
         </FormControl>
         </Grid>
 
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="position"
-            name="position"
-            label="Job Position"
-            fullWidth
-          />
-      </Grid>
+        <Grid item xs={12} sm={6}>
+        <FormControl required fullWidth>
+          <InputLabel htmlFor="jobPosition">Job position</InputLabel>
+          <Select
+            value={this.state.jobPosition}
+            onChange={this.handleChange}
+            inputProps={{
+              name: 'jobPosition',
+              id: 'jobPosition',
+            }}
+            >
+            {
+              this.props.jobPositions.map(jobPosition => (
+                <MenuItem index={jobPosition.id} value={jobPosition.name}>{jobPosition.name}</MenuItem>
+              ))
+            }
+          </Select>
+        </FormControl>
+        </Grid>
       </Grid>
     </React.Fragment>
   );
