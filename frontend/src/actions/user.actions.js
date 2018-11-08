@@ -51,14 +51,7 @@ export const login = (email,password) => (dispatch, getState, { api }) => {
       history.push('/dashboard')
     })
     .catch(function (error) {
-    if (error.response) {
-      dispatch(loginFailure(errors.ERR_CONNECTION_REFUSED));
-    } else if (error.request) {
-      dispatch(loginFailure(errors.ERR_CONNECTION_REFUSED));
-    } else {
       dispatch(loginFailure(errors.ERR_CONNECTION_REFUSED));
     }
-    dispatch(loginFailure(errors.ERR_CONNECTION_REFUSED));
-  }
     );
 };

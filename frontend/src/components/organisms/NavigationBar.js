@@ -20,7 +20,7 @@ import DashboardIcon from '@material-ui/icons/Assessment';
 import TasksIcon from '@material-ui/icons/Assignment';
 
 import {Link} from '../atoms/Link'
-import ProfileList from '../atoms/ProfileList'
+import { ProfileList } from '../atoms/ProfileList'
 import NotificationList from '../atoms/NotificationList'
 
 const drawerWidth = 240;
