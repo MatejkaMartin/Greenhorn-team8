@@ -8,6 +8,8 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { withStyles } from '@material-ui/core/styles';
+import { logout } from '../../actions/user.actions';
+import { connect } from 'react-redux';
 
 import {Link} from '../atoms/Link'
 import ImageAvatar from '../atoms/Avatar'
@@ -21,17 +23,32 @@ const styles = theme => ({
   },
 });
 
-class MenuListComposition extends React.Component {
+class ProfileList extends React.Component {
+
+  constructor(props) {
+    super(props)
+  }
+
   state = {
     open: false,
   };
+
+  onClick = (e) => {
+    if (this.anchorEl.contains(e.target)) {
+      return;
+    }
+
+    this.setState({ open: false });
+    const { logout } = this.props;
+    logout();
+  }
 
   handleToggle = () => {
     this.setState(state => ({ open: !state.open }));
   };
 
-  handleClose = event => {
-    if (this.anchorEl.contains(event.target)) {
+  handleClose = (e) => {
+    if (this.anchorEl.contains(e.target)) {
       return;
     }
 
@@ -69,7 +86,7 @@ class MenuListComposition extends React.Component {
                   <ClickAwayListener onClickAway={this.handleClose}>
                     <MenuList>
                       <Link className="no-underline" to="/setting"><MenuItem onClick={this.handleClose}>Setting</MenuItem></Link>
-                      <Link className="no-underline" to="/"><MenuItem onClick={this.handleClose}>Logout</MenuItem></Link>
+                      <div className="no-underline" to="/"><MenuItem onClick={this.onClick}>Logout</MenuItem></div>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -82,8 +99,15 @@ class MenuListComposition extends React.Component {
   }
 }
 
-MenuListComposition.propTypes = {
+ProfileList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuListComposition);
+const withStylesProfileList  = withStyles(styles)(ProfileList);
+
+const mapDispatchToProps = {
+  logout,
+};
+
+const connectedProfileList = connect(null,mapDispatchToProps)(withStylesProfileList);
+export { connectedProfileList as ProfileList };
