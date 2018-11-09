@@ -1,20 +1,28 @@
-import React, {Component} from 'react'
-import {Layout} from '../atoms/Layout'
+import React, { Component } from 'react'
+import { Layout } from '../atoms/Layout'
 import Table from '../atoms/Table'
 import GridList from '../atoms/GridList'
 import NavigationBar from '../organisms/NavigationBar'
+import { getUser } from '../../reducers/authentication.reducer';
+import { connect } from 'react-redux';
 
-export class DashboardPage extends Component {
+class DashboardPage extends Component {
   render() {
     return (
-      <Layout className="dp-1">
-        <NavigationBar className="Dashboard" idmenu="0">
           <Layout className="dp-2">
             <GridList/>
             <Table/>
           </Layout>
-        </NavigationBar>
-      </Layout>
     );
   }
 }
+
+const mapStateToProps = state  => {
+    const { authentication } = state
+    return {
+      user: getUser(authentication)
+    };
+}
+
+const connectedDashboardPage = connect(mapStateToProps)(DashboardPage);
+export {connectedDashboardPage as DashboardPage} ;

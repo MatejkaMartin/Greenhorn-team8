@@ -1,19 +1,129 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import NameStep from './NameStep';
+import EmailMobileStep from './EmailMobileStep';
+import AssignmentStep from './AssignmentStep';
 
+const styles = theme => ({
+  appBar: {
+    position: 'relative',
+  },
+  layout: {
+    width: 'auto',
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+      width: 600,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 6,
+      padding: theme.spacing.unit * 3,
+    },
+  },
+  stepper: {
+    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit,
+  },
+});
 
-class PersonalInfoForm extends React.Component {
-  state = {
-    role: '',
-    department: '',
-    jobPosition: '',
-    labelWidth: 0,
+const steps = [
+'Name',
+'Email & Phone',
+'Assignment'
+];
+
+function getStepContent(step,values,handleChange,jobPositions,departments,roles) {
+  switch (step) {
+    case 0:
+      return <NameStep
+      values={ values }
+      handleChange={ handleChange }
+      />;
+    case 1:
+      return <EmailMobileStep
+      values={ values }
+      handleChange={ handleChange }
+      />;
+    case 2:
+      return <AssignmentStep
+      values={ values }
+      handleChange={ handleChange }
+      jobPositions={ jobPositions }
+      departments={ departments }
+      roles={ roles }
+      />;
+    default:
+      throw new Error('Unknown step');
+  }
+}
+
+function giveMeButton(step) {
+switch (step) {
+  case 0:
+    return 'Set email & Phone';
+  case 1:
+    return 'Assign user';
+  case 2:
+    return 'Create';
+  default:
+    return ''
+}
+}
+
+class PersonalInfoForm extends React.Component{
+  constructor(props) {
+  super(props)
+  this.state = {
+    activeStep: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    role: 0,
+    department: 0,
+    jobPosition: 0
+    }
+  }
+
+  handleNext = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep + 1,
+    }));
+  };
+
+  handleBack = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep - 1,
+    }));
+  };
+
+  handleReset = () => {
+    this.setState({
+      activeStep: 0,
+    });
   };
 
   handleChange = (e) => {
@@ -21,131 +131,55 @@ class PersonalInfoForm extends React.Component {
   }
 
   render() {
-  return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Personal Information
-      </Typography>
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="name"
-            name="name"
-            label="Name"
-            fullWidth
-            autoComplete="name"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="lname"
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="email"
-            name="email"
-            label="Email"
-            fullWidth
-            autoComplete="email"
-          />
-        </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="phone"
-              name="phone"
-              label="Phone Number"
-              fullWidth
-              autoComplete="phone"
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="password"
-            name="password"
-            label="Password"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="confPassword"
-            name="confPassword"
-            label="Confirmation Password"
-            fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-        <FormControl required fullWidth>
-          <InputLabel htmlFor="role">Role</InputLabel>
-          <Select
-            value={this.state.role}
-            onChange={this.handleChange}
-            inputProps={{
-              name: 'role',
-              id: 'role',
-            }}
-            >{
-              this.props.roles.map(role => (
-                <MenuItem index={role.id} value={role.name}>{role.name}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-        <FormControl required fullWidth>
-          <InputLabel htmlFor="department">Department</InputLabel>
-          <Select
-            value={this.state.department}
-            onChange={this.handleChange}
-            inputProps={{
-              name: 'department',
-              id: 'department',
-            }}
-            >
-            {
-              this.props.departments.map(department => (
-                <MenuItem index={department.id} value={department.name}>{department.name}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-        <FormControl required fullWidth>
-          <InputLabel htmlFor="jobPosition">Job position</InputLabel>
-          <Select
-            value={this.state.jobPosition}
-            onChange={this.handleChange}
-            inputProps={{
-              name: 'jobPosition',
-              id: 'jobPosition',
-            }}
-            >
-            {
-              this.props.jobPositions.map(jobPosition => (
-                <MenuItem index={jobPosition.id} value={jobPosition.name}>{jobPosition.name}</MenuItem>
-              ))
-            }
-          </Select>
-        </FormControl>
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-}
+    const { classes,departments,roles,jobPositions } = this.props;
+    const { activeStep } = this.state;
+    const { firstName,lastName,email,phone,role,department,jobPosition } = this.state;
+    const values = { firstName,lastName,email,phone,role,department,jobPosition }
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Typography component="h1" variant="h4" align="center">
+              Create an Employee
+            </Typography>
+            <Stepper activeStep={activeStep} className={classes.stepper}>
+              {steps.map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <React.Fragment>
+                <React.Fragment>
+                  {getStepContent(activeStep,values,this.handleChange,jobPositions,departments,roles)}
+                  <div className={classes.buttons}>
+                    {activeStep !== 0 && (
+                      <Button onClick={this.handleBack} className={classes.button}>
+                        Back
+                      </Button>
+                    )}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={this.handleNext}
+                      className={classes.button}
+                    >{
+                      giveMeButton(activeStep)
+                    }
+                    </Button>
+                  </div>
+                </React.Fragment>
+            </React.Fragment>
+          </Paper>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
-export default (PersonalInfoForm);
+PersonalInfoForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PersonalInfoForm);

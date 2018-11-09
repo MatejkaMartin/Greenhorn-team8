@@ -22,7 +22,6 @@ export class CreateEmployeePage extends Component {
   fetchCatalogs() {
     api.get('catalogs').then(response => {
       const { data } = response;
-
       this.setState({
         departments: data.departments,
         jobPositions: data.jobPositions,
@@ -34,13 +33,9 @@ export class CreateEmployeePage extends Component {
   render() {
     const { departments,jobPositions,roles  } = this.state;
     return (
-      <Layout className="cep-1">
-        <NavigationBar className="Create an Employee" idmenu="2">
           <Layout className="cep-2">
             <EmployeeForm departments= { departments } jobPositions= {jobPositions} roles = {roles} />
           </Layout>
-        </NavigationBar>
-      </Layout>
     );
   }
 }

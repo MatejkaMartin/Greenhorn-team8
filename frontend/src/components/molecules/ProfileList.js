@@ -24,11 +24,6 @@ const styles = theme => ({
 });
 
 class ProfileList extends React.Component {
-
-  constructor(props) {
-    super(props)
-  }
-
   state = {
     open: false,
   };
@@ -58,7 +53,7 @@ class ProfileList extends React.Component {
   render() {
     const { classes } = this.props;
     const { open } = this.state;
-    const name = this.props.name;
+    const { name, role } = this.props.user;
 
     return (
       <div className={classes.root}>
@@ -69,11 +64,16 @@ class ProfileList extends React.Component {
             }}
             aria-owns={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
-             color="inherit"
+            color="inherit"
             onClick={this.handleToggle}
           >
             <ImageAvatar src="https://www.obchod-rybareni.cz/fotky58279/fotos/58279_71413__vyr_71412kapr-supinac.jpg"/>
-            {name}
+
+            <div className="no-underline" >
+
+            <div className="text-base">{ name }</div>
+            <div className="text-xs">{ role }</div>
+          </div>
           </Button>
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
             {({ TransitionProps, placement }) => (

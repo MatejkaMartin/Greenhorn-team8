@@ -17,7 +17,7 @@ export const AppRoutes = () => (
   <PrivateRoute path="/tasks" exact component={TasksPage}/>
   <PrivateRoute path="/people" exact component={PeoplePage}/>
   <PrivateRoute path="/setting" exact component={SettingPage}/>
-  <PrivateRoute path="/createtask" exact component={CreateTaskPage}/>
+  <PrivateRoute path="/tasks/add" exact component={CreateTaskPage}/>
   <PrivateRoute path="/people/add" exact component={CreateEmployeePage}/>
   <Route path="*" component={PageNotFound} />
 </Switch>);

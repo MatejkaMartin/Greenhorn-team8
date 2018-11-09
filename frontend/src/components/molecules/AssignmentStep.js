@@ -1,14 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 
-class AssignmentForm extends React.Component {
+class AssignmentStep extends React.Component {
 
   render() {
   const { values,handleChange,departments,roles,jobPositions } = this.props;
@@ -29,7 +28,7 @@ class AssignmentForm extends React.Component {
               id: 'role',
             }}
             >{
-              this.props.roles.map(role => (
+              roles.map(role => (
                 <MenuItem key={role.id} value={role.name}>{role.name}</MenuItem>
               ))
             }
@@ -49,7 +48,7 @@ class AssignmentForm extends React.Component {
             }}
             >
             {
-              this.props.departments.map(department => (
+              departments.map(department => (
                 <MenuItem key={department.id} value={department.name}>{department.name}</MenuItem>
               ))
             }
@@ -69,7 +68,7 @@ class AssignmentForm extends React.Component {
             }}
             >
             {
-              this.props.jobPositions.map(jobPosition => (
+              jobPositions.map(jobPosition => (
                 <MenuItem key={jobPosition.id} value={jobPosition.name}>{jobPosition.name}</MenuItem>
               ))
             }
@@ -82,4 +81,4 @@ class AssignmentForm extends React.Component {
 }
 }
 
-export default (AssignmentForm);
+export default (AssignmentStep);

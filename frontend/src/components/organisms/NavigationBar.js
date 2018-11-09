@@ -19,8 +19,8 @@ import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Assessment';
 import TasksIcon from '@material-ui/icons/Assignment';
 
-import {Link} from '../atoms/Link'
-import { ProfileList } from '../atoms/ProfileList'
+import { Link } from '../atoms/Link'
+import { ProfileList } from '../molecules/ProfileList'
 import NotificationList from '../atoms/NotificationList'
 
 const drawerWidth = 240;
@@ -68,7 +68,7 @@ const styles = theme => ({
   }
 });
 
-class ResponsiveDrawer extends React.Component {
+class NavigationBar extends React.Component {
   state = {
     mobileOpen: false,
     selectedIndex: null
@@ -85,11 +85,13 @@ class ResponsiveDrawer extends React.Component {
   };
 
   render() {
-    const {classes, theme} = this.props;
+    const { classes, theme } = this.props;
+    const { user } = this.props;
     const pageName = this.props.className;
     const children = this.props.children;
 
-    const renderDrawer = (<div>
+    const renderDrawer = (
+      <div>
       <div className={classes.toolbar}/>
       <Divider/>
       <List>
@@ -121,7 +123,8 @@ class ResponsiveDrawer extends React.Component {
         </Link>
       </List>
       <Divider/>
-    </div>);
+    </div>
+    );
 
     return (
       <div className={classes.root}>
@@ -134,10 +137,9 @@ class ResponsiveDrawer extends React.Component {
           <Typography variant="h6" color="inherit" noWrap="noWrap">
             {pageName}
           </Typography>
-
           <div className={classes.grow}/>
           <NotificationList/>
-          <ProfileList name="Admin HR Kapr"/>
+          <ProfileList user={ user }/>
         </Toolbar>
       </AppBar>
 
@@ -171,12 +173,10 @@ class ResponsiveDrawer extends React.Component {
   }
 }
 
-ResponsiveDrawer.propTypes = {
+NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  // Injected by the documentation to work in an iframe.
-  // You won't need it on your project.
   container: PropTypes.object,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, {withTheme: true})(ResponsiveDrawer);
+export default withStyles(styles, {withTheme: true})(NavigationBar);

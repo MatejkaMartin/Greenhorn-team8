@@ -8,15 +8,12 @@ import {Link } from '../atoms/Link'
 export class TasksPage extends Component {
   render() {
     return (
-      <Layout className="tp-1">
-        <NavigationBar className="Tasks" idmenu="1">
           <Layout className="tp-2">
-            <Link to="/createtask" class="no-underline">
+            <Link to="/tasks/add" class="no-underline">
             <ButtonCreate title="creat a new task"/>
           </Link>
             <TasksTable/>
           </Layout>
-        </NavigationBar>
-      </Layout>);
+);
     }
   }

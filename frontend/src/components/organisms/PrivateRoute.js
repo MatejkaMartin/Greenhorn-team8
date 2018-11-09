@@ -1,6 +1,9 @@
 import React,{Component} from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import NavigationBar from '../organisms/NavigationBar'
+import { getUser,getIsAuthenticated } from '../../reducers/authentication.reducer';
+import { Layout } from '../atoms/Layout'
 
 class PrivateRoute extends Component {
 
@@ -9,16 +12,37 @@ class PrivateRoute extends Component {
     return(
      <Route {...rest}
      render={props => (
-         isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+         isAuthenticated ? <Layout className="dp-1"><NavigationBar className={ getPageName(this.props.path) } idmenu="0" user= { this.props.user }><Component {...props} /></NavigationBar></Layout> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
      )}
      />
     )}
 
 }
 
-function mapStateToProps(state) {
+const getPageName = path => {
+   switch(path) {
+     case '/dashboard':
+     return 'Dashboard';
+     case '/tasks':
+     return 'Tasks';
+     case '/people':
+     return 'People';
+     case '/setting':
+     return 'Settings';
+     case '/tasks/add':
+     return 'Create task';
+     case '/people/add':
+     return 'Create user';
+     default:
+     return 'Navigation'
+   }
+}
+
+const mapStateToProps = state  => {
+    const { authentication } = state
     return {
-      isAuthenticated: state.authentication.authenticated
+      isAuthenticated: getIsAuthenticated(authentication),
+      user: getUser(authentication)
     };
 }
 

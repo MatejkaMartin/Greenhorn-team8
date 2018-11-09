@@ -50,7 +50,7 @@ export const login = (email,password) => (dispatch, getState, { api }) => {
       dispatch(loginSuccess(response.data));
       history.push('/dashboard')
     })
-    .catch(function (error) {
+    .catch(function () {
       dispatch(loginFailure(errors.ERR_CONNECTION_REFUSED));
     }
     );

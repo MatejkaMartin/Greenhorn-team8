@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 export const authController = async (req, res, next) => {
   const { body } = req;
   const user = await db.User.findAll({
-  attributes: ['id','email','name','role'],
+  attributes: ['id','email','name','roleID'],
   where: {
     email: body.email,
     password: body.password,

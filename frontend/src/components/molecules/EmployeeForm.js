@@ -8,10 +8,11 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import PersonalInfoForm from './PersonalInfoForm';
-import NameForm from './NameForm';
-import EmailMobileForm from './EmailMobileForm';
-import AssignmentForm from './AssignmentForm';
+import NameStep from './NameStep';
+import EmailMobileStep from './EmailMobileStep';
+import AssignmentStep from './AssignmentStep';
+import { history } from '../../helpers/history'
+import api from '../../api';
 
 const styles = theme => ({
   appBar: {
@@ -51,25 +52,25 @@ const styles = theme => ({
 });
 
 const steps = [
-'Name',
+'Enter name',
 'Email & Phone',
-'Assignment'
+'Assign user'
 ];
 
 function getStepContent(step,values,handleChange,jobPositions,departments,roles) {
   switch (step) {
     case 0:
-      return <NameForm
+      return <NameStep
       values={ values }
       handleChange={ handleChange }
       />;
     case 1:
-      return <EmailMobileForm
+      return <EmailMobileStep
       values={ values }
       handleChange={ handleChange }
       />;
     case 2:
-      return <AssignmentForm
+      return <AssignmentStep
       values={ values }
       handleChange={ handleChange }
       jobPositions={ jobPositions }
@@ -89,10 +90,12 @@ switch (step) {
     return 'Assign user';
   case 2:
     return 'Create';
+  default:
+    return ''
 }
 }
 
-class Checkout extends React.Component{
+class EmployeeForm extends React.Component{
   constructor(props) {
   super(props)
   this.state = {
@@ -101,16 +104,41 @@ class Checkout extends React.Component{
     lastName: '',
     email: '',
     phone: '',
-    role: 0,
-    department: 0,
-    jobPosition: 0
+    role: '',
+    department: '',
+    jobPosition: '',
+    avatarURL: 'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic2.png?alt=media&token=c5be4157-3bb5-44bc-9f6d-3e286d31438c'
     }
   }
 
+  submitForm = () => {
+    api
+      .post('people/add',   {
+  	firstName: this.state.firstName,
+    lastName: this.state.lastName,
+    email: this.state.email,
+    phone: this.state.phone,
+    role: this.state.role,
+    department: this.state.department,
+    jobPosition: this.state.jobPosition,
+    avatarURL: this.state.avatarURL
+    })
+      .then(function (response) {
+        history.push('/people')
+      })
+      .catch(function (error) {
+      }
+      );
+  }
+
   handleNext = () => {
+    if(this.state.activeStep===2) {
+      this.submitForm()
+    } else {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
+    }
   };
 
   handleBack = () => {
@@ -126,7 +154,7 @@ class Checkout extends React.Component{
   };
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value },function() {console.log(this.state)});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -163,6 +191,7 @@ class Checkout extends React.Component{
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
+                      disabled={ (activeStep ===0 && (!firstName || !lastName)) || (activeStep ===1 && (!email || !phone)) }
                     >{
                       giveMeButton(activeStep)
                     }
@@ -177,8 +206,8 @@ class Checkout extends React.Component{
   }
 }
 
-Checkout.propTypes = {
+EmployeeForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+export default withStyles(styles)(EmployeeForm);

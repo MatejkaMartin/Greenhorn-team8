@@ -4,8 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/LockOutlined';
@@ -14,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { login } from '../../actions/user.actions';
+import { getError } from '../../reducers/authentication.reducer';
 
 const styles = theme => ({
   layout: {
@@ -53,7 +52,6 @@ class LoginForm extends Component {
     this.state = {
       email: '',
       password: '',
-      errorMessage: this.props.errorMessage,
     };
   }
 
@@ -74,20 +72,11 @@ class LoginForm extends Component {
       this.validate();
       e.preventDefault();
       const { email, password } = this.state;
-      if (email && password) {
-        const { login } = this.props;
-        login(email,password);
-      }
+      const { login } = this.props;
+      login(email,password);
   }
 
   errorMessage = () => {
-    if (this.state.errorMessage) {
-      return (
-        <div className="text-red">
-          {this.state.errorMessage}
-        </div>
-      );
-    }
     if (this.props.errorMessage) {
       return (
         <div className="text-red">
@@ -99,7 +88,7 @@ class LoginForm extends Component {
 
 
 
-    render() {
+  render() {
       const { email, password } = this.state;
       const { classes } = this.props;
 
@@ -107,8 +96,6 @@ class LoginForm extends Component {
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
-
-
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockIcon />
@@ -116,32 +103,40 @@ class LoginForm extends Component {
           <Typography component="h1" variant="h5">
             Login to Greenhorn
           </Typography>
+
           <form className={classes.form} onSubmit={ this.handleSubmit }>
+            { this.errorMessage() }
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" value={ email } onChange={ this.handleChange } autoFocus />
+                <Input
+                  id="email"
+                  name="email"
+                  autoComplete="on"
+                  value={ email }
+                  onChange={ this.handleChange }
+                  autoFocus
+                />
             </FormControl>
+
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={ this.handleChange }
-                value={ password }
-              />
+                <Input
+                  name="password"
+                  type="password"
+                  id="password"
+                  autoComplete="off"
+                  onChange={ this.handleChange }
+                  value={ password }
+                />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}>
+              className={classes.submit}
+              disabled={ !password || !email }>
               Login
             </Button>
           </form>
@@ -157,16 +152,17 @@ LoginForm.propTypes = {
 };
 
 
-function mapStateToProps(state) {
+const mapStateToProps = state  => {
+    const { authentication } = state
     return {
-      errorMessage: state.authentication.error
+      errorMessage: getError(authentication )
     };
 }
 
 const mapDispatchToProps = {
   login,
 };
-const loginFormWithStyles = withStyles(styles)(LoginForm);
 
+const loginFormWithStyles = withStyles(styles)(LoginForm);
 const connectedLoginForm = connect(mapStateToProps,mapDispatchToProps)(loginFormWithStyles);
 export {connectedLoginForm as LoginForm} ;
