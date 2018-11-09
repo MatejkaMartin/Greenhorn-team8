@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import NavigationBar from '../organisms/NavigationBar'
 import {TasksTable} from '../molecules/TasksTable'
 import ButtonCreate from '../molecules/ButtonCreate'
 import {Link } from '../atoms/Link'

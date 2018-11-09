@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import NavigationBar from '../organisms/NavigationBar'
 import EmployeeForm from '../molecules/EmployeeForm'
 import api from '../../api';
 

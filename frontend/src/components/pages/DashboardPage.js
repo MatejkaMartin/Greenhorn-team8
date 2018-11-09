@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Layout } from '../atoms/Layout'
 import Table from '../atoms/Table'
 import GridList from '../atoms/GridList'
-import NavigationBar from '../organisms/NavigationBar'
 import { getUser } from '../../reducers/authentication.reducer';
 import { connect } from 'react-redux';
 

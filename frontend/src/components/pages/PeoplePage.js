@@ -1,11 +1,9 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import NavigationBar from '../organisms/NavigationBar'
 import PeopleList from '../molecules/PeopleList'
 import ButtonCreate from '../molecules/ButtonCreate'
 import {Link } from '../atoms/Link'
 import api from '../../api';
-import { history } from '../../helpers/history'
 
 export class PeoplePage extends Component {
 
@@ -28,7 +26,7 @@ export class PeoplePage extends Component {
 
   deletePerson = (id) => {
     api.delete('people/delete/'+ id).then();
-    this.setState({ people: this.state.people.filter(person => person.id != id ) })
+    this.setState({ people: this.state.people.filter(person => person.id !== id ) })
   }
 
   render() {

@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
-import Card from '@material-ui/core/Card';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
