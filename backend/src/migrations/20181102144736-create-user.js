@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       mobile: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       avatarURL: {
         type: Sequelize.STRING

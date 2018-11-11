@@ -19,17 +19,21 @@ const styles = {
 };
 
 let id = 0;
-function createData( name, calories, fat, carbs, protein ) {
+function createData(deadline, task, taskOwner, department, state) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein};
+  return { id: id, deadline, task, taskOwner, department, state };
 }
 
 const data = [
-  createData('1.11.2018', "Podepsat smlouvu", "Honza", "IT", "Done"),
-  createData('2.11.2018', "Podepsat smlouvu", "Honza", "HR", "Submitted"),
-  createData('3.11.2018', "Podepsat smlouvu", "Honza", "Financea", "Returned"),
-  createData('4.11.2018', "Podepsat smlouvu", "Honza", "Ucetnictvi", "New"),
-  createData('5.11.2018', "Podepsat smlouvu", "Honza", "IT", "New"),
+  createData('2018-11-19','Vyzvednout si notebook', 'Marie Admin', 'IT', 'New'),
+  createData('2018-11-21','Doložit potvrzení o studiu', 'Marie Admin', 'Accountancy', 'Submitted'),
+  createData('2018-11-22','Přečíst si BOZP', 'Marie Admin', 'HR', 'Submitted'),
+  createData('2018-11-28','Dodat potrzení od lékaře', 'Marie Admin', 'HR', 'Done'),
+  createData('2018-12-04','Přihlásit se na školení', 'Marie Admin', 'HR', 'New'),
+  createData('2018-12-05','Dostavit se na focení', 'Marie Admin', 'Marketing', 'Done'),
+  createData('2018-12-12','Požádat o přístupy do systémů', 'Marie Admin', 'IT', 'New'),
+  createData('2018-12-12','Vyzvednout si přístupovou kartu', 'Marie Admin', 'HR', 'New'),
+  createData('2018-12-14','Dodat zápočtový list', 'Marie Admin', 'Accountancy', 'New'),
 ];
 
 function SimpleTable(props) {
@@ -52,12 +56,12 @@ function SimpleTable(props) {
             return (
               <TableRow key={n.id}>
                 <TableCell component="th" scope="row">
-                  {n.name}
+                  {n.deadline}
                 </TableCell>
-                <TableCell>{n.calories}</TableCell>
-                <TableCell>{n.fat}</TableCell>
-                <TableCell>{n.carbs}</TableCell>
-                <TableCell numeric>{n.protein}</TableCell>
+                <TableCell>{n.deadline}</TableCell>
+                <TableCell>{n.task}</TableCell>
+                <TableCell>{n.taskOwner}</TableCell>
+                <TableCell numeric>{n.state}</TableCell>
               </TableRow>
             );
           })}

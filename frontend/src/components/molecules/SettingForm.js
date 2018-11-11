@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   appBar: {
@@ -82,6 +83,11 @@ class SettingForm extends React.Component {
                     fullWidth
                     autoComplete="lname"
                     value={ 'Dummy Prijmeni' }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Input
+                    type="file"
                   />
                 </Grid>
                 </Grid>

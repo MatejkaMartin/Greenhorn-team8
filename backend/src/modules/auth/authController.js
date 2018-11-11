@@ -22,6 +22,35 @@ export const authController = async (req, res, next) => {
   });
 })
   .catch(() => {
-    return next();
+    res.status(404);
+    res.json({
+    message: "Login failed"
+  })
 });
+};
+
+
+export const setPasswordController = async (req, res, next) => {
+  const { body } = req;
+  await db.sequelize.query("UPDATE users SET password=:password WHERE id=(SELECT user_id FROM reset_password WHERE token=:token and active=true);", { type: db.sequelize.QueryTypes.UPDATE, replacements: { token: body.token,password: body.password}})
+  .spread((results, metadata) => {
+    if(metadata===0) {
+        res.status(404);
+        res.json({
+        message: "No token found"
+      })
+    } else {
+      db.sequelize.query("UPDATE reset_password SET active=false WHERE token=:token and active=true;", { type: db.sequelize.QueryTypes.UPDATE, replacements: { token: body.token}})
+      .spread((results, metadata) => {
+        res.status(404);
+        res.json({
+        message: "No token found"
+      })
+    })
+      res.json({
+      message: "Password updated"
+      })
+      }
+  })
+
 };

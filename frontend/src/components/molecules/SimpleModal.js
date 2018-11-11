@@ -75,7 +75,7 @@ class SimpleModal extends React.Component {
               <div>Department: { person.department }</div>
               { person.jobPosition && <div>Job position: { person.jobPosition }</div> }
               <div>Phone: { person.mobile }</div>
-              <div>Email: { person.email }</div>
+              <div>Email: <a href="mailto:${person.email}">{ person.email }</a></div>
             </Typography>
           </div>
         </Modal>

@@ -79,7 +79,7 @@ class LoginForm extends Component {
   errorMessage = () => {
     if (this.props.errorMessage) {
       return (
-        <div className="text-red">
+        <div className="text-red text-center">
           {this.props.errorMessage}
         </div>
       );

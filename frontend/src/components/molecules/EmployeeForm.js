@@ -107,7 +107,11 @@ class EmployeeForm extends React.Component{
     role: '',
     department: '',
     jobPosition: '',
-    avatarURL: 'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic2.png?alt=media&token=c5be4157-3bb5-44bc-9f6d-3e286d31438c'
+    avatarURL: 'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic2.png?alt=media&token=c5be4157-3bb5-44bc-9f6d-3e286d31438c',
+    formErrors: {
+      email: false,
+      phone: false
+    }
     }
   }
 
@@ -122,6 +126,7 @@ class EmployeeForm extends React.Component{
     department: this.state.department,
     jobPosition: this.state.jobPosition,
     avatarURL: this.state.avatarURL
+
     })
       .then(function (response) {
         history.push('/people')
@@ -154,14 +159,29 @@ class EmployeeForm extends React.Component{
   };
 
   handleChange = (e) => {
+    let fieldValidationErrors = this.state.formErrors;
+    switch(e.target.name) {
+      case 'email':
+      const  emailValid = e.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      fieldValidationErrors.email = emailValid ? false : true;
+      break;
+      case 'phone':
+      const phoneValid = e.target.value.length >= 9;
+      fieldValidationErrors.phone = phoneValid ? false : true;
+      break;
+      default:
+      break;
+    }
+    this.setState({ formErrors: fieldValidationErrors });
+
     this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
     const { classes,departments,roles,jobPositions } = this.props;
     const { activeStep } = this.state;
-    const { firstName,lastName,email,phone,role,department,jobPosition } = this.state;
-    const values = { firstName,lastName,email,phone,role,department,jobPosition }
+    const { firstName,lastName,email,phone,role,department,jobPosition,formErrors } = this.state;
+    const values = { firstName,lastName,email,phone,role,department,jobPosition,formErrors }
     return (
       <React.Fragment>
         <CssBaseline />
@@ -191,7 +211,7 @@ class EmployeeForm extends React.Component{
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
-                      disabled={ (activeStep ===0 && (!firstName || !lastName)) || (activeStep ===1 && (!email || !phone)) }
+                      disabled={ (activeStep ===0 && (!firstName || !lastName)) || ((activeStep ===1 && (!email || !phone)) || (activeStep ===1 && (formErrors.email || formErrors.phone)))  }
                     >{
                       giveMeButton(activeStep)
                     }

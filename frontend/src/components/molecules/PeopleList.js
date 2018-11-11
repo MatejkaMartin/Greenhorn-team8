@@ -46,7 +46,7 @@ const styles = theme => ({
 class PeopleList extends Component {
 
   render () {
-  const { people,classes, deletePerson } = this.props;
+  const { people,classes, deletePerson, user } = this.props;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -71,12 +71,14 @@ class PeopleList extends Component {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    { 1===2 && <Button size="small" color="primary">
                       Edit
                     </Button>
-                    <Button size="small" color="primary" onClick={  () => { deletePerson(person.id) } }>
+                    }
+                    { user.roleID === 2 && <Button size="small" color="primary" onClick={  () => { deletePerson(person.id) } }>
                       Delete
                     </Button>
+                  }
                     <SimpleModal person={ person }/>
                   </CardActions>
                 </Card>

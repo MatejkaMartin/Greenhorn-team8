@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import { Link } from '../atoms/Link'
 
 const styles = theme => ({
   button: {
@@ -19,10 +20,14 @@ function FloatingActionButtons(props) {
 
   return (
     <div>
+    <Link to="/people/add" class="no-underline">
       <Button variant="extendedFab" color="primary"  aria-label="Add" className={classes.button}>
+
         <AddIcon className={classes.extendedIcon} />
         {title}
+
       </Button>
+      </Link>
     </div>
   );
 }

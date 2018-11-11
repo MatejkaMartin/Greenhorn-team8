@@ -22,6 +22,7 @@ class EmailMobileStep extends React.Component {
             autoComplete="email"
             value={ values.email }
             onChange={ handleChange }
+            error= { values.formErrors.email }
           />
         </Grid>
           <Grid item xs={12}>
@@ -33,7 +34,7 @@ class EmailMobileStep extends React.Component {
               autoComplete="phone"
               value={ values.phone }
               onChange={ handleChange }
-
+              error= { values.formErrors.phone }
             />
         </Grid>
       </Grid>
