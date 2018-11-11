@@ -53,7 +53,7 @@ export const peopleAddController = async (req, res, next) => {
           .then()
           .catch();
 const linkString = cryptoRandomString(15);
-const token = await db.sequelize.query("INSERT INTO reset_password (token,active,user_id) VALUES (:token,:active,(SELECT id FROM users WHERE email=:email AND name=:name));", { type: db.sequelize.QueryTypes.INSERT, replacements: { token: linkString,active: true,email: body.email,name: body.firstName + ' ' + body.lastName}})
+const token = await db.sequelize.query("INSERT INTO reset_password (token,active,user_id) VALUES (:token,:active,(SELECT id FROM Users WHERE email=:email AND name=:name));", { type: db.sequelize.QueryTypes.INSERT, replacements: { token: linkString,active: true,email: body.email,name: body.firstName + ' ' + body.lastName}})
 .then(
 
 )
