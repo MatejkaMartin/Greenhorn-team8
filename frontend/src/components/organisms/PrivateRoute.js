@@ -11,8 +11,11 @@ class PrivateRoute extends Component {
     const { component: Component,  isAuthenticated, ...rest } = this.props;
     return(
      <Route {...rest}
-     render={props => (
-         isAuthenticated ? <Layout className="dp-1"><NavigationBar className={ getPageName(this.props.path) } idmenu="0" user= { this.props.user }><Component {...props} /></NavigationBar></Layout> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+     render={props => (isAuthenticated ? <Layout className="dp-1">
+           <NavigationBar className={ getPageName(this.props.path) } idmenu="0" user= { this.props.user }>
+             <Component {...props} />
+           </NavigationBar>
+         </Layout> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
      )}
      />
     )}

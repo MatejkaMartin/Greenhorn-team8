@@ -139,7 +139,7 @@ class NavigationBar extends React.Component {
           </Typography>
           <div className={classes.grow}/>
           <NotificationList/>
-          <ProfileList user={ user }/>
+          <ProfileList user={user}/>
         </Toolbar>
       </AppBar>
 
