@@ -111,6 +111,7 @@ export class TasksTable extends Component {
     orderBy: 'deadline',
     page: 0,
     rowsPerPage: 5,
+    open: false,
   };
 
   handleRequestSort = (event, property) => {
@@ -125,7 +126,8 @@ export class TasksTable extends Component {
   };
 
   handleClick = property => event => {
-    console.log('property', property);
+    console.log('property', !this.state.open);
+    this.setState({ open: !this.state.open });
   };
 
   handleChangePage = (event, page) => {
@@ -160,9 +162,8 @@ export class TasksTable extends Component {
                       onClick={this.handleClick(n)}
                       tabIndex={-1}
                       key={n.id}>
-
                       <TableCell padding="checkbox">
-                      <TaskDetail open={this.state.openDialog} task={n}/>
+                      <TaskDetail task={n}/>
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
                         {n.task}

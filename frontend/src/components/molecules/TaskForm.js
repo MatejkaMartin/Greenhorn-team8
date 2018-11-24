@@ -8,9 +8,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import NameStep from './NameStep';
-import EmailMobileStep from './EmailMobileStep';
-import AssignmentStep from './AssignmentStep';
+import TaskTypeStep from './TaskTypeStep';
+import TaskInfoStep from './TaskInfoStep';
+import TaskAssignStep from './TaskAssignStep';
 
 const styles = theme => ({
   appBar: {
@@ -49,64 +49,25 @@ const styles = theme => ({
   },
 });
 
-const steps = [
-'Name',
-'Email & Phone',
-'Assignment'
-];
+const steps = ['Choose Task', 'Task Informations', 'Assign Employee'];
 
-function getStepContent(step,values,handleChange,jobPositions,departments,roles) {
+function getStepContent(step) {
   switch (step) {
     case 0:
-      return <NameStep
-      values={ values }
-      handleChange={ handleChange }
-      />;
+      return <TaskTypeStep/>;
     case 1:
-      return <EmailMobileStep
-      values={ values }
-      handleChange={ handleChange }
-      />;
+      return <TaskInfoStep/>;
     case 2:
-      return <AssignmentStep
-      values={ values }
-      handleChange={ handleChange }
-      jobPositions={ jobPositions }
-      departments={ departments }
-      roles={ roles }
-      />;
+      return <TaskAssignStep/>;
     default:
       throw new Error('Unknown step');
   }
 }
 
-function giveMeButton(step) {
-switch (step) {
-  case 0:
-    return 'Set email & Phone';
-  case 1:
-    return 'Assign user';
-  case 2:
-    return 'Create';
-  default:
-    return ''
-}
-}
-
-class PersonalInfoForm extends React.Component{
-  constructor(props) {
-  super(props)
-  this.state = {
+class Checkout extends React.Component {
+  state = {
     activeStep: 0,
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    role: 0,
-    department: 0,
-    jobPosition: 0
-    }
-  }
+  };
 
   handleNext = () => {
     this.setState(state => ({
@@ -126,23 +87,19 @@ class PersonalInfoForm extends React.Component{
     });
   };
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
   render() {
-    const { classes,departments,roles,jobPositions } = this.props;
+    const { classes } = this.props;
     const { activeStep } = this.state;
-    const { firstName,lastName,email,phone,role,department,jobPosition } = this.state;
-    const values = { firstName,lastName,email,phone,role,department,jobPosition }
+
     return (
       <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Create an Employee
+              Create Task
             </Typography>
+
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map(label => (
                 <Step key={label}>
@@ -151,8 +108,19 @@ class PersonalInfoForm extends React.Component{
               ))}
             </Stepper>
             <React.Fragment>
+              {activeStep === steps.length ? (
                 <React.Fragment>
-                  {getStepContent(activeStep,values,this.handleChange,jobPositions,departments,roles)}
+                  <Typography variant="h5" gutterBottom>
+                    Thank you for task.
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Your task number is #2001539. We have emailed your task confirmation, and will
+                    send you an update when your tasj has shipped.
+                  </Typography>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  {getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button onClick={this.handleBack} className={classes.button}>
@@ -164,12 +132,12 @@ class PersonalInfoForm extends React.Component{
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
-                    >{
-                      giveMeButton(activeStep)
-                    }
+                    >
+                      {activeStep === steps.length - 1 ? 'Save' : 'Next'}
                     </Button>
                   </div>
                 </React.Fragment>
+              )}
             </React.Fragment>
           </Paper>
         </main>
@@ -178,8 +146,8 @@ class PersonalInfoForm extends React.Component{
   }
 }
 
-PersonalInfoForm.propTypes = {
+Checkout.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PersonalInfoForm);
+export default withStyles(styles)(Checkout);

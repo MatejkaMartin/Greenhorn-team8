@@ -6,13 +6,12 @@ import {Link} from '../atoms/Link'
 
 export class TasksPage extends Component {
   render() {
-    return (<Layout className="taskpage">
+    return (
+      <Layout className="tp-2">
       <Link to="/tasks/add" class="no-underline">
         <ButtonCreate title="creat a new task"/>
       </Link>
-      <Layout className="taskstable">
-        <TasksTable/>
-      </Layout>
+      <TasksTable/>
     </Layout>);
   }
 }
