@@ -8,7 +8,7 @@ export class TasksPage extends Component {
   render() {
     return (
           <Layout className="tp-2">
-            <Link to="/tasks/add" class="no-underline">
+            <Link to="/tasks/add" className="no-underline">
             <ButtonCreate title="creat a new task"/>
           </Link>
             <TasksTable/>

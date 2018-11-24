@@ -33,7 +33,7 @@ export class PeoplePage extends Component {
     const { people } = this.state;
     return (
           <Layout className="pp-2">
-            <Link to="/people/add" class="no-underline">
+            <Link to="/people/add" className="no-underline">
             <ButtonCreate title="create a new employee"/>
             </Link>
             <PeopleList people= { people } deletePerson={ this.deletePerson } >

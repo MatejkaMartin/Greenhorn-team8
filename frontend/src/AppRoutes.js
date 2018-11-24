@@ -9,12 +9,14 @@ import {PeoplePage} from './components/pages/PeoplePage';
 import {SettingPage} from './components/pages/SettingPage';
 import {CreateTaskPage} from './components/pages/CreateTaskPage';
 import {CreateEmployeePage} from './components/pages/CreateEmployeePage';
+import {TemplatesPage} from './components/pages/TemplatesPage';
 
 export const AppRoutes = () => (
 <Switch>
   <Route path="/" exact component={LoginPage}/>
   <PrivateRoute path="/dashboard" exact component={DashboardPage}/>
   <PrivateRoute path="/tasks" exact component={TasksPage}/>
+  <PrivateRoute path="/templates" exact component={TemplatesPage}/>
   <PrivateRoute path="/people" exact component={PeoplePage}/>
   <PrivateRoute path="/setting" exact component={SettingPage}/>
   <PrivateRoute path="/tasks/add" exact component={CreateTaskPage}/>

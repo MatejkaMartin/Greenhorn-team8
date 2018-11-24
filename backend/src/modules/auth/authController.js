@@ -21,7 +21,8 @@ export const authController = async (req, res, next) => {
     token: token
   });
 })
-  .catch(() => {
+  .catch((error) => {
+    console.log(error);
     return next();
 });
 };
