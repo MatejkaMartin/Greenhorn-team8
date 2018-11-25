@@ -2949,7 +2949,7 @@ table {
 }
 
 .flex-no-wrap {
-  flex-wrap:  !important;
+  flex-wrap: nowrap !important;
 }
 
 .items-start {
@@ -6409,7 +6409,7 @@ table {
 }
 
 .whitespace-no-wrap {
-  white-space:  !important;
+  white-space: nowrap !important;
 }
 
 .whitespace-pre {
@@ -6435,7 +6435,7 @@ table {
 .truncate {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  white-space:  !important;
+  white-space: nowrap !important;
 }
 
 .w-1 {
@@ -8877,7 +8877,7 @@ table {
   }
 
   .sm\:flex-no-wrap {
-    flex-wrap:  !important;
+    flex-wrap: nowrap !important;
   }
 
   .sm\:items-start {
@@ -12321,7 +12321,7 @@ table {
   }
 
   .sm\:whitespace-no-wrap {
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .sm\:whitespace-pre {
@@ -12347,7 +12347,7 @@ table {
   .sm\:truncate {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .sm\:w-1 {
@@ -14790,7 +14790,7 @@ table {
   }
 
   .md\:flex-no-wrap {
-    flex-wrap:  !important;
+    flex-wrap: nowrap !important;
   }
 
   .md\:items-start {
@@ -18234,7 +18234,7 @@ table {
   }
 
   .md\:whitespace-no-wrap {
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .md\:whitespace-pre {
@@ -18260,7 +18260,7 @@ table {
   .md\:truncate {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .md\:w-1 {
@@ -20703,7 +20703,7 @@ table {
   }
 
   .lg\:flex-no-wrap {
-    flex-wrap:  !important;
+    flex-wrap: nowrap !important;
   }
 
   .lg\:items-start {
@@ -24147,7 +24147,7 @@ table {
   }
 
   .lg\:whitespace-no-wrap {
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .lg\:whitespace-pre {
@@ -24173,7 +24173,7 @@ table {
   .lg\:truncate {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .lg\:w-1 {
@@ -26616,7 +26616,7 @@ table {
   }
 
   .xl\:flex-no-wrap {
-    flex-wrap:  !important;
+    flex-wrap: nowrap !important;
   }
 
   .xl\:items-start {
@@ -30060,7 +30060,7 @@ table {
   }
 
   .xl\:whitespace-no-wrap {
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .xl\:whitespace-pre {
@@ -30086,7 +30086,7 @@ table {
   .xl\:truncate {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    white-space:  !important;
+    white-space: nowrap !important;
   }
 
   .xl\:w-1 {

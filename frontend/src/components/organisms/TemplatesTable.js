@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -24,44 +24,56 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(templateName, description) {
-  id += 1;
-  return { id, templateName, description};
-}
 
-const rows = [
-  createData('Template', 'First template'),
-  createData('Template 1', 'Second template')
-];
+class TemplatesTable extends Component {
 
-function TemplatesTable(props) {
-  const { classes } = props;
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: 0,
+    };
+  }
 
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow className="bg-green-lightest">
-          <TableCell className="text-grey-darkest text-lg">Template name</TableCell>
-          <TableCell className="text-grey-darkest text-lg">Description</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => {
-            return (
-              <TableRow className={classes.row} key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.templateName}
-                </TableCell>
-                <TableCell>{row.description}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
+  handleClick(id) {
+    console.log(id);
+    // Selected is not just used in app
+    this.setState({selected: id});
+  }
+
+
+  render() {
+    const { classes } = this.props;
+    const { templates } = this.props;
+
+    const templatesRows = templates.map((template) =>
+      <TableRow className={classes.row} key={template.id} >
+        <TableCell component="th" scope="row" onClick={() => this.handleClick(template.id)}>
+          {template.name}
+        </TableCell>
+        <TableCell>{template.instructions}</TableCell>
+      </TableRow>
+    );
+
+    const noTemplatRow= <TableRow><TableCell>No task templates</TableCell></TableRow>
+
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow className="bg-green-lightest">
+            <TableCell className="text-grey-darkest text-lg">Template name</TableCell>
+            <TableCell className="text-grey-darkest text-lg">Description</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          {templatesRows.length > 0 ?
+            templatesRows : noTemplatRow
+          }
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  }
 }
 
 TemplatesTable.propTypes = {

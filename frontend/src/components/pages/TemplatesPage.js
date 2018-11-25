@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ButtonCreate from '../molecules/ButtonCreate'
 import {Layout} from '../atoms/Layout'
 import TemplatesTable from '../organisms/TemplatesTable'
+import api from '../../api'
 
 
 export class TemplatesPage extends Component {
@@ -9,9 +10,26 @@ export class TemplatesPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { creatingTemplate: false };
+    this.state = {
+      creatingTemplate: false,
+      templates: []
+     };
     this.handleClick = this.handleClick.bind(this);
-}
+  }
+
+  componentDidMount() {
+    this.fetchTemplates();
+  }
+
+  fetchTemplates() {
+    api.get('templates').then(response => {
+      const { data } = response;
+      console.log(data)
+      this.setState({
+        templates: data.templates
+      });
+    });
+  }
 
   handleClick() {
     this.setState({creatingTemplate: true} )
@@ -27,8 +45,8 @@ export class TemplatesPage extends Component {
     } else {
       return (
         <Layout className="flex-col">
-            <ButtonCreate title="creat a new Template" onClick={this.handleClick}/>
-            <TemplatesTable />
+          <ButtonCreate title="creat a new Template" onClick={this.handleClick}/>
+          <TemplatesTable templates = { this.state.templates }/>
         </Layout>
       );
     }
