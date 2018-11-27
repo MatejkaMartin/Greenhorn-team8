@@ -69,7 +69,13 @@ class ScrollDialog extends React.Component {
           scroll={this.state.scroll}
           aria-labelledby="scroll-dialog-title">
           <DialogTitle id="scroll-dialog-title">
-            <Typography variant="h5" gutterBottom>{task.task}</Typography></DialogTitle>
+            {/* <div className={classes.grow}/>
+            <IconButton onClick={this.handleClose} color="secondary">
+              <IconClose/>
+            </IconButton> */}
+            <Typography variant="h5" gutterBottom>{task.task}
+            </Typography>
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               <Typography variant="subtitle1">Deadline: {task.deadline}</Typography>

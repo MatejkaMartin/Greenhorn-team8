@@ -20,7 +20,7 @@ import DashboardIcon from '@material-ui/icons/Assessment';
 import TasksIcon from '@material-ui/icons/Assignment';
 
 import { Link } from '../atoms/Link'
-import { ProfileList } from '../molecules/ProfileList'
+import { ProfileMenu } from '../molecules/ProfileMenu'
 import NotificationList from '../atoms/NotificationList'
 
 const drawerWidth = 240;
@@ -139,7 +139,7 @@ class NavigationBar extends React.Component {
           </Typography>
           <div className={classes.grow}/>
           <NotificationList/>
-          <ProfileList user={user}/>
+          <ProfileMenu user={user}/>
         </Toolbar>
       </AppBar>
 

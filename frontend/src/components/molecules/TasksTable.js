@@ -10,6 +10,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import TaskDetail from '../molecules/TaskDetail.js';
+import Search from '../atoms/Search';
 
 const data = [
     {id: 1, task: 'Podepsat BOZP1', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
@@ -139,13 +140,17 @@ export class TasksTable extends Component {
   };
 
   render() {
+    const title = this.props.title;
+    const { roleID } = this.props.user;
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <Paper>
         <div>
+          <Search title={title}/>
           <Table aria-labelledby="tableTitle">
+
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}

@@ -19,12 +19,10 @@ function FloatingActionButtons(props) {
   const title = props.title;
 
   return (
-    <div>
       <Button variant="extendedFab" color="primary"  aria-label="Add" className={classes.button}>
         <AddIcon className={classes.extendedIcon} />
         {title}
       </Button>
-    </div>
   );
 }
 

@@ -28,45 +28,59 @@ class TaskInfoStep extends React.Component {
       alert('You clicked the add icon.');
     };
 
+    handleTemplate = () => {
+      alert('You clicked the add template.');
+    };
+
   render() {
-    const {classes} = this.props;
+    const { classes, values, handleChange, type } = this.props;
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Task Informations
-      </Typography>
-      <Grid container spacing={24}>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="title"
-            name="title"
-            label="Task Title"
-            fullWidth
-            autoComplete="title"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="instructions"
-            name="instructions"
-            label="Instructions"
-            fullWidth
-            multiline
-            rowsMax="5"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="deadline"
-            label="Deadline"
-            type="datetime-local"
-            fullWidth
-            InputLabelProps={{shrink: true,}}
-          />
-        </Grid>
-          <Grid item="item" xs={12}>
+        {type==='adhoc' ? (
+          <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Typography variant="h6" gutterBottom>
+              Task Informations
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="title"
+              name="title"
+              label="Task Title"
+              fullWidth
+              autoComplete="title"
+              value={ values.title }
+              onChange={ handleChange }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="instructions"
+              name="instructions"
+              label="Instructions"
+              fullWidth
+              multiline
+              rowsMax="5"
+              value={ values.instructions }
+              onChange={ handleChange }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="deadline"
+              label="Deadline"
+              type="datetime-local"
+              fullWidth
+              InputLabelProps={{shrink: true,}}
+              defaultValue="2017-05-24T10:30"
+              value={ values.deadline }
+              onChange={ handleChange }
+            />
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h6" gutterBottom>
             Attachments
             </Typography>
@@ -77,6 +91,20 @@ class TaskInfoStep extends React.Component {
             </IconButton>
           </Grid>
         </Grid>
+      ) : (
+        <Grid container spacing={24}>
+        <Grid item="item" xs={12}>
+        <Typography variant="h6" gutterBottom>
+        Templates
+        </Typography>
+        </Grid>
+        <Grid item="item" xs={12}>
+        <IconButton onClick={this.handleTemplate} color="secondary">
+          <IconAdd/>
+        </IconButton>
+        </Grid>
+        </Grid>
+      )}
     </React.Fragment>
   );
 }

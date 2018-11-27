@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import TaskTypeStep from './TaskTypeStep';
 import TaskInfoStep from './TaskInfoStep';
 import TaskAssignStep from './TaskAssignStep';
+import { history } from '../../helpers/history'
+import api from '../../api';
 
 const styles = theme => ({
   appBar: {
@@ -51,28 +53,77 @@ const styles = theme => ({
 
 const steps = ['Choose Task', 'Task Informations', 'Assign Employee'];
 
-function getStepContent(step) {
+function getStepContent(step, values, handleChange, template, people, type) {
   switch (step) {
     case 0:
-      return <TaskTypeStep/>;
+      return <TaskTypeStep
+        values={values}
+        handleChange={handleChange}
+        type={type}/>;
     case 1:
-      return <TaskInfoStep/>;
+      return <TaskInfoStep
+        values={values}
+        handleChange={handleChange}
+        type={type}
+        template={template}/>;
     case 2:
-      return <TaskAssignStep/>;
+      return <TaskAssignStep
+        values={values}
+        handleChange={handleChange}
+        people={people}/>;
     default:
       throw new Error('Unknown step');
   }
 }
 
-class Checkout extends React.Component {
-  state = {
+class TaskForm extends React.Component {
+
+  constructor(props) {
+  super(props)
+  this.state = {
     activeStep: 0,
-  };
+    type: 'adhoc',
+    title: '',
+    instructions: '',
+    deadline: '',
+    template: '',
+    people: [],
+    file: [],
+    }
+  }
+
+  submitForm = () => {
+    api
+      .post('tasks/add',   {
+    type: this.state.type,
+    title: this.state.title,
+    instructions: this.state.instructions,
+    deadline: this.state.deadline,
+    template: this.state.templates,
+    people: this.state.people,
+    file: this.state.file,
+  })
+      .then(function (response) {
+        history.push('/tasks')
+      })
+      .catch(function (error) {
+      }
+      );
+  }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+    //alert( [event.target.name]: event.target.value );
+  }
 
   handleNext = () => {
+    if(this.state.activeStep===2) {
+      this.submitForm()
+    } else {
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
+    }
   };
 
   handleBack = () => {
@@ -88,8 +139,10 @@ class Checkout extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, templates, peoples} = this.props;
     const { activeStep } = this.state;
+    const { type, title, instructions, deadline, template, people, file } = this.state;
+    const values = { type, title, instructions, deadline, template, people, file }
 
     return (
       <React.Fragment>
@@ -114,13 +167,12 @@ class Checkout extends React.Component {
                     Thank you for task.
                   </Typography>
                   <Typography variant="subtitle1">
-                    Your task number is #2001539. We have emailed your task confirmation, and will
-                    send you an update when your tasj has shipped.
+                    Task created!
                   </Typography>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {getStepContent(activeStep, values, this.handleChange, templates, peoples, type)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button onClick={this.handleBack} className={classes.button}>
@@ -133,7 +185,7 @@ class Checkout extends React.Component {
                       onClick={this.handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Save' : 'Next'}
+                      {activeStep === steps.length - 1 ? 'Create' : 'Next'}
                     </Button>
                   </div>
                 </React.Fragment>
@@ -146,8 +198,8 @@ class Checkout extends React.Component {
   }
 }
 
-Checkout.propTypes = {
+TaskForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+export default withStyles(styles)(TaskForm);

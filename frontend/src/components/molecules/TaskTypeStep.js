@@ -7,22 +7,20 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 class TaskTypeStep extends React.Component {
-  state = {
-    value: 'adhoc'
-  };
-
-  handleChange = event => {
-    this.setState({value: event.target.value});
-  };
 
   render() {
+    const { values, handleChange} = this.props;
     return (<React.Fragment>
       <Typography variant="h6" gutterBottom="gutterBottom">
         Choose Task Type
       </Typography>
       <Grid center="center">
         <FormControl component="fieldset">
-          <RadioGroup aria-label="Type" name="type" value={this.state.value} onChange={this.handleChange}>
+          <RadioGroup
+            aria-label="Type"
+            name="type"
+            value={values.type}
+            onChange={handleChange}>
             <FormControlLabel value="adhoc" control={<Radio />} label="Ad-Hoc"/>
             <FormControlLabel value="template" control={<Radio />} label="Template"/>
           </RadioGroup>

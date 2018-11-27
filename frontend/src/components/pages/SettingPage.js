@@ -8,6 +8,6 @@ export class SettingPage extends Component {
           <Layout className="sp-2">
             <SettingForm/>
           </Layout>
-    );
-  }
-}
+        );
+      }
+    }
