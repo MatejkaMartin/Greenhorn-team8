@@ -1,39 +1,49 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tasks', {
+    return queryInterface.createTable('task', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      taskTemplateID: {
-        type: Sequelize.INTEGER
+      task_name: {
+        type: Sequelize.STRING
+      },
+      task_instructions: {
+        type: Sequelize.TEXT
+      },
+      task_template_id: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+        defaultValue: null
       },
       deadline: {
         type: Sequelize.DATE
       },
-      stateID: {
+      state_id: {
         type: Sequelize.INTEGER
       },
-      assigneeID: {
+      assignee_id: {
         type: Sequelize.INTEGER
       },
-      ownerID: {
+      owner_id: {
         type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tasks');
+    return queryInterface.dropTable('task');
   }
 };

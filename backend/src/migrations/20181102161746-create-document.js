@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Documents', {
+    return queryInterface.createTable('document', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,25 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        type: Sequelize.TEXT
+      },
+      file_type: {
         type: Sequelize.STRING
       },
-      documentURL: {
+      url: {
         type: Sequelize.STRING
-      },
-      taskTemplateID: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Documents');
+    return queryInterface.dropTable('document');
   }
 };

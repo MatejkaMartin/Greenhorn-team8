@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import TaskForm from '../molecules/TaskForm'
+import { TaskForm } from '../organisms/forms/TaskForm'
 
 export class CreateTaskPage extends Component {
 

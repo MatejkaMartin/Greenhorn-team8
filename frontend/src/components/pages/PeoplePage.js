@@ -1,44 +1,32 @@
 import React, {Component} from 'react'
-import {Layout} from '../atoms/Layout'
+import { Layout } from '../atoms/Layout'
 import PeopleList from '../molecules/PeopleList'
 import ButtonCreate from '../molecules/ButtonCreate'
-import {Link } from '../atoms/Link'
-import api from '../../api';
+import { connect } from 'react-redux';
+import { getUser } from '../../services/auth/reducer';
 
-export class PeoplePage extends Component {
-
-  state = {
-    people: []
-  }
-
-  componentDidMount() {
-    this.fetchPeople();
-  }
-
-  fetchPeople() {
-    api.get('people').then(response => {
-      const { data } = response;
-      this.setState({
-        people: data.people
-      });
-    });
-  }
-
-  deletePerson = (id) => {
-    api.delete('people/delete/'+ id).then();
-    this.setState({ people: this.state.people.filter(person => person.id !== id ) })
-  }
+class PeoplePage extends Component {
 
   render() {
-    const { people } = this.state;
+
+    const { user } = this.props;
     return (
           <Layout className="pp-2">
-            <Link to="/people/add" class="no-underline">
-            <ButtonCreate title="create a new employee"/>
-            </Link>
-            <PeopleList people= { people } deletePerson={ this.deletePerson } >
+            { user.role === 'employee' && <ButtonCreate redirectTo="/users/add" title="new employee"/>}
+            <PeopleList user={ user } >
             </PeopleList>
           </Layout>
     );
   }
 }
+
+
+const mapStateToProps = state  => {
+    const { authenticationReducer } = state
+    return {
+      user: getUser(authenticationReducer)
+    };
+}
+
+const connectedPeoplePage = connect(mapStateToProps)(PeoplePage);
+export { connectedPeoplePage as PeoplePage };

@@ -21,7 +21,10 @@
     "redux-persist": "5.10.0",
     "redux-thunk": "2.3.0",
     "tailwind": "^2.4.0",
-    "tailwindcss": "^0.6.6"
+    "tailwindcss": "^0.6.6",
+    "react-dropzone": "7.0.1",
+    "file-selector": "0.1.5",
+    "material-ui-next-pickers": "0.0.15"
   },
   "scripts": {
     "tailwind:css": "tailwind build src/css/tailwind.src.css -c  tailwind-config.js -o src/css/tailwind.css",

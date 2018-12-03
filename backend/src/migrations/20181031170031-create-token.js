@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tokens', {
+    return queryInterface.createTable('token', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,26 +15,33 @@ module.exports = {
       },
 
       token: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
 
       expiresAt: {
         type: Sequelize.DATE
       },
 
+      active: {
+        type: Sequelize.BOOLEAN
+      },
+
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
+
       },
 
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tokens');
+    return queryInterface.dropTable('token');
   }
 };

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,76 +10,45 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import TaskDetail from '../molecules/TaskDetail.js';
+import {
+  startFetchTasks,
+  updateTask
+} from '../../services/tasks/actions';
+import {
+  getTasks,
+  getError,
+  getIsError,
+} from '../../services/tasks/reducer';
+import { connect } from 'react-redux';
 
-const data = [
-    {id: 1, task: 'Podepsat BOZP1', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
-    {id: 2, task: 'Prevzít notebook2', deadline: '12.11.2017', template: '2', owner: 'Roman Nguyen', assignee: 'Martin Matějka', state: 'new', detail: ''},
-    {id: 3, task: 'Podepsat BOZP3', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
-    {id: 4, task: 'Prevzít notebook4', deadline: '12.11.2017', template: '2', owner: 'Roman Nguyen', assignee: 'Martin Matějka', state: 'new', detail: ''},
-    {id: 5, task: 'Podepsat BOZP5', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
-    {id: 6, task: 'Prevzít notebook6', deadline: '12.11.2017', template: '2', owner: 'Roman Nguyen', assignee: 'Martin Matějka', state: 'new', detail: ''},
-    {id: 7, task: 'Podepsat BOZP7', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
-    {id: 8, task: 'Prevzít notebook8', deadline: '12.11.2017', template: '2', owner: 'Roman Nguyen', assignee: 'Martin Matějka', state: 'new', detail: ''},
-    {id: 9, task: 'Podepsat BOZP9', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
-    {id: 10, task: 'Prevzít notebook10', deadline: '12.11.2017', template: '2', owner: 'Roman Nguyen', assignee: 'Martin Matějka', state: 'new', detail: ''},
-    {id: 11, task: 'Podepsat BOZP11', deadline: '12.11.2017', template: '3', owner: 'Jan Pippal', assignee: 'Matěj Ďurica', state: 'new', detail: ''},
-    {id: 12, task: 'Prevzít notebook12', deadline: '12.11.2017', template: '2', owner: 'Roman Nguyen', assignee: 'Martin Matějka', state: 'new', detail: ''},
-];
-
-const headRow = [
-  { id: 'task', numeric: false, disablePadding: true, label: 'Task' },
-  { id: 'deadline', numeric: true, disablePadding: false, label: 'Deadline' },
-  { id: 'template', numeric: true, disablePadding: false, label: 'Template' },
-  { id: 'owner', numeric: true, disablePadding: false, label: 'Owner' },
-  { id: 'assignee', numeric: true, disablePadding: false, label: 'Assignee' },
-  { id: 'state', numeric: true, disablePadding: false, label: 'State' },
-];
-
-function desc(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function stableSort(array, cmp) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map(el => el[0]);
-}
-
-function getSorting(order, orderBy) {
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
-}
-
-//-----------------headRow----------------------------------------------------------------------------
 class EnhancedTableHead extends React.Component {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
+
+  headRow = [
+    { id: 'taskName', numeric: false, disablePadding: true, label: 'Task' },
+    { id: 'deadline', numeric: true, disablePadding: false, label: 'Deadline' },
+    { id: 'owner', numeric: true, disablePadding: false, label: 'Owner' },
+    { id: 'assignee', numeric: true, disablePadding: false, label: 'Assignee' },
+    { id: 'state', numeric: true, disablePadding: false, label: 'State' },
+  ];
+
   render() {
     const {order, orderBy} = this.props;
     return (
       <TableHead>
         <TableRow>
         <TableCell padding="none"/>
-          {headRow.map(row => {
+          {this.headRow.map(row => {
             return (
               <TableCell
                 key={row.id}
                 numeric={row.numeric}
                 padding={row.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === row.id ? order : false}>
-
                 <Tooltip
-                  title="Sort"
+                  title={ "Sort " +  row.label }
                   placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                   enterDelay={300}>
                   <TableSortLabel
@@ -104,14 +73,21 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-//----------Table-----------------------------------------------------------------------------
-export class TasksTable extends Component {
+
+
+class TasksTable extends Component {
+
+
+  componentDidMount() {
+    this.props.startFetchTasks();
+  }
+
   state = {
     order: 'asc',
     orderBy: 'deadline',
     page: 0,
-    rowsPerPage: 5,
-    open: false,
+    rowsPerPage: 10,
+    selectedRowIds: [],
   };
 
   handleRequestSort = (event, property) => {
@@ -125,23 +101,77 @@ export class TasksTable extends Component {
     this.setState({ order, orderBy });
   };
 
-  handleClick = property => event => {
-    console.log('property', !this.state.open);
-    this.setState({ open: !this.state.open });
+  handleClick = (event,task) => {
+    const { selectedRowIds } = this.state;
+    let id = task.id;
+    const selectedRowIdIndex = selectedRowIds.indexOf(id);
+    let newSelectedRowIds = [];
+
+    if (selectedRowIdIndex === -1) {
+      newSelectedRowIds = newSelectedRowIds.concat(selectedRowIds, id);
+    } else if (selectedRowIdIndex === 0) {
+      newSelectedRowIds = newSelectedRowIds.concat(selectedRowIds.slice(1));
+    } else if (selectedRowIdIndex === selectedRowIds.length - 1) {
+      newSelectedRowIds = newSelectedRowIds.concat(selectedRowIds.slice(0, -1));
+    } else if (selectedRowIdIndex > 0) {
+      newSelectedRowIds = newSelectedRowIds.concat(
+        selectedRowIds.slice(0, selectedRowIdIndex),
+        selectedRowIds.slice(selectedRowIdIndex + 1),
+      );
+    }
+
+    this.setState({ selectedRowIds: newSelectedRowIds });
+
   };
 
   handleChangePage = (event, page) => {
     this.setState({ page });
   };
 
+  handleClose = () => {
+    this.setState({ selectedRowIds: [] });
+  }
+
   handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  render() {
-    const {order, orderBy, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+  handleChangeState = (taskState,taskId) => () => {
+    this.props.updateTask(taskState,taskId)
+    this.props.startFetchTasks();
+  };
 
+  isSelected = id => this.state.selectedRowIds.indexOf(id) !== -1;
+
+  getSorting = (order, orderBy) => {
+    return order === 'desc' ? (a, b) => this.desc(a, b, orderBy) : (a, b) => - this.desc(a, b, orderBy);
+  }
+
+  desc = (a, b, orderBy) => {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  stableSort = (array, cmp) => {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = cmp(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map(el => el[0]);
+  }
+
+
+  render() {
+    const { tasks } = this.props;
+    const {order, orderBy, rowsPerPage, page } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
     return (
       <Paper>
         <div>
@@ -150,30 +180,32 @@ export class TasksTable extends Component {
               order={order}
               orderBy={orderBy}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}/>
+              rowCount={tasks.length}/>
 
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {this.stableSort(tasks, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
+                  const isSelected = this.isSelected(n.id);
                   return (
+                  <Fragment key={n.id}>
                     <TableRow
                       hover
-                      onClick={this.handleClick(n)}
+                      onClick={ event => this.handleClick(event, n) }
                       tabIndex={-1}
-                      key={n.id}>
+                      >
                       <TableCell padding="checkbox">
-                      <TaskDetail task={n}/>
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.task}
+                        {n.taskName}
                       </TableCell>
                       <TableCell numeric>{n.deadline}</TableCell>
-                      <TableCell numeric>{n.template}</TableCell>
                       <TableCell numeric>{n.owner}</TableCell>
                       <TableCell numeric>{n.assignee}</TableCell>
                       <TableCell numeric>{n.state}</TableCell>
                     </TableRow>
+                      <TaskDetail task={n} open={ isSelected  } handleClose= { this.handleClose } handleChangeState = { this.handleChangeState } ></TaskDetail>
+                      </Fragment>
                   );
                 })}
 
@@ -188,7 +220,7 @@ export class TasksTable extends Component {
 
         <TablePagination
           component="div"
-          count={data.length}
+          count={tasks.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{'aria-label': 'Previous Page',}}
@@ -201,8 +233,20 @@ export class TasksTable extends Component {
   }
 }
 
-TasksTable.propTypes = {
-  classes: PropTypes.object.isRequired,
+
+const mapStateToProps = state => {
+  const { taskReducer } = state;
+  return {
+    tasks: getTasks(taskReducer),
+    error: getError(taskReducer),
+    isError: getIsError(taskReducer),
+  };
 };
 
-export default (TasksTable);
+const mapDispatchToProps = {
+  startFetchTasks,
+  updateTask
+};
+
+const connectedTasksTable = connect(mapStateToProps,mapDispatchToProps)(TasksTable);
+export {connectedTasksTable as TasksTable} ;

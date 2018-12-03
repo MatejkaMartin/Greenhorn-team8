@@ -3,11 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import IconDescription from '@material-ui/icons/Description';
-import IconAdd from '@material-ui/icons/Add';
+import IconClose from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -24,109 +23,74 @@ const styles = theme => ({
   },
 });
 
-class ScrollDialog extends React.Component {
+class TaskDetail extends React.Component {
   state = {
-    open: false,
+    openedId: this.props.openedId,
     scroll: 'paper',
-    taskState: this.props.task.state,
-  };
-
-  handleClickOpen = scroll => () => {
-    this.setState({ open: true, scroll });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  handleState = taskState => () => {
-    this.setState({ open: false, taskState });
-  };
-
-  handleDelete = () => {
-    alert('You clicked the delete icon.');
-  };
-
-  handleAdd = () => {
-    alert('You clicked the add icon.');
-  };
-
-  handleDownload = () => {
-    alert('You clicked the download.');
+    this.setState({ openedId: 0 });
   };
 
   render() {
     const task = this.props.task;
-    const {classes} = this.props;
+    const {classes, handleClose, handleChangeState} = this.props;
     return (
-      <div>
-        <IconButton onClick={this.handleClickOpen('paper')} color="primary">
-          <IconDescription/>
-        </IconButton>
         <Dialog
-          open={this.state.open}
+          onEscapeKeyDown = { handleClose }
+          open={this.props.open }
           onClose={this.handleClose}
           scroll={this.state.scroll}
-          aria-labelledby="scroll-dialog-title">
+          aria-labelledby="scroll-dialog-title" fullWidth>
           <DialogTitle id="scroll-dialog-title">
-            <Typography variant="h5" gutterBottom>{task.task}</Typography></DialogTitle>
+            {task.taskName}
+            <IconClose onClick={ handleClose } className="float-right hover:shadow-inner" />
+            </DialogTitle>
           <DialogContent>
-            <DialogContentText>
               <Typography variant="subtitle1">Deadline: {task.deadline}</Typography>
               <Typography variant="subtitle1">Template: {task.template}</Typography>
               <Typography variant="subtitle1">Owner: {task.owner}</Typography>
               <Typography variant="subtitle1">Assignee: {task.assignee}</Typography>
-              <Typography variant="subtitle1" gutterBottom>State: {this.state.taskState}</Typography>
-
-              <Grid item="item" xs={12}>
+              <Typography variant="subtitle1" gutterBottom>State: {task.state}</Typography>
+              <Grid item={ true } xs={12}>
                 <Typography variant="h6" gutterBottom>
                 Instructions
                 </Typography>
-                <Typography variant="subtitle1" gutterBottom>{task.detail}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus,
-                  cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                <Typography variant="subtitle1" gutterBottom>{task.taskDetail}
                 </Typography>
               </Grid>
 
-              <Grid item="item" xs={12}>
+              <Grid item={ true } xs={12}>
                 <Typography variant="h6" gutterBottom>
                 Attachments
                 </Typography>
+                {task.files && task.files.length > 0 && JSON.parse(task.files).map((file,i) => (
+                <a key= {file.id} href ={ 'http://localhost:3030' + file.url} className="no-underline" target="_blank" rel="noopener noreferrer">
                 <Chip
+                  key= {file.id}
                   icon={<IconDescription/>}
-                  label="File Name"
+                  label={ file.name }
                   color="primary"
-                  onClick={this.handleDownload}
-                  onDelete={this.handleDelete}
                   className={classes.chip}
-                  variant="outlined"/>
-                <Chip
-                  icon={<IconDescription/>}
-                  label="file Name"
-                  color="primary"
-                  onClick={this.handleDownload}
-                  onDelete={this.handleDelete}
-                  className={classes.chip}
-                  variant="outlined"/>
-                <IconButton onClick={this.handleAdd} color="secondary">
-                  <IconAdd/>
-                </IconButton>
+                  variant="outlined"/></a>
+                ))}
               </Grid>
-            </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleState('return')} color="primary">
+            <Button onClick={ handleChangeState('submitted',task.id)} color="primary">
+              Submit
+            </Button>
+            <Button onClick={ handleChangeState('returned',task.id)} color="primary">
               Return
             </Button>
-            <Button onClick={this.handleState('confirm')} color="primary">
+            <Button onClick={ handleChangeState('done',task.id)} color="primary">
               Confirm
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
     );
   }
 }
 
-export default withStyles(styles)(ScrollDialog);
+export default withStyles(styles)(TaskDetail);

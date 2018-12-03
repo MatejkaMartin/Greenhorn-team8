@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users',
+    return queryInterface.bulkInsert('user',
 
       [{
         name: 'Karel Zaměstnanec',
@@ -10,9 +10,9 @@ module.exports = {
         password: 'karel',
         mobile:'686493573',
         avatarURL:'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic1.png?alt=media&token=10336739-1d06-4161-8fc2-530fcf06e919',
-        roleID: '1',
-        departmentID:'1',
-        jobPositionID:'1',
+        role_id: 1,
+        department_id: 1,
+        jobPosition_id: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -23,9 +23,9 @@ module.exports = {
         password: 'marie',
         mobile:'653553537',
         avatarURL:'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic1.png?alt=media&token=10336739-1d06-4161-8fc2-530fcf06e919',
-        roleID: '2',
-        departmentID:'1',
-        jobPositionID:'',
+        role_id: 2,
+        department_id: 1,
+        jobPosition_id: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -36,9 +36,9 @@ module.exports = {
         password: 'anna',
         mobile:'686493573',
         avatarURL:'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic2.png?alt=media&token=c5be4157-3bb5-44bc-9f6d-3e286d31438c',
-        roleID: '2',
-        departmentID:'2',
-        jobPositionID:'',
+        role_id: 2,
+        department_id: 2,
+        jobPosition_id: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -49,9 +49,9 @@ module.exports = {
         password: 'tudor',
         mobile:'686493573',
         avatarURL:'https://firebasestorage.googleapis.com/v0/b/greenhorn-e8303.appspot.com/o/images%2Fpic2.png?alt=media&token=c5be4157-3bb5-44bc-9f6d-3e286d31438c',
-        roleID: '2',
-        departmentID:'4',
-        jobPositionID:'',
+        role_id: 2,
+        department_id: 4,
+        jobPosition_id: null,
         createdAt: new Date(),
         updatedAt: new Date()
       }],

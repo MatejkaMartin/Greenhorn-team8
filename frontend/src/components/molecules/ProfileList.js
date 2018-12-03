@@ -8,7 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { withStyles } from '@material-ui/core/styles';
-import { logout } from '../../actions/user.actions';
+import { logout } from '../../services/auth/actions';
 import { connect } from 'react-redux';
 
 import {Link} from '../atoms/Link'
@@ -68,12 +68,10 @@ class ProfileList extends React.Component {
             onClick={this.handleToggle}
           >
             <ImageAvatar src="https://www.obchod-rybareni.cz/fotky58279/fotos/58279_71413__vyr_71412kapr-supinac.jpg"/>
-
             <div className="no-underline" >
-
             <div className="text-base">{ name }</div>
             <div className="text-xs">{ role }</div>
-          </div>
+            </div>
           </Button>
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
             {({ TransitionProps, placement }) => (

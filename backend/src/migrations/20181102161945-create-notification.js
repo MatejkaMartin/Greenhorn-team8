@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Notifications', {
+    return queryInterface.createTable('notification', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,20 +14,25 @@ module.exports = {
       dateTime: {
         type: Sequelize.DATE
       },
-      taskID: {
+      user_id: {
         type: Sequelize.INTEGER
+      },
+      unread: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Notifications');
+    return queryInterface.dropTable('notification');
   }
 };

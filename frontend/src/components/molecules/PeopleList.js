@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import  SimpleModal  from './SimpleModal';
+import Popup from '../molecules/Popup';
+import api from '../../api';
 
 const styles = theme => ({
   appBar: {
@@ -45,14 +47,55 @@ const styles = theme => ({
 
 class PeopleList extends Component {
 
+  state = {
+    users: [],
+    errorMessage: null,
+    isError: false
+  }
+
+  componentDidMount() {
+    this.fetchPeople();
+  }
+
+  fetchPeople = async () => {
+    await api.get('users')
+    .then((response) => {
+      const { data } = response;
+      this.setState({ users: data.users });
+    })
+    .catch(() => {
+      this.setState({ errorMessage: 'Failed to load users', isError: true })
+    })
+    ;
+  }
+
+  handleOnClosePopup = () => {
+    this.setState({ errorMessage: null, isError: false })
+  }
+
+
+    deletePerson = (id) => {
+      api.delete('users/delete/'+ id)
+      .then(() => {
+         this.setState({ users: this.state.users.filter(user => user.id !== id ) })
+      })
+      .catch(() => {
+        this.setState({ errorMessage: 'Failed to delete user', isError: true })
+      })
+    }
+
+
   render () {
-  const { people,classes, deletePerson } = this.props;
+  const { user, classes } = this.props;
+  const { isError, errorMessage, users } = this.state;
   return (
     <React.Fragment>
+    <Popup isOpened= { isError }  message = { errorMessage } handleOnClosePopup = { this.handleOnClosePopup }/>
+
       <CssBaseline />
       <main className={classes.layout}>
           <Grid container spacing={40}>
-            {people.map(person => (
+            {users.map(person => (
               <Grid item key={person.id} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <CardMedia
@@ -64,19 +107,21 @@ class PeopleList extends Component {
                     <Typography gutterBottom variant="h5" component="h2">
                       { person.name }
                     </Typography>
-                    <Typography>
                     <div>{ person.role }</div>
                     <div>{ person.department }</div>
-                    { person.role !== 'Admin' && <div>{ person.jobPosition }</div>}
-                    </Typography>
+                    { person.role !== 'admin' && <div>{ person.jobPosition }</div>}
                   </CardContent>
                   <CardActions>
+                  { user.role === 'admin' &&
                     <Button size="small" color="primary">
                       Edit
                     </Button>
-                    <Button size="small" color="primary" onClick={  () => { deletePerson(person.id) } }>
+                  }
+                    { user.role === 'admin' &&
+                    <Button size="small" color="primary" onClick={  () => { this.deletePerson(person.id) } }>
                       Delete
                     </Button>
+                    }
                     <SimpleModal person={ person }/>
                   </CardActions>
                 </Card>

@@ -21,7 +21,7 @@ import TasksIcon from '@material-ui/icons/Assignment';
 
 import { Link } from '../atoms/Link'
 import { ProfileList } from '../molecules/ProfileList'
-import NotificationList from '../atoms/NotificationList'
+import NotificationList from '../molecules/NotificationList'
 
 const drawerWidth = 240;
 
@@ -96,7 +96,7 @@ class NavigationBar extends React.Component {
       <Divider/>
       <List>
         <Link className="no-underline" to="/dashboard">
-          <ListItem button="button" selected={this.state.selectedIndex === 0} onClick={event => this.handleListItemClick(event, 0)}>
+          <ListItem button={ true } selected={this.state.selectedIndex === 0} onClick={event => this.handleListItemClick(event, 0)}>
             <ListItemIcon>
               <DashboardIcon/>
             </ListItemIcon>
@@ -105,7 +105,7 @@ class NavigationBar extends React.Component {
         </Link>
 
         <Link className="no-underline" to="/tasks">
-          <ListItem button="button" selected={this.state.selectedIndex === 1} onClick={event => this.handleListItemClick(event, 1)}>
+          <ListItem button={ true } selected={this.state.selectedIndex === 1} onClick={event => this.handleListItemClick(event, 1)}>
             <ListItemIcon>
               <TasksIcon/>
             </ListItemIcon>
@@ -114,7 +114,7 @@ class NavigationBar extends React.Component {
         </Link>
 
         <Link className="no-underline" to="/people">
-          <ListItem button="button" selected={this.state.selectedIndex === 2} onClick={event => this.handleListItemClick(event, 2)}>
+          <ListItem button={ true } selected={this.state.selectedIndex === 2} onClick={event => this.handleListItemClick(event, 2)}>
             <ListItemIcon>
               <PeopleIcon/>
             </ListItemIcon>
@@ -134,7 +134,7 @@ class NavigationBar extends React.Component {
           <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerToggle} className={classes.menuButton}>
             <MenuIcon/>
           </IconButton>
-          <Typography variant="h6" color="inherit" noWrap="noWrap">
+          <Typography variant="h6" color="inherit" noWrap={ true }>
             {pageName}
           </Typography>
           <div className={classes.grow}/>
@@ -144,7 +144,7 @@ class NavigationBar extends React.Component {
       </AppBar>
 
       <nav className={classes.drawer}>
-        <Hidden smUp="smUp" implementation="css">
+        <Hidden smUp={ true } implementation="css">
           <Drawer container={this.props.container} variant="temporary" anchor={theme.direction === 'rtl'
               ? 'right'
               : 'left'} open={this.state.mobileOpen} onClose={this.handleDrawerToggle} classes={{
@@ -155,10 +155,10 @@ class NavigationBar extends React.Component {
             {renderDrawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown="xsDown" implementation="css">
+        <Hidden xsDown={ true } implementation="css">
           <Drawer classes={{
               paper: classes.drawerPaper
-            }} variant="permanent" open="open">
+            }} variant="permanent" open={ true }>
             {renderDrawer}
           </Drawer>
         </Hidden>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { LoginForm } from '../organisms/LoginForm';
+import { LoginForm } from '../organisms/forms/LoginForm';
 import { Layout } from '../atoms/Layout';
 import Logo from '../atoms/Logo';
 

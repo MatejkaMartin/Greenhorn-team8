@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavigationBar from '../organisms/NavigationBar'
-import { getUser,getIsAuthenticated } from '../../reducers/authentication.reducer';
+import { getUser,getIsAuthenticated } from '../../services/auth/reducer';
 import { Layout } from '../atoms/Layout'
+import { AlertThis } from '../atoms/AlertThis'
 
 class PrivateRoute extends Component {
 
@@ -13,7 +14,8 @@ class PrivateRoute extends Component {
      <Route {...rest}
      render={props => (isAuthenticated ? <Layout className="dp-1">
            <NavigationBar className={ getPageName(this.props.path) } idmenu="0" user= { this.props.user }>
-             <Component {...props} />
+           <AlertThis />
+             <Component {...props}  user= { this.props.user } errorDispatch = { this.props }/>
            </NavigationBar>
          </Layout> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
      )}
@@ -42,12 +44,13 @@ const getPageName = path => {
 }
 
 const mapStateToProps = state  => {
-    const { authentication } = state
+    const { authenticationReducer } = state
     return {
-      isAuthenticated: getIsAuthenticated(authentication),
-      user: getUser(authentication)
+      isAuthenticated: getIsAuthenticated(authenticationReducer),
+      user: getUser(authenticationReducer)
     };
 }
+
 
 const connectedPrivateRoute = connect(mapStateToProps)(PrivateRoute);
 export { connectedPrivateRoute as PrivateRoute };
