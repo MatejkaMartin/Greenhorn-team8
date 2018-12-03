@@ -11,7 +11,10 @@ module.exports = {
       template_name: {
         type: Sequelize.STRING
       },
-      template_instructions: {
+      task_name: {
+      	type: Sequelize.STRING
+      },	    
+      task_instructions: {
         type: Sequelize.TEXT
       },
       future_days: {
