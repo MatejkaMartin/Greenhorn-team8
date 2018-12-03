@@ -66,7 +66,7 @@ class TaskDetail extends React.Component {
                 Attachments
                 </Typography>
                 {task.files && task.files.length > 0 && JSON.parse(task.files).map((file,i) => (
-                <a key= {file.id} href ={ 'http://localhost:3030' + file.url} className="no-underline" target="_blank" rel="noopener noreferrer">
+                <a key= {file.id} href ={ file.url} className="no-underline" target="_blank" rel="noopener noreferrer">
                 <Chip
                   key= {file.id}
                   icon={<IconDescription/>}
