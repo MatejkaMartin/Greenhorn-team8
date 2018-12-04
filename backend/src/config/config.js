@@ -9,7 +9,7 @@ module.exports = {
   "production": {
     "username": "root",
     "password": "",
-    "database": "user_team08",
+    "database": "4it445",
     "host": "localhost",
     "dialect": "mysql"
   }
