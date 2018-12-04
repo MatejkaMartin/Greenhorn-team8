@@ -112,7 +112,7 @@ const sendEmail = async (email,name) => {
   const html = 'Hello <strong>' + name + '</strong>,' +
                        '<br/>' +
                        '<br/>' +
-                       'I am sending you this link <a href="http://localhost:3000/setpassword/'+linkString+'">Set password<a>' +
+                       'I am sending you this link <a href="http://dev.frontend.team08.vse.handson.pro/setpassword/'+linkString+'">Set password<a>' +
                        '<br/>' +
                        '<br/>' +
                        'Best regards,' +

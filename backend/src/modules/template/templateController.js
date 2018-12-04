@@ -126,7 +126,7 @@ end as templates
 FROM job_position_template_rel jptr
 RIGHT JOIN job_position jp on jp.id=jptr.job_position_id
 LEFT JOIN task_template tt on tt.id=jptr.template_id
-group by jp.name
+group by jp.name,jp.id
 `, {type: db.sequelize.QueryTypes.SELECT}).then((assignedTemplates) => {
   return res.json({
     assignedTemplates
