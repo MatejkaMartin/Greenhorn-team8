@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
-import TaskDetail from '../molecules/TaskDetail.js';
+import EmpTaskDetail from '../molecules/EmpTaskDetail.js';
 import {
   startFetchTasks,
   updateTask
@@ -84,7 +84,7 @@ const styles = theme => ({
   },
 });
 
-class SubmittedTable extends Component {
+class EmpReturnedTable extends Component {
 
   componentDidMount() {
     this.props.startFetchTasks();
@@ -182,8 +182,8 @@ class SubmittedTable extends Component {
     let filteredByEmployee = filter ? tasks.filter(
       x => x['assignee'].includes(filter)) : tasks;
 
-    let filteredByState = 'submitted' ? filteredByEmployee.filter(
-        x => x['state'].includes('submitted')) : filteredByEmployee;
+    let filteredByState = 'returned' ? filteredByEmployee.filter(
+        x => x['state'].includes('returned')) : filteredByEmployee;
 
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
@@ -213,7 +213,7 @@ class SubmittedTable extends Component {
                       <TableCell numeric>{n.taskName}</TableCell>
                       <TableCell numeric>{n.state}</TableCell>
                     </TableRow>
-                      <TaskDetail task={n} open={ isSelected  } handleClose= { this.handleClose } handleChangeState = { this.handleChangeState } ></TaskDetail>
+                      <EmpTaskDetail task={n} open={ isSelected  } handleClose= { this.handleClose } handleChangeState = { this.handleChangeState } ></EmpTaskDetail>
                       </Fragment>
                   );
                 })}
@@ -257,7 +257,7 @@ const mapDispatchToProps = {
   updateTask
 };
 
-const withStylesSubmittedTable = withStyles(styles)(SubmittedTable);
+const withStylesSubmittedTable = withStyles(styles)(EmpReturnedTable);
 
 const connectedSubmittedTable = connect(mapStateToProps,mapDispatchToProps)(withStylesSubmittedTable);
-export {connectedSubmittedTable as SubmittedTable} ;
+export {connectedSubmittedTable as EmpReturnedTable} ;

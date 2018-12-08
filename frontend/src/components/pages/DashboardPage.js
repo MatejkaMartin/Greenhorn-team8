@@ -3,16 +3,16 @@ import { Layout } from '../atoms/Layout'
 import AdminDashboard from '../organisms/AdminDashboard'
 import { connect } from 'react-redux'
 import { getUser } from '../../services/auth/reducer'
+import EmployeeTaskGrid from '../molecules/EmpTaskGrid'
+import {TasksTable} from '../molecules/TasksTable'
 
 class DashboardPage extends Component {
   render() {
     const {user} = this.props;
     return (
           <Layout className="dp-1">
-            {user.role === 'admin' ?
-            (<AdminDashboard user={user}/>)
-            :
-            (<h1>Employee</h1>)}
+          <EmployeeTaskGrid/>
+          <TasksTable/>
           </Layout>
     );
   }
