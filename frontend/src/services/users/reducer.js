@@ -22,7 +22,7 @@ export const usersReducer = (state = initialState, action) => {
 };
 
 
-export const getEmployees = state => state.users && state.users.filter(user => user.role === 'employee') || [];
+export const getEmployees = state => state.users ? state.users.filter(user => user.role === 'employee') : [];
 
 export const getUsers = state => state.users;
 

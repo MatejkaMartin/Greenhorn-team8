@@ -14,6 +14,7 @@ let sequelize = {};
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
+  console.log(`Connecting to DB with config ${JSON.stringify(config)}`)
   sequelize = new Sequelize(
     config.database,
     config.username,

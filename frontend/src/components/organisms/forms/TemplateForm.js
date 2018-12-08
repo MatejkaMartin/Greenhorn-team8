@@ -94,7 +94,7 @@ class TemplateForm extends Component {
   };
 
   saveTemplate = async (state) => {
-    const uploadIDs = [];
+    var uploadIDs = [];
     if (state.files.length !== 0 ) {
     uploadIDs = await this.props.uploadFile(state.files,'templates');
     }

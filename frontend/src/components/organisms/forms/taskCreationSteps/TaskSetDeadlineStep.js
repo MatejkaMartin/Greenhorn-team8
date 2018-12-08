@@ -41,7 +41,7 @@ class TaskSetDeadlineStep extends Component {
             <Grid item xs={4}>
                 <TextField
                   required
-                  id="deadline${employee.id}"
+                  id={employee.id}
                   label="Deadline"
                   type="date"
                   onChange={ (event) => { handleDatePicker(event,employee.id)} }

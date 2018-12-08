@@ -30,6 +30,8 @@ const getPageName = path => {
      return 'Dashboard';
      case '/tasks':
      return 'Tasks';
+     case '/templates':
+     return 'Task templates';
      case '/people':
      return 'People';
      case '/setting':

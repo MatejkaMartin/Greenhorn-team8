@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import AddIcon from '@material-ui/icons/Add';
 import IconDescription from '@material-ui/icons/Description';
 
 export class TaskSummaryStep extends Component {

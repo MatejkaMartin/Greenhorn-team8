@@ -15,7 +15,7 @@ const styles = theme => ({
     marginBottom: 30,
   },
   gridList: {
-    flexWrap: 'nowrap',
+    flexWrap: '',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },

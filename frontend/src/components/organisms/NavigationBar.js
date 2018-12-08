@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Assessment';
 import TasksIcon from '@material-ui/icons/Assignment';
+import TemplatesIcon from '@material-ui/icons/LibraryBooks';
 
 import { Link } from '../atoms/Link'
 import { ProfileList } from '../molecules/ProfileList'
@@ -121,6 +122,17 @@ class NavigationBar extends React.Component {
             <ListItemText primary="People"/>
           </ListItem>
         </Link>
+
+        {/* Templates menu item */}
+        <Link className="no-underline" to="/templates">
+          <ListItem button={true} onClick={event => this.handleListItemClick(event, 3)}>
+            <ListItemIcon>
+              <TemplatesIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Templates"/>
+          </ListItem>
+        </Link>
+
       </List>
       <Divider/>
     </div>
@@ -134,7 +146,7 @@ class NavigationBar extends React.Component {
           <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerToggle} className={classes.menuButton}>
             <MenuIcon/>
           </IconButton>
-          <Typography variant="h6" color="inherit" noWrap={ true }>
+          <Typography variant="h6" color="inherit">
             {pageName}
           </Typography>
           <div className={classes.grow}/>
@@ -144,7 +156,7 @@ class NavigationBar extends React.Component {
       </AppBar>
 
       <nav className={classes.drawer}>
-        <Hidden smUp={ true } implementation="css">
+        <Hidden implementation="css">
           <Drawer container={this.props.container} variant="temporary" anchor={theme.direction === 'rtl'
               ? 'right'
               : 'left'} open={this.state.mobileOpen} onClose={this.handleDrawerToggle} classes={{
