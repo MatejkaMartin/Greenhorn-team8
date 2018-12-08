@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ButtonCreate from '../molecules/ButtonCreate'
 import {Layout} from '../atoms/Layout'
 import TemplatesTable from '../organisms/TemplatesTable'
 import api from '../../api'
@@ -22,7 +21,8 @@ export class TemplatesPage extends Component {
   }
 
   fetchTemplates() {
-    api.get('templates').then(response => {
+    console.log("I am here")
+    api.get('template').then(response => {
       const { data } = response;
       console.log(data)
       this.setState({
@@ -45,7 +45,7 @@ export class TemplatesPage extends Component {
     } else {
       return (
         <Layout className="flex-col">
-          <ButtonCreate title="creat a new Template" onClick={this.handleClick}/>
+
           <TemplatesTable templates = { this.state.templates }/>
         </Layout>
       );

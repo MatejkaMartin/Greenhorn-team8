@@ -35,7 +35,6 @@ class TemplatesTable extends Component {
   }
 
   handleClick(id) {
-    console.log(id);
     // Selected is not just used in app
     this.setState({selected: id});
   }
@@ -48,9 +47,9 @@ class TemplatesTable extends Component {
     const templatesRows = templates.map((template) =>
       <TableRow className={classes.row} key={template.id} >
         <TableCell component="th" scope="row" onClick={() => this.handleClick(template.id)}>
-          {template.name}
+          {template.templateName}
         </TableCell>
-        <TableCell>{template.instructions}</TableCell>
+        <TableCell>{template.taskInstructions}</TableCell>
       </TableRow>
     );
 

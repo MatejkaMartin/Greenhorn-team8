@@ -125,7 +125,7 @@ class NavigationBar extends React.Component {
 
         {/* Templates menu item */}
         <Link className="no-underline" to="/templates">
-          <ListItem button={true} onClick={event => this.handleListItemClick(event, 3)}>
+          <ListItem button={ true } selected={this.state.selectedIndex === 3} onClick={event => this.handleListItemClick(event, 3)}>
             <ListItemIcon>
               <TemplatesIcon/>
             </ListItemIcon>

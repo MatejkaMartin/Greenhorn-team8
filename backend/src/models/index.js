@@ -35,7 +35,7 @@ const modelModules = [
   require('./role'),
   require('./state'),
   require('./task_template'),
-  require('./task'),  
+  require('./task'),
 ];
 
 modelModules.forEach(modelModule => {
