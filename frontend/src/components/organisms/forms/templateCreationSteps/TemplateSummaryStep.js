@@ -4,7 +4,7 @@ import Chip from '@material-ui/core/Chip';
 import AddIcon from '@material-ui/icons/Add';
 import IconDescription from '@material-ui/icons/Description';
 
-export class TaskSummaryStep extends Component {
+export class TemplateSummaryStep extends Component {
 
   render() {
     const { values } = this.props;
@@ -12,12 +12,20 @@ export class TaskSummaryStep extends Component {
 
       <Fragment>
         <Typography variant="headline" gutterBottom>
-          Task summary
+        Template summary
         </Typography>
         &nbsp;
 
         <Typography variant="subheading" gutterBottom color="primary">
-        Task title :
+        Template title:
+        </Typography>
+        <Typography variant="title" gutterBottom>
+        {values.templateTitle}
+        </Typography>
+        &nbsp;
+
+        <Typography variant="subheading" gutterBottom color="primary">
+        Task title:
         </Typography>
         <Typography variant="title" gutterBottom>
         {values.taskTitle}
@@ -25,30 +33,20 @@ export class TaskSummaryStep extends Component {
         &nbsp;
 
         <Typography variant="subheading" gutterBottom color="primary">
-        Task Instructions:
+        Task instructions:
         </Typography>
         <Typography variant="title" gutterBottom>
-        {values.taskDescription}
+        {values.taskInstructions}
         </Typography>
         &nbsp;
 
-        { values.selectedEmployees.map((employee,i) => (
-          <Fragment>
-          <Typography variant="subheading" gutterBottom color="primary">
-          Employee:
-          </Typography>
-          <Typography variant="title" gutterBottom>
-            {employee.name}
-          </Typography>
-          <Typography variant="subheading" gutterBottom color="primary">
-          {employee.name} Deadline:
-          </Typography>
-          <Typography variant="title" gutterBottom>
-            { values.deadlines.filter((deadline) => { return deadline.id === employee.id })[0].deadline }
-          </Typography>
-          &nbsp;
-          </Fragment>
-        ))}
+        <Typography variant="subheading" gutterBottom color="primary">
+        Future day:
+        </Typography>
+        <Typography variant="title" gutterBottom>
+        {values.futureDay}
+        </Typography>
+        &nbsp;
 
         {values.files.length !==0 &&
         <Fragment>
@@ -63,5 +61,6 @@ export class TaskSummaryStep extends Component {
       </Fragment>
     )
   }
+
 }
-export default TaskSummaryStep;
+export default TemplateSummaryStep;
