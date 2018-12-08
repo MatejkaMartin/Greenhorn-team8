@@ -77,15 +77,16 @@ const data = [
   }
 ];
 
-class EmployeeGrid extends Component {
+class AdminGrid extends Component {
   state = {
     employeeFilter: '',
     timeFilter: '',
-  };
+  }
 
   handleEmployeeFilter = (event, tile) => {
     console.log(tile)
-    this.setState({ employeeFilter: tile.employee })
+
+    this.setState({ employeeFilter: tile })
   }
 
   handleTimeFilter = (event) => {
@@ -95,13 +96,13 @@ class EmployeeGrid extends Component {
 
 render () {
   const {classes} = this.props;
-  const {filter} = this.state;
 
   return (
     <div className={classes.root}>
     <GridList className={classes.gridList} cols={3}>
       {data.map(tile => (
-        <GridListTile key={tile.id} className={classes.gridTile} onClick={event => this.handleEmployeeFilter(event, tile)}>
+        <GridListTile key={tile.id} className={classes.gridTile}>
+          <Button fullWidth="true" onClick={event => this.handleEmployeeFilter(event, tile.employee)}>
           <List component="nav" className={classes.root}>
             <ListItem>
               <ListItemText primary={<Typography component="h2" variant="headline">{tile.employee}</Typography>}/>
@@ -111,6 +112,7 @@ render () {
               <ListItemText primary={"Returned: " + tile.returned}/>
               <ListItemText primary={"Done: " + tile.done}/>
           </List>
+          </Button>
         </GridListTile>
       ))}
     </GridList>
@@ -119,15 +121,15 @@ render () {
         <Grid item xs={12} md={8}></Grid>
         <Grid item xs={12} md={8}>
           <Badge color="secondary" badgeContent={4} className={classes.margin}>
-            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>Today</Button>
+            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>Today: {this.state.date}</Button>
           </Badge>
           <Badge color="secondary" badgeContent={4} className={classes.margin}>
-            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>This Week</Button>
+            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>This Week:</Button>
           </Badge>
           <Badge color="secondary" badgeContent={4} className={classes.margin}>
             <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>This Month</Button>
           </Badge>
-          <Button className={classes.margin} color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>All</Button>
+          <Button className={classes.margin} color="primary" variant="contained" onClick={event => this.handleEmployeeFilter(event, '')}>All</Button>
         </Grid>
         <Grid item xs={12} md={4}>
           <Badge color="secondary" badgeContent={4} className={classes.margin}>
@@ -138,14 +140,14 @@ render () {
 
     <Grid container spacing={24} className={classes.cardGrid}>
         <Grid item xs={12} md={8}>
-          <DashboardTable filter={filter}/>
+          <DashboardTable filter={this.state.employeeFilter}/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <SubmittedTable filter={filter}/>
+          <SubmittedTable filter={this.state.employeeFilter}/>
         </Grid>
     </Grid>
   </div>
 );
 }}
 
-export default withStyles(styles)(EmployeeGrid);
+export default withStyles(styles)(AdminGrid);

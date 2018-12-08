@@ -12,7 +12,7 @@ class DashboardPage extends Component {
             {user.role === 'admin' ?
             (<AdminDashboard user={user}/>)
             :
-            (<h1>Employee</h1>)}
+            (<h1>EmployeeDashboard</h1>)}
           </Layout>
     );
   }

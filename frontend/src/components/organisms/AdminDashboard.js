@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {Layout} from '../atoms/Layout'
-import EmployeeGrid from '../molecules/EmployeeGrid'
+import AdminGrid from '../molecules/AdminGrid'
 
 export class AdminDashboard extends Component {
   render() {
     return (
       <Layout className="ad-1">
-        <EmployeeGrid/>
+        <AdminGrid/>
       </Layout>);
   }
 }

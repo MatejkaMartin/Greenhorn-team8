@@ -28,9 +28,9 @@ class EnhancedTableHead extends React.Component {
   };
 
   headRow = [
-    { id: 'assignee', numeric: false, disablePadding: true, label: 'Assignee' },
-    { id: 'taskName', numeric: true, disablePadding: false, label: 'Task' },
-    { id: 'state', numeric: true, disablePadding: false, label: 'State' },
+    { id: 'assignee', numeric: false, label: 'Assignee' },
+    { id: 'taskName', numeric: true, label: 'Task' },
+    { id: 'state', numeric: true, label: 'State' },
   ];
 
   render() {
@@ -38,13 +38,11 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-        <TableCell padding="none"/>
           {this.headRow.map(row => {
             return (
               <TableCell
                 key={row.id}
                 numeric={row.numeric}
-                padding={row.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === row.id ? order : false}>
                 <Tooltip
                   title={ "Sort " +  row.label }
@@ -180,6 +178,13 @@ class SubmittedTable extends Component {
 
   render() {
     const { classes, tasks, filter } = this.props;
+
+    let filteredByEmployee = filter ? tasks.filter(
+      x => x['assignee'].includes(filter)) : tasks;
+
+    let filteredByState = 'submitted' ? filteredByEmployee.filter(
+        x => x['state'].includes('submitted')) : filteredByEmployee;
+
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
     return (
@@ -193,7 +198,7 @@ class SubmittedTable extends Component {
               rowCount={tasks.length}/>
 
             <TableBody>
-              {this.stableSort(tasks, this.getSorting(order, orderBy))
+              {this.stableSort(filteredByState, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
@@ -204,8 +209,7 @@ class SubmittedTable extends Component {
                       onClick={ event => this.handleClick(event, n) }
                       tabIndex={-1}
                       >
-                      <TableCell padding="checkbox"></TableCell>
-                      <TableCell component="th" scope="row" padding="none">{n.assignee}</TableCell>
+                      <TableCell component="th" scope="row">{n.assignee}</TableCell>
                       <TableCell numeric>{n.taskName}</TableCell>
                       <TableCell numeric>{n.state}</TableCell>
                     </TableRow>

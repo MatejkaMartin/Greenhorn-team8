@@ -11,6 +11,9 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import TaskDetail from '../molecules/TaskDetail.js';
+
+import Moment from 'react-moment';
+
 import {
   startFetchTasks,
   updateTask
@@ -28,7 +31,7 @@ class EnhancedTableHead extends React.Component {
   };
 
   headRow = [
-    { id: 'deadline', numeric: false, disablePadding: true, label: 'Deadline' },
+    { id: 'deadline', numeric: false, disablePadding: false, label: 'Deadline' },
     { id: 'daytodeadline', numeric: true, disablePadding: false, label: 'Days to Deadline' },
     { id: 'assignee', numeric: true, disablePadding: false, label: 'Assignee' },
     { id: 'taskName', numeric: true, disablePadding: false, label: 'Task' },
@@ -40,7 +43,6 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-        <TableCell padding="none"/>
           {this.headRow.map(row => {
             return (
               <TableCell
@@ -94,13 +96,20 @@ class DashboardTable extends Component {
     this.props.startFetchTasks();
   }
 
-  state = {
-    order: 'asc',
-    orderBy: 'deadline',
-    page: 0,
-    rowsPerPage: 5,
-    selectedRowIds: [],
-  };
+  constructor() {
+    super();
+    var today = new Date(),
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    this.state = {
+      date: date,
+      order: 'asc',
+      orderBy: 'deadline',
+      page: 0,
+      rowsPerPage: 5,
+      selectedRowIds: [],
+    };
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -182,8 +191,15 @@ class DashboardTable extends Component {
 
   render() {
     const { classes, tasks, filter } = this.props;
+
+    let filteredByEmployee = filter ? tasks.filter(
+      x => x['assignee'].includes(filter)) : tasks;
+
+    let filteredByDate = filteredByEmployee.filter(x => (<Moment diff={this.state.date} unit="days">{x.deadline}</Moment> === 7 && <Moment diff={this.state.date} unit="days">{x.deadline}</Moment> === 0);
+
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
+
     return (
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
@@ -195,7 +211,7 @@ class DashboardTable extends Component {
               rowCount={tasks.length}/>
 
             <TableBody>
-              {this.stableSort(tasks, this.getSorting(order, orderBy))
+              {this.stableSort(filteredByEmployee, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
@@ -206,9 +222,13 @@ class DashboardTable extends Component {
                       onClick={ event => this.handleClick(event, n) }
                       tabIndex={-1}
                       >
-                      <TableCell padding="checkbox"></TableCell>
-                      <TableCell component="th" scope="row" padding="none">{n.deadline}</TableCell>
-                      <TableCell numeric>{n.state}</TableCell>
+                      <TableCell component="th" scope="row">
+                        <Moment format="DD.MM.YYYY">{n.deadline}</Moment>
+                      </TableCell>
+                      <TableCell numeric>
+                        <Moment fromNow>{n.deadline}</Moment>
+                        <Moment diff={this.state.date} unit="days">{n.deadline}</Moment>
+                      </TableCell>
                       <TableCell numeric>{n.assignee}</TableCell>
                       <TableCell numeric>{n.taskName}</TableCell>
                       <TableCell numeric>{n.state}</TableCell>
