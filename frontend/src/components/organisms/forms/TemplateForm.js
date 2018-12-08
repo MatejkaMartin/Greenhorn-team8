@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TemplateDetailStep from './templateCreationSteps/TemplateDetailStep';
 import TemplateAttachmentsStep from './templateCreationSteps/TemplateAttachmentsStep';
 import TemplateSetFutureDaysStep from './templateCreationSteps/TemplateSetFutureDaysStep';
+import TemplateSummaryStep from './templateCreationSteps/TemplateSummaryStep';
 import {Link} from '../../atoms/Link';
 import { connect } from 'react-redux';
 import { addTemplate } from '../../../services/templates/actions';
@@ -66,7 +67,7 @@ class TemplateForm extends Component {
   };
 
 
-  steps = ['Template details', 'Template attachments', 'Default deadline'];
+  steps = ['Template details', 'Template attachments', 'Default deadline', 'Summary'];
 
   getStepContent = (step, values) => {
     switch (step) {
@@ -76,6 +77,8 @@ class TemplateForm extends Component {
         return <TemplateAttachmentsStep values= { values } handleAddFiles= { this.handleAddFiles } handleDeleteFile = { this.handleDeleteFile }/>;
       case 2:
         return <TemplateSetFutureDaysStep values= { values } handleChange = { this.handleChange }/>;
+      case 3:
+        return <TemplateSummaryStep values= { values }/>;
       default:
         throw new Error('Unknown steps');
     }

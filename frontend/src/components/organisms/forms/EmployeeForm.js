@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import NameStep from './userCreationSteps/NameStep';
 import EmailMobileStep from './userCreationSteps/EmailMobileStep';
 import AssignmentStep from './userCreationSteps/AssignmentStep';
+import SummaryStep from './userCreationSteps/SummaryStep';
 import { connect } from 'react-redux';
 import { addUser } from '../../../services/users/actions';
 
@@ -74,7 +75,8 @@ class EmployeeForm extends React.Component {
   steps = [
   'Enter name',
   'Email & Phone',
-  'Assign user'
+  'Assign user',
+  'Summary'
   ];
 
   getStepContent = (step,values,catalogs) => {
@@ -95,6 +97,11 @@ class EmployeeForm extends React.Component {
         handleChange={ this.handleChange }
         catalogs={ catalogs }
         />;
+      case 3:
+        return <SummaryStep
+        values={ values }
+        catalogs={ catalogs }
+        />;
       default:
         throw new Error('Unknown step');
     }
@@ -107,6 +114,8 @@ class EmployeeForm extends React.Component {
     case 1:
       return 'Assign user';
     case 2:
+      return 'Summary';
+    case 3:
       return 'Create';
     default:
       return ''
@@ -114,7 +123,7 @@ class EmployeeForm extends React.Component {
   }
 
   handleNext = () => {
-    if(this.state.activeStep===2) {
+    if(this.state.activeStep===3) {
       this.props.addUser(this.state)
     } else {
     this.setState(state => ({
@@ -169,7 +178,7 @@ class EmployeeForm extends React.Component {
                       color="primary"
                       onClick={ this.handleNext }
                       className={classes.button}
-                      disabled={ (activeStep ===0 && (!firstName || !lastName)) || (activeStep ===1 && (!email || !mobile)) }
+                      disabled={ (activeStep ===0 && (!firstName || !lastName)) || (activeStep ===1 && (!email || !mobile)) || (activeStep ===2 && (!role || !department)) }
                     >{
                       this.giveMeButton(activeStep)
                     }

@@ -58,7 +58,7 @@ class TemplateDetailStep extends Component {
             fullWidth
             multiline
             rowsMax="5"
-            value={ values.taskInstuctions }
+            value={ values.taskInstructions }
             onChange= { handleChange }
           />
         </Grid>
