@@ -69,7 +69,7 @@ const data = [
     done: 2,
   }, {
     id: 5,
-    employee: 'Josef Novák',
+    employee: 'Vaclav Zamestnanec',
     new: 1,
     submitted: 3,
     returned: 0,
@@ -80,18 +80,20 @@ const data = [
 class AdminGrid extends Component {
   state = {
     employeeFilter: '',
-    timeFilter: '',
+    dateFilter: '',
+    todayBadge: 1,
+    weekBadge: 4,
+    monthBadge: 7,
   }
 
-  handleEmployeeFilter = (event, tile) => {
-    console.log(tile)
-
-    this.setState({ employeeFilter: tile })
+  handleEmployeeFilter = (tile) => {
+    console.log(tile.employee)
+    this.setState({ employeeFilter: tile.employee })
   }
 
-  handleTimeFilter = (event) => {
-    console.log(event)
-    this.setState({ timeFilter: event })
+  handleDateFilter = (days) => {
+    console.log(days)
+    this.setState({ dateFilter: days })
   }
 
 render () {
@@ -102,7 +104,7 @@ render () {
     <GridList className={classes.gridList} cols={3}>
       {data.map(tile => (
         <GridListTile key={tile.id} className={classes.gridTile}>
-          <Button fullWidth="true" onClick={event => this.handleEmployeeFilter(event, tile.employee)}>
+          <Button color="primary" fullWidth="true" onClick={event => this.handleEmployeeFilter(tile)}>
           <List component="nav" className={classes.root}>
             <ListItem>
               <ListItemText primary={<Typography component="h2" variant="headline">{tile.employee}</Typography>}/>
@@ -120,30 +122,31 @@ render () {
     <Grid container spacing={24} className={classes.cardGrid}>
         <Grid item xs={12} md={8}></Grid>
         <Grid item xs={12} md={8}>
-          <Badge color="secondary" badgeContent={4} className={classes.margin}>
-            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>Today: {this.state.date}</Button>
+          <Badge color="secondary" badgeContent={this.state.todayBadge} className={classes.margin}>
+            <Button color="primary" variant="contained" onClick={event => this.handleDateFilter(1)}>Today</Button>
           </Badge>
-          <Badge color="secondary" badgeContent={4} className={classes.margin}>
-            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>This Week:</Button>
+          <Badge color="secondary" badgeContent={this.state.weekBadge} className={classes.margin}>
+            <Button color="primary" variant="contained" onClick={event => this.handleDateFilter(8)}>This Week</Button>
           </Badge>
-          <Badge color="secondary" badgeContent={4} className={classes.margin}>
-            <Button color="primary" variant="contained" onClick={event => this.handleTimeFilter(event)}>This Month</Button>
+          <Badge color="secondary" badgeContent={this.state.monthBadge} className={classes.margin}>
+            <Button color="primary" variant="contained" onClick={event => this.handleDateFilter(32)}>This Month</Button>
           </Badge>
-          <Button className={classes.margin} color="primary" variant="contained" onClick={event => this.handleEmployeeFilter(event, '')}>All</Button>
+          <Button className={classes.margin} color="secondary" variant="contained" onClick={event => {
+            this.handleEmployeeFilter('');
+            this.handleDateFilter('');
+          }}>All</Button>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Badge color="secondary" badgeContent={4} className={classes.margin}>
-            <Typography>Recently submitted</Typography>
-          </Badge>
+          <Typography>Recently submitted tasks</Typography>
         </Grid>
     </Grid>
 
     <Grid container spacing={24} className={classes.cardGrid}>
         <Grid item xs={12} md={8}>
-          <DashboardTable filter={this.state.employeeFilter}/>
+          <DashboardTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter}/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <SubmittedTable filter={this.state.employeeFilter}/>
+          <SubmittedTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter}/>
         </Grid>
     </Grid>
   </div>

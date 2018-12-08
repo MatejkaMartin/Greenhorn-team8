@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TaskDetail from '../molecules/TaskDetail.js';
 
 import Moment from 'react-moment';
+import moment from 'moment';
 
 import {
   startFetchTasks,
@@ -188,14 +189,24 @@ class DashboardTable extends Component {
     return stabilizedThis.map(el => el[0]);
   }
 
+  dayDiff = (n) => {
+    var today = moment(this.state.date);
+    var deadline = moment(n.deadline);
+    var days = deadline.diff(today, 'days');
+    return days;
+  }
+
 
   render() {
-    const { classes, tasks, filter } = this.props;
+    const { classes, tasks, filter, dateFilter } = this.props;
 
-    let filteredByEmployee = filter ? tasks.filter(
-      x => x['assignee'].includes(filter)) : tasks;
+    let filteredByEmployee = filter ? tasks.filter(x => x['assignee'].includes(filter)) : tasks;
 
-    let filteredByDate = filteredByEmployee.filter(x => (<Moment diff={this.state.date} unit="days">{x.deadline}</Moment> === 7 && <Moment diff={this.state.date} unit="days">{x.deadline}</Moment> === 0);
+    let filteredByDate = dateFilter ? filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < dateFilter)) : filteredByEmployee;
+
+    //let filteredByDateToday = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 1));
+    //let filteredByDateWeek = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 8));
+    //let filteredByDateMonth = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 32));
 
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
@@ -211,7 +222,7 @@ class DashboardTable extends Component {
               rowCount={tasks.length}/>
 
             <TableBody>
-              {this.stableSort(filteredByEmployee, this.getSorting(order, orderBy))
+              {this.stableSort(filteredByDate, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
@@ -227,7 +238,6 @@ class DashboardTable extends Component {
                       </TableCell>
                       <TableCell numeric>
                         <Moment fromNow>{n.deadline}</Moment>
-                        <Moment diff={this.state.date} unit="days">{n.deadline}</Moment>
                       </TableCell>
                       <TableCell numeric>{n.assignee}</TableCell>
                       <TableCell numeric>{n.taskName}</TableCell>

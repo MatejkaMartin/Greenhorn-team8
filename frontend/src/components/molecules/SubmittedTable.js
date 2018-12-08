@@ -11,6 +11,9 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import TaskDetail from '../molecules/TaskDetail.js';
+
+import moment from 'moment';
+
 import {
   startFetchTasks,
   updateTask
@@ -90,13 +93,20 @@ class SubmittedTable extends Component {
     this.props.startFetchTasks();
   }
 
-  state = {
-    order: 'asc',
-    orderBy: 'assignee',
-    page: 0,
-    rowsPerPage: 5,
-    selectedRowIds: [],
-  };
+  constructor() {
+    super();
+    var today = new Date(),
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    this.state = {
+      date: date,
+      order: 'asc',
+      orderBy: 'assignee',
+      page: 0,
+      rowsPerPage: 5,
+      selectedRowIds: [],
+    };
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -175,15 +185,22 @@ class SubmittedTable extends Component {
     return stabilizedThis.map(el => el[0]);
   }
 
+  dayDiff = (n) => {
+    var today = moment(this.state.date);
+    var deadline = moment(n.deadline);
+    var days = deadline.diff(today, 'days');
+    return days;
+  }
+
 
   render() {
-    const { classes, tasks, filter } = this.props;
+    const { classes, tasks, filter, dateFilter } = this.props;
 
-    let filteredByEmployee = filter ? tasks.filter(
-      x => x['assignee'].includes(filter)) : tasks;
+    let filteredByEmployee = filter ? tasks.filter(x => x['assignee'].includes(filter)) : tasks;
 
-    let filteredByState = 'submitted' ? filteredByEmployee.filter(
-        x => x['state'].includes('submitted')) : filteredByEmployee;
+    let filteredByState = 'submitted' ? filteredByEmployee.filter(z => z['state'].includes('submitted')) : filteredByEmployee;
+
+    let filteredByDate = dateFilter ? filteredByState.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < dateFilter)) : filteredByState;
 
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
@@ -198,7 +215,7 @@ class SubmittedTable extends Component {
               rowCount={tasks.length}/>
 
             <TableBody>
-              {this.stableSort(filteredByState, this.getSorting(order, orderBy))
+              {this.stableSort(filteredByDate, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
