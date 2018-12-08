@@ -1,4 +1,5 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component, Fragment} from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,7 +10,10 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
-import TaskDetail from '../molecules/TaskDetail';
+import TaskDetail from '../molecules/TaskDetail.js';
+
+import Moment from 'react-moment';
+import moment from 'moment';
 
 import {
   startFetchTasks,
@@ -28,10 +32,10 @@ class EnhancedTableHead extends React.Component {
   };
 
   headRow = [
-    { id: 'taskName', numeric: false, disablePadding: true, label: 'Task' },
-    { id: 'deadline', numeric: true, disablePadding: false, label: 'Deadline' },
-    { id: 'owner', numeric: true, disablePadding: false, label: 'Owner' },
+    { id: 'deadline', numeric: false, disablePadding: false, label: 'Deadline' },
+    { id: 'daytodeadline', numeric: true, disablePadding: false, label: 'Days to Deadline' },
     { id: 'assignee', numeric: true, disablePadding: false, label: 'Assignee' },
+    { id: 'taskName', numeric: true, disablePadding: false, label: 'Task' },
     { id: 'state', numeric: true, disablePadding: false, label: 'State' },
   ];
 
@@ -40,7 +44,6 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-        <TableCell padding="none"/>
           {this.headRow.map(row => {
             return (
               <TableCell
@@ -75,21 +78,39 @@ EnhancedTableHead.propTypes = {
 };
 
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit,
+  },
+  table: {
+    minWidth: 750,
+  },
+  tableWrapper: {
+    overflowX: 'auto',
+  },
+});
 
-class TasksTable extends Component {
-
+class DashboardTable extends Component {
 
   componentDidMount() {
     this.props.startFetchTasks();
   }
 
-  state = {
-    order: 'asc',
-    orderBy: 'deadline',
-    page: 0,
-    rowsPerPage: 10,
-    selectedRowIds: [],
-  };
+  constructor() {
+    super();
+    var today = new Date(),
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    this.state = {
+      date: date,
+      order: 'asc',
+      orderBy: 'deadline',
+      page: 0,
+      rowsPerPage: 5,
+      selectedRowIds: [],
+    };
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -168,15 +189,32 @@ class TasksTable extends Component {
     return stabilizedThis.map(el => el[0]);
   }
 
+  dayDiff = (n) => {
+    var today = moment(this.state.date);
+    var deadline = moment(n.deadline);
+    var days = deadline.diff(today, 'days');
+    return days;
+  }
+
 
   render() {
-    const { tasks } = this.props;
+    const { classes, tasks, filter, dateFilter } = this.props;
+
+    let filteredByEmployee = filter ? tasks.filter(x => x['assignee'].includes(filter)) : tasks;
+
+    let filteredByDate = dateFilter ? filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < dateFilter)) : filteredByEmployee;
+
+    //let filteredByDateToday = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 1));
+    //let filteredByDateWeek = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 8));
+    //let filteredByDateMonth = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 32));
+
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
+
     return (
-      <Paper>
-        <div>
-          <Table aria-labelledby="tableTitle">
+      <Paper className={classes.root}>
+        <div className={classes.tableWrapper}>
+          <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
@@ -184,7 +222,7 @@ class TasksTable extends Component {
               rowCount={tasks.length}/>
 
             <TableBody>
-              {this.stableSort(tasks, this.getSorting(order, orderBy))
+              {this.stableSort(filteredByDate, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
@@ -195,14 +233,14 @@ class TasksTable extends Component {
                       onClick={ event => this.handleClick(event, n) }
                       tabIndex={-1}
                       >
-                      <TableCell padding="checkbox">
+                      <TableCell component="th" scope="row">
+                        <Moment format="DD.MM.YYYY">{n.deadline}</Moment>
                       </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.taskName}
+                      <TableCell numeric>
+                        <Moment fromNow>{n.deadline}</Moment>
                       </TableCell>
-                      <TableCell numeric>{n.deadline}</TableCell>
-                      <TableCell numeric>{n.owner}</TableCell>
                       <TableCell numeric>{n.assignee}</TableCell>
+                      <TableCell numeric>{n.taskName}</TableCell>
                       <TableCell numeric>{n.state}</TableCell>
                     </TableRow>
                       <TaskDetail task={n} open={ isSelected  } handleClose= { this.handleClose } handleChangeState = { this.handleChangeState } ></TaskDetail>
@@ -249,5 +287,7 @@ const mapDispatchToProps = {
   updateTask
 };
 
-const connectedTasksTable = connect(mapStateToProps,mapDispatchToProps)(TasksTable);
-export {connectedTasksTable as TasksTable} ;
+const withStylesDashboardTable  = withStyles(styles)(DashboardTable);
+
+const connectedDashboardTable = connect(mapStateToProps,mapDispatchToProps)(withStylesDashboardTable);
+export {connectedDashboardTable as DashboardTable} ;
