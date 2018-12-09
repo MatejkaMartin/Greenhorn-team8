@@ -188,8 +188,15 @@ class SubmittedTable extends Component {
   dayDiff = (n) => {
     var today = moment(this.state.date);
     var deadline = moment(n.deadline);
-    var days = deadline.diff(today, 'days');
-    return days;
+    var diff = '';
+    if (today > deadline) {
+      diff = deadline.diff(today, 'days') - 1;
+      return diff;
+    }
+    if (today < deadline) {
+      diff = deadline.diff(today, 'days');
+      return diff;
+    }
   }
 
 

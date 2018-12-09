@@ -189,24 +189,50 @@ class DashboardTable extends Component {
     return stabilizedThis.map(el => el[0]);
   }
 
-  dayDiff = (n) => {
+  dayDiff = (n, withText) => {
     var today = moment(this.state.date);
     var deadline = moment(n.deadline);
-    var days = deadline.diff(today, 'days');
-    return days;
+    var diff = '';
+    if (today > deadline && !withText) {
+      diff = deadline.diff(today, 'days') - 1;
+      return diff;
+    }
+    if (today > deadline && withText) {
+      diff = today.diff(deadline, 'days') + 1;
+      if (diff === 1) {
+        return diff + ' day ago';
+      } else {
+        return diff + ' days ago';
+      }
+    }
+    if (today < deadline && !withText) {
+      diff = deadline.diff(today, 'days');
+      return diff;
+    }
+    if (today < deadline && withText)  {
+      diff = deadline.diff(today, 'days');
+      if (diff === 0) {
+        return 'today';
+      }
+      if (diff === 1) {
+        return 'in ' + diff + ' day';
+      } else {
+        return 'in ' + diff + ' days';
+      }
+    }
   }
 
-
   render() {
-    const { classes, tasks, filter, dateFilter } = this.props;
+    const { classes, tasks, filter, dateFilter, handleBadges } = this.props;
 
     let filteredByEmployee = filter ? tasks.filter(x => x['assignee'].includes(filter)) : tasks;
 
-    let filteredByDate = dateFilter ? filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < dateFilter)) : filteredByEmployee;
+    let filteredByDate = dateFilter ? filteredByEmployee.filter(y => (
+      this.dayDiff(y, false) > -1 && this.dayDiff(y, false) < dateFilter)) : filteredByEmployee;
 
-    //let filteredByDateToday = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 1));
-    //let filteredByDateWeek = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 8));
-    //let filteredByDateMonth = filteredByEmployee.filter(y => (this.dayDiff(y) > -1 && this.dayDiff(y) < 32));
+    let filteredByDateToday = filteredByEmployee.filter(y => (this.dayDiff(y, false) > -1 && this.dayDiff(y, false) < 1));
+    let filteredByDateWeek = filteredByEmployee.filter(y => (this.dayDiff(y, false) > -1 && this.dayDiff(y, false) < 8));
+    let filteredByDateMonth = filteredByEmployee.filter(y => (this.dayDiff(y, false) > -1 && this.dayDiff(y, false) < 32));
 
     const {order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, tasks.length - page * rowsPerPage);
@@ -221,7 +247,7 @@ class DashboardTable extends Component {
               onRequestSort={this.handleRequestSort}
               rowCount={tasks.length}/>
 
-            <TableBody>
+            <TableBody onChange={handleBadges(filteredByDateToday.length, filteredByDateWeek.length, filteredByDateMonth.length)}>
               {this.stableSort(filteredByDate, this.getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
@@ -230,14 +256,14 @@ class DashboardTable extends Component {
                   <Fragment key={n.id}>
                     <TableRow
                       hover
-                      onClick={ event => this.handleClick(event, n) }
+                      onClick={event => this.handleClick(event, n)}
                       tabIndex={-1}
                       >
                       <TableCell component="th" scope="row">
                         <Moment format="DD.MM.YYYY">{n.deadline}</Moment>
                       </TableCell>
                       <TableCell numeric>
-                        <Moment fromNow>{n.deadline}</Moment>
+                        {this.dayDiff(n, true)}
                       </TableCell>
                       <TableCell numeric>{n.assignee}</TableCell>
                       <TableCell numeric>{n.taskName}</TableCell>
