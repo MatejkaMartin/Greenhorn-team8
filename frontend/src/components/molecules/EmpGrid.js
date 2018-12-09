@@ -11,19 +11,20 @@ import Typography from '@material-ui/core/Typography';
 
 import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
+import Moment from 'react-moment';
 
-import {AdminDashboardTable} from '../molecules/AdminDashboardTable';
-import {SubmittedTaskTable} from '../molecules/SubmittedTaskTable';
+import {EmpDashboardTable} from '../molecules/EmpDashboardTable';
+import {ReturnedTaskTable} from '../molecules/ReturnedTaskTable';
 
 const styles = theme => ({
   root: {
     justifyContent: 'space-around',
     overflow: 'hidden',
     padding: 10,
-
    },
   gridList: {
     flexWrap: 'nowrap',
+    maxWidth: 1400,
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
@@ -38,56 +39,13 @@ const styles = theme => ({
   },
 });
 
-const data = [
-  {
-    id: 1,
-    employee: 'Jan Pippal',
-    new: 1,
-    submitted: 3,
-    returned: 0,
-    done: 2,
-  }, {
-    id: 2,
-    employee: 'Martin Matějka',
-    new: 1,
-    submitted: 3,
-    returned: 0,
-    done: 2,
-  }, {
-    id: 3,
-    employee: 'Matěj Ďurica',
-    new: 1,
-    submitted: 3,
-    returned: 0,
-    done: 2,
-  }, {
-    id: 4,
-    employee: 'Karel Zamestnanec',
-    new: 1,
-    submitted: 3,
-    returned: 0,
-    done: 2,
-  }, {
-    id: 5,
-    employee: 'Vaclav Zamestnanec',
-    new: 1,
-    submitted: 3,
-    returned: 0,
-    done: 2,
-  }
-];
-
-class AdminGrid extends Component {
+class EmpGrid extends Component {
   state = {
-    employeeFilter: '',
+    data: [],
     dateFilter: '',
     todayBadge: '',
     weekBadge: '',
     monthBadge: '',
-  }
-
-  handleEmployeeFilter = (tile) => {
-    this.setState({ employeeFilter: tile.employee })
   }
 
   handleDateFilter = (days) => {
@@ -95,26 +53,28 @@ class AdminGrid extends Component {
   }
 
   handleBadges = (today, week, month) => {
-    this.setState({todayBadge: today, weekBadge: week, monthBadge: month});
+    this.setState({ todayBadge: today, weekBadge: week, monthBadge: month });
     }
 
+  handleData = (data) => {
+    this.setState({ data: data });
+  }
+
 render () {
-  const {classes} = this.props;
+  const {classes, user} = this.props;
 
   return (
     <div className={classes.root}>
     <GridList className={classes.gridList} cols={3}>
-      {data.map(tile => (
+      {this.state.data.map(tile => (
         <GridListTile key={tile.id} className={classes.gridTile}>
-          <Button color="primary" fullWidth="true" onClick={event => this.handleEmployeeFilter(tile)}>
+          <Button color="primary" fullWidth="true">
           <List component="nav" className={classes.root}>
-            <ListItem>
-              <ListItemText primary={<Typography component="h2" variant="headline">{tile.employee}</Typography>}/>
-            </ListItem>
-              <ListItemText primary={"New: " + tile.new}/>
-              <ListItemText primary={"Submitted: " + tile.submitted}/>
-              <ListItemText primary={"Returned: " + tile.returned}/>
-              <ListItemText primary={"Done: " + tile.done}/>
+            <ListItem/>
+              <ListItemText primary={<Typography component="h2" variant="headline" gutterBottom="true">{tile.taskName}</Typography>}/>
+              <ListItemText primary={<Moment format="DD.MM.YYYY">{tile.deadline}</Moment>}/>
+              <ListItemText primary={"Owner: " + tile.owner}/>
+              <ListItemText primary={"State: " + tile.state}/>
           </List>
           </Button>
         </GridListTile>
@@ -133,26 +93,23 @@ render () {
           <Badge color="secondary" badgeContent={this.state.monthBadge} className={classes.margin}>
             <Button color="primary" variant="contained" onClick={event => this.handleDateFilter(32)}>This Month</Button>
           </Badge>
-          <Button className={classes.margin} color="secondary" variant="contained" onClick={event => {
-            this.handleEmployeeFilter('');
-            this.handleDateFilter('');
-          }}>All</Button>
+          <Button className={classes.margin} color="secondary" variant="contained" onClick={event => this.handleDateFilter('')}>All</Button>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Typography>Recently submitted tasks</Typography>
+          <Typography>Recently returned tasks</Typography>
         </Grid>
     </Grid>
 
     <Grid container spacing={24} className={classes.cardGrid}>
         <Grid item xs={12} md={8}>
-          <AdminDashboardTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter} handleBadges={this.handleBadges}/>
+          <EmpDashboardTable filter={user.name} dateFilter={this.state.dateFilter} handleBadges={this.handleBadges} handleData={this.handleData}/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <SubmittedTaskTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter}/>
+          <ReturnedTaskTable filter={user.name} dateFilter={this.state.dateFilter}/>
         </Grid>
     </Grid>
   </div>
 );
 }}
 
-export default withStyles(styles)(AdminGrid);
+export default withStyles(styles)(EmpGrid);

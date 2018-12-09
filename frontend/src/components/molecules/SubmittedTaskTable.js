@@ -87,7 +87,7 @@ const styles = theme => ({
   },
 });
 
-class SubmittedTable extends Component {
+class SubmittedTaskTable extends Component {
 
   componentDidMount() {
     this.props.startFetchTasks();
@@ -281,7 +281,7 @@ const mapDispatchToProps = {
   updateTask
 };
 
-const withStylesSubmittedTable = withStyles(styles)(SubmittedTable);
+const withStylesSubmittedTaskTable = withStyles(styles)(SubmittedTaskTable);
 
-const connectedSubmittedTable = connect(mapStateToProps,mapDispatchToProps)(withStylesSubmittedTable);
-export {connectedSubmittedTable as SubmittedTable} ;
+const connectedSubmittedTaskTable = connect(mapStateToProps,mapDispatchToProps)(withStylesSubmittedTaskTable);
+export {connectedSubmittedTaskTable as SubmittedTaskTable} ;
