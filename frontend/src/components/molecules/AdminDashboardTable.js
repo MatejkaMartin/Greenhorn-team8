@@ -91,7 +91,7 @@ const styles = theme => ({
   },
 });
 
-class DashboardTable extends Component {
+class AdminDashboardTable extends Component {
 
   componentDidMount() {
     this.props.startFetchTasks();
@@ -313,7 +313,7 @@ const mapDispatchToProps = {
   updateTask
 };
 
-const withStylesDashboardTable  = withStyles(styles)(DashboardTable);
+const withStylesAdminDashboardTable  = withStyles(styles)(AdminDashboardTable);
 
-const connectedDashboardTable = connect(mapStateToProps,mapDispatchToProps)(withStylesDashboardTable);
-export {connectedDashboardTable as DashboardTable} ;
+const connectedAdminDashboardTable = connect(mapStateToProps,mapDispatchToProps)(withStylesAdminDashboardTable);
+export {connectedAdminDashboardTable as AdminDashboardTable} ;

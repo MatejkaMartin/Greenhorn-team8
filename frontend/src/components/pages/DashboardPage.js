@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Layout } from '../atoms/Layout'
-import AdminDashboard from '../organisms/AdminDashboard'
 import { connect } from 'react-redux'
 import { getUser } from '../../services/auth/reducer'
+import AdminDashboard from '../organisms/AdminDashboard'
+import EmpDashboard from '../organisms/EmpDashboard'
 
 class DashboardPage extends Component {
   render() {
@@ -12,7 +13,7 @@ class DashboardPage extends Component {
             {user.role === 'admin' ?
             (<AdminDashboard user={user}/>)
             :
-            (<h1>EmployeeDashboard</h1>)}
+            (<EmpDashboard user={user}/>)}
           </Layout>
     );
   }
