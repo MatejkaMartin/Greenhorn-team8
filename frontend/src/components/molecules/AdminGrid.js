@@ -81,20 +81,22 @@ class AdminGrid extends Component {
   state = {
     employeeFilter: '',
     dateFilter: '',
-    todayBadge: 1,
-    weekBadge: 4,
-    monthBadge: 7,
+    todayBadge: '',
+    weekBadge: '',
+    monthBadge: '',
   }
 
   handleEmployeeFilter = (tile) => {
-    console.log(tile.employee)
     this.setState({ employeeFilter: tile.employee })
   }
 
   handleDateFilter = (days) => {
-    console.log(days)
     this.setState({ dateFilter: days })
   }
+
+  handleBadges = (today, week, month) => {
+    this.setState({todayBadge: today, weekBadge: week, monthBadge: month});
+    }
 
 render () {
   const {classes} = this.props;
@@ -143,7 +145,7 @@ render () {
 
     <Grid container spacing={24} className={classes.cardGrid}>
         <Grid item xs={12} md={8}>
-          <DashboardTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter}/>
+          <DashboardTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter} handleBadges={this.handleBadges}/>
         </Grid>
         <Grid item xs={12} md={4}>
           <SubmittedTable filter={this.state.employeeFilter} dateFilter={this.state.dateFilter}/>
