@@ -44,6 +44,7 @@ export const login = (email,password) => (dispatch, getState, { api }) => {
     .then(function (response) {
       setToken(response.data)
       dispatch(loginSuccessAction(response.data));
+      api.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem('user')).token
       history.push('/dashboard')
     })
     .catch(function (error) {
