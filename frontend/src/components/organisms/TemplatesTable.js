@@ -45,7 +45,7 @@ class TemplatesTable extends Component {
     const { templates } = this.props;
 
     const templatesRows = templates.map((template) =>
-      <TableRow className={classes.row} key={template.id} >
+      <TableRow hover className={classes.row} key={template.id} >
         <TableCell component="th" scope="row" onClick={() => this.handleClick(template.id)}>
           {template.templateName}
         </TableCell>

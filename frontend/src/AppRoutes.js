@@ -12,7 +12,7 @@ import {CreateTemplatePage} from './components/pages/CreateTemplatePage';
 import {CreateUserPage} from './components/pages/CreateUserPage';
 import {SetPasswordPage} from './components/pages/SetPasswordPage';
 import {AssignTemplatePage} from './components/pages/AssignTemplatePage';
-import {TemplatesPage} from './components/pages/TemplatesPage';
+import {TemplatePage} from './components/pages/TemplatePage';
 
 export const AppRoutes = () => (
 <Switch>
@@ -20,7 +20,7 @@ export const AppRoutes = () => (
   <Route path="/setPassword/:token" exact component={SetPasswordPage}/>
   <PrivateRoute path="/dashboard" exact component={DashboardPage}/>
   <PrivateRoute path="/tasks" exact component={TasksPage}/>
-  <PrivateRoute path="/templates" exact component={TemplatesPage}/>
+  <PrivateRoute path="/templates" exact component={TemplatePage}/>
   <PrivateRoute path="/people" exact component={PeoplePage}/>
   <PrivateRoute path="/setting" exact component={SettingPage}/>
   <PrivateRoute path="/tasks/add" exact component={CreateTaskPage}/>

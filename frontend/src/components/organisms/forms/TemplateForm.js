@@ -158,11 +158,11 @@ class TemplateForm extends Component {
                   { this.getStepContent(activeStep, values)}
                 </Fragment>
             </Fragment>
-            <Link to="/tasks"  className="no-underline ">
+            <Link to="/templates"  className="no-underline ">
                <Button variant="contained"
                        color="primary"
                        className={classes.button}>
-                       Back to tasks
+                       Back to templates
                </Button>
              </Link>
              {activeStep !== 0 && (

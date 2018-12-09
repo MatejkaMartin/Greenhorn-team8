@@ -187,6 +187,7 @@ class TasksTable extends Component {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
                   const isSelected = this.isSelected(n.id);
+
                   return (
                   <Fragment key={n.id}>
                     <TableRow
@@ -197,7 +198,7 @@ class TasksTable extends Component {
                       <TableCell padding="checkbox">
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.taskName}
+                        {n.task_name}
                       </TableCell>
                       <TableCell numeric>{n.deadline}</TableCell>
                       <TableCell numeric>{n.owner}</TableCell>

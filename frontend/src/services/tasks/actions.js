@@ -25,9 +25,11 @@ export const startFetchTasks = () => (dispatch, getState, { api }) => {
     .get('tasks')
     .then(({ data }) => {
       const { tasks } = data;
+      console.log(tasks)
       dispatch(fetchTasksSuccess(tasks));
     })
     .catch(() => {
+      console.log("Failed")
       dispatch(fetchTasksFailure('Failed fetching tasks'));
     });
 };

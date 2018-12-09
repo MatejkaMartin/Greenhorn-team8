@@ -56,7 +56,7 @@ class AssignTemplatePage extends Component {
 
   fetch = () => {
     api
-    .get('templates/assignedTemplates')
+    .get('template/assignedTemplates')
     .then((response) => {
       this.setState({ assignedTemplates: response.data.assignedTemplates })
     })
@@ -65,7 +65,7 @@ class AssignTemplatePage extends Component {
 
   delete = (job_position_id, template_id) => {
     api
-    .delete('templates/assignedTemplates?job_position_id='+job_position_id+ '&template_id='+template_id)
+    .delete('template/assignedTemplates?job_position_id='+job_position_id+ '&template_id='+template_id)
     .then(() => {
     this.fetch()
     }
@@ -74,7 +74,7 @@ class AssignTemplatePage extends Component {
 
   add = (templatesIds,job_position_id) => {
     api
-    .post('templates/assignTemplates',{ job_position_id:job_position_id,templatesIds:templatesIds  })
+    .post('template/assignTemplates',{ job_position_id:job_position_id,templatesIds:templatesIds  })
     .then(() => {
     this.fetch()
     this.setState({

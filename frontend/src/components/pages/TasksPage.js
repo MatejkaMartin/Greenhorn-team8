@@ -9,8 +9,6 @@ export class TasksPage extends Component {
     return (
       <Layout className="tp-2">
         <ButtonCreate title="new task" redirectTo="/tasks/add"/>
-        <ButtonCreate title="new template" redirectTo="/template/add"/>
-        <ButtonCreate title="Assign template" redirectTo="/template/assign"/>
         <TasksTable/>
       </Layout>);
   }

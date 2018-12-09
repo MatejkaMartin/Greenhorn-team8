@@ -50,26 +50,30 @@ export const taskAddController = async (req, res, next) => {
 
 export const taskGetController = async (req, res, next) => {
   const tasks = await db.sequelize.query(
-              `SELECT
-              t.id as id,
-t.task_name as taskName,
-t.task_instructions as taskDetail,
-t.deadline,
-s.name as state,
-case
-  when MAX(d.id) is not null
-  then  CONCAT('[',GROUP_CONCAT(JSON_OBJECT('id',d.id,'name',d.name,'url', d.url)),']')
-  else '[]'
-end as files,
-ua.name as assignee,
-uo.name as owner
-FROM task t
-left join document_task_rel dtr on dtr.task_id=t.id
-left JOIN document d ON dtr.document_id=d.id
-inner join state s on t.state_id=s.id
-inner join user ua on ua.id=t.assignee_id
-inner join user uo on uo.id=t.owner_id
-group by t.id`, {type: db.sequelize.QueryTypes.SELECT}).then((tasks) => {
+    //               `SELECT
+    //               t.id as id,
+    // t.task_name as taskName,
+    // t.task_instructions as taskDetail,
+    // t.deadline,
+    // s.name as state,
+    // case
+    //   when MAX(d.id) is not null
+    //   then  CONCAT('[',GROUP_CONCAT(JSON_OBJECT('id',d.id,'name',d.name,'url', d.url)),']')
+    //   else '[]'
+    // end as files,
+    // ua.name as assignee,
+    // uo.name as owner
+    // FROM task t
+    // left join document_task_rel dtr on dtr.task_id=t.id
+    // left JOIN document d ON dtr.document_id=d.id
+    // inner join state s on t.state_id=s.id
+    // inner join user ua on ua.id=t.assignee_id
+    // inner join user uo on uo.id=t.owner_id
+    // group by t.id`
+    
+    "SELECT * FROM task"
+, {type: db.sequelize.QueryTypes.SELECT}).then((tasks) => {
+  console.log("THERE ARE MY TASKS" + tasks)
   return res.json({
     tasks
   })
