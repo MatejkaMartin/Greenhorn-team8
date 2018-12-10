@@ -19,6 +19,7 @@ if (__DEV__) {
 app.use(rootRoutes);
 
 app.use((req, res, next) => {
+  console.log(res);
   res.status(404);
   res.json({ error: '404: Not found' });
 });

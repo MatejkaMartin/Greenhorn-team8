@@ -13,7 +13,7 @@
     "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-dropzone": "^7.0.1",
+    "react-dropzone": "7.0.1",
     "react-moment": "^0.8.4",
     "react-redux": "5.0.7",
     "react-router-dom": "^4.3.1",
@@ -25,7 +25,6 @@
     "redux-thunk": "2.3.0",
     "tailwind": "^2.4.0",
     "tailwindcss": "^0.6.6",
-    "react-dropzone": "7.0.1",
     "file-selector": "0.1.5",
     "material-ui-next-pickers": "0.0.15"
   },
