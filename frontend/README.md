@@ -2,9 +2,9 @@
 
 ## How run frontend in local
 
-1. Setup address of the API server
-    in *frontend/src/api.js*
-    baseURL: 'http://localhost:3031/api/'
+1. Setup address of the API server <br/>
+    in *frontend/src/api.js* <br/>
+    *baseURL: 'http://localhost:3031/api/'* <br/>
 2. Run script “npm start”
 
 ## First steps
