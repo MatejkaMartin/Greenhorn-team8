@@ -7,6 +7,11 @@
     *baseURL: 'http://localhost:3031/api/'* <br/>
 2. Run script “npm start”
 
+3. After you seed the database (this is in tutorial on backend) <br/>
+You can login with: <br/>
+username: `karel.zamestnanec@greenhorn.com` <br/>
+password: `karel`
+
 ## First steps
 
 ### Clone project to your pc
