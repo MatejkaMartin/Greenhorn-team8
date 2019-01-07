@@ -32,7 +32,7 @@ class TaskAttachmentsStep extends Component {
     <Fragment>
       <Grid container spacing={24}>
           <Grid item={ true } xs={12}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom={true}>
             Attachments
             </Typography>
             <Fragment>

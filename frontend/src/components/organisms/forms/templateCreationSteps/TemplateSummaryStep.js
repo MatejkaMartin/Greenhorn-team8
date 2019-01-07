@@ -10,49 +10,49 @@ export class TemplateSummaryStep extends Component {
     return (
 
       <Fragment>
-        <Typography variant="headline" gutterBottom>
+        <Typography variant="headline" gutterBottom={true}>
         Template summary
         </Typography>
         &nbsp;
 
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Template title:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         {values.templateTitle}
         </Typography>
         &nbsp;
 
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Task title:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         {values.taskTitle}
         </Typography>
         &nbsp;
 
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Task instructions:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         {values.taskInstructions}
         </Typography>
         &nbsp;
 
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Future day:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         {values.futureDay}
         </Typography>
         &nbsp;
 
         {values.files.length !==0 &&
         <Fragment>
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Files:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         { values.files.map((file,i) => ( <Chip icon={<IconDescription/>} key={i} label= {file.name} color="primary" variant="outlined"/>  ))}
         </Typography>
         </Fragment>}

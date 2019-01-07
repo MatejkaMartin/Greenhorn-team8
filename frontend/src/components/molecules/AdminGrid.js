@@ -106,7 +106,7 @@ render () {
     <GridList className={classes.gridList} cols={3}>
       {data.map(tile => (
         <GridListTile key={tile.id} className={classes.gridTile}>
-          <Button color="primary" fullWidth="true" onClick={event => this.handleEmployeeFilter(tile)}>
+          <Button color="primary" fullWidth={true} onClick={event => this.handleEmployeeFilter(tile)}>
           <List component="nav" className={classes.root}>
             <ListItem>
               <ListItemText primary={<Typography component="h2" variant="headline">{tile.employee}</Typography>}/>

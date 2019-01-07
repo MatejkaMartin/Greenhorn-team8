@@ -51,17 +51,17 @@ class TaskDetail extends React.Component {
               <Typography variant="subtitle1">Template: {task.template}</Typography>
               <Typography variant="subtitle1">Owner: {task.owner}</Typography>
               <Typography variant="subtitle1">Assignee: {task.assignee}</Typography>
-              <Typography variant="subtitle1" gutterBottom>State: {task.state}</Typography>
+              <Typography variant="subtitle1" gutterBottom={true}>State: {task.state}</Typography>
               <Grid item={ true } xs={12}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom={true}>
                 Instructions
                 </Typography>
-                <Typography variant="subtitle1" gutterBottom>{task.taskDetail}
+                <Typography variant="subtitle1" gutterBottom={true}>{task.taskDetail}
                 </Typography>
               </Grid>
 
               <Grid item={ true } xs={12}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom={true}>
                 Attachments
                 </Typography>
                 {task.files && task.files.length > 0 && JSON.parse(task.files).map((file,i) => (

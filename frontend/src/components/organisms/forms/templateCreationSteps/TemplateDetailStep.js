@@ -22,7 +22,7 @@ class TemplateDetailStep extends Component {
 
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Template Details
       </Typography>
       <Grid container spacing={24}>

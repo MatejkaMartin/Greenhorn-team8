@@ -20,7 +20,7 @@ function Album(props) {
       <CssBaseline />
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom={true}>
               <img src={Logo} alt="logo" title="logo"/>
             </Typography>
             <Typography variant="h6" align="center" color="textSecondary" paragraph>

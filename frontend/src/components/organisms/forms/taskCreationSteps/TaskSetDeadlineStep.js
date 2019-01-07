@@ -24,7 +24,7 @@ class TaskSetDeadlineStep extends Component {
   const {classes, values, handleDatePicker} = this.props;
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Task deadlines
       </Typography>
 

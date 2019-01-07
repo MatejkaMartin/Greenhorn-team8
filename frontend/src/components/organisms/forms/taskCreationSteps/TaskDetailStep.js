@@ -27,7 +27,7 @@ class TaskDetailStep extends Component {
     const { values,handleTaskInfo, handleTemplateChange } = this.props;
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Task Details
       </Typography>
       <FormControl required fullWidth>

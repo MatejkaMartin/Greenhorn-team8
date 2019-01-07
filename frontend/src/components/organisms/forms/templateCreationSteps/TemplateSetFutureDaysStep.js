@@ -23,7 +23,7 @@ class TemplateSetFutureDayStep extends Component {
 
   return (
     <Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Template Future Day
       </Typography>
       <Grid container spacing={24}>

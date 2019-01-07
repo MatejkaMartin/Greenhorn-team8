@@ -9,7 +9,7 @@ class EmailMobileStep extends React.Component {
   const { values,handleChange } = this.props;
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Email & Phone
       </Typography>
       <Grid container spacing={24}>

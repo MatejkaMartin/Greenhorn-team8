@@ -71,10 +71,10 @@ render () {
     <GridList className={classes.gridList} cols={3}>
       {this.state.data.map(tile => (
         <GridListTile key={tile.id} className={classes.gridTile}>
-          <Button color="primary" fullWidth="true">
+          <Button color="primary" fullWidth={true}>
           <List component="nav" className={classes.root}>
             <ListItem/>
-              <ListItemText primary={<Typography component="h2" variant="headline" gutterBottom="true">{tile.taskName}</Typography>}/>
+              <ListItemText primary={<Typography component="h2" variant="headline" gutterBottom={true}>{tile.taskName}</Typography>}/>
               <ListItemText primary={<Moment format="DD.MM.YYYY">{tile.deadline}</Moment>}/>
               <ListItemText primary={"Owner: " + tile.owner}/>
               <ListItemText primary={"State: " + tile.state}/>

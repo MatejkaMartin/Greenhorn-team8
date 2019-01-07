@@ -10,39 +10,39 @@ export class TaskSummaryStep extends Component {
     return (
 
       <Fragment>
-        <Typography variant="headline" gutterBottom>
+        <Typography variant="headline" gutterBottom={true}>
           Task summary
         </Typography>
         &nbsp;
 
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Task title :
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         {values.taskTitle}
         </Typography>
         &nbsp;
 
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Task Instructions:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         {values.taskDescription}
         </Typography>
         &nbsp;
 
         { values.selectedEmployees.map((employee,i) => (
           <Fragment>
-          <Typography variant="subheading" gutterBottom color="primary">
+          <Typography variant="subheading" gutterBottom={true} color="primary">
           Employee:
           </Typography>
-          <Typography variant="title" gutterBottom>
+          <Typography variant="title" gutterBottom={true}>
             {employee.name}
           </Typography>
-          <Typography variant="subheading" gutterBottom color="primary">
+          <Typography variant="subheading" gutterBottom={true} color="primary">
           {employee.name} Deadline:
           </Typography>
-          <Typography variant="title" gutterBottom>
+          <Typography variant="title" gutterBottom={true}>
             { values.deadlines.filter((deadline) => { return deadline.id === employee.id })[0].deadline }
           </Typography>
           &nbsp;
@@ -51,10 +51,10 @@ export class TaskSummaryStep extends Component {
 
         {values.files.length !==0 &&
         <Fragment>
-        <Typography variant="subheading" gutterBottom color="primary">
+        <Typography variant="subheading" gutterBottom={true} color="primary">
         Files:
         </Typography>
-        <Typography variant="title" gutterBottom>
+        <Typography variant="title" gutterBottom={true}>
         { values.files.map((file,i) => ( <Chip icon={<IconDescription/>} key={i} label= {file.name} color="primary" variant="outlined"/>  ))}
         </Typography>
         </Fragment>}

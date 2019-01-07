@@ -9,7 +9,7 @@ class NameStep extends React.Component {
   const { values,handleChange } = this.props;
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Name
       </Typography>
       <Grid container spacing={24}>

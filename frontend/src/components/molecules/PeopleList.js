@@ -104,7 +104,7 @@ class PeopleList extends Component {
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom={true} variant="h5" component="h2">
                       { person.name }
                     </Typography>
                     <div>{ person.role }</div>

@@ -106,7 +106,7 @@ class LoginForm extends Component {
 
           <form className={classes.form} onSubmit={ this.handleSubmit }>
             { this.errorMessage() }
-            <FormControl margin="normal" required fullWidth>
+            <FormControl margin="normal" required fullWidth={true}>
               <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input
                   id="email"
@@ -118,7 +118,7 @@ class LoginForm extends Component {
                 />
             </FormControl>
 
-            <FormControl margin="normal" required fullWidth>
+            <FormControl margin="normal" required fullWidth={true}>
               <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
                   name="password"
@@ -132,7 +132,7 @@ class LoginForm extends Component {
 
             <Button
               type="submit"
-              fullWidth
+              fullWidth={true}
               variant="contained"
               color="primary"
               className={classes.submit}

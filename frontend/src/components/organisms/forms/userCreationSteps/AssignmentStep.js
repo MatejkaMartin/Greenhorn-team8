@@ -13,7 +13,7 @@ class AssignmentStep extends React.Component {
   const { values,handleChange,catalogs } = this.props;
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom={true}>
         Assignment
       </Typography>
       <Grid container spacing={24}>
