@@ -11,7 +11,6 @@ export const startFetchTemplates = () => (dispatch, getState, { api }) => {
         dispatch({type: GET_TEMPLATES_API_CALL, payload: data})
     })
     .catch((response) => {
-      console.log(response)
       dispatch({type: 'SET_ERROR', payload: response.data.message})
     })
 };

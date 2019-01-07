@@ -1,14 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import IconDescription from '@material-ui/icons/Description';
 import IconClose from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
@@ -33,7 +27,7 @@ class TemplateDetail extends React.Component {
 
   render() {
     const template = this.props.template;
-    const {classes, handleClose, handleChangeState} = this.props;
+    const { handleClose } = this.props;
 
     if (this.props.open && template ) {
       return (
@@ -53,7 +47,7 @@ class TemplateDetail extends React.Component {
       );
     } else {
       return (
-        <Dialog>
+        <Dialog open={ this.props.open }>
           <DialogTitle> No template </DialogTitle>
         </Dialog>
       );

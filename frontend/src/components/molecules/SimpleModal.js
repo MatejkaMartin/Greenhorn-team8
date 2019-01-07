@@ -35,9 +35,13 @@ const styles = theme => ({
 });
 
 class SimpleModal extends React.Component {
-  state = {
-    open: false,
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    }
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
