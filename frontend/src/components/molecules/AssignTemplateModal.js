@@ -51,10 +51,10 @@ class AssignTemplateModal extends Component {
 
   render() {
     const { templates, assignment } = this.props;
-    const { classes } = this.props;
+    const { classes, opened } = this.props;
     return (
         <Dialog
-          open={this.props.opened.indexOf(assignment.job_position_id) !== -1 }
+          open={opened.indexOf(assignment.job_position_id) !== -1 }
           scroll={this.state.scroll}
           aria-labelledby="scroll-dialog-title" fullWidth>
           <DialogTitle id="scroll-dialog-title">
@@ -66,7 +66,7 @@ class AssignTemplateModal extends Component {
           <List dense className={classes.root}>
             <Grid container spacing={24}>
             {templates.map((template,i) => (
-              <Grid item={ true } xs={12}>
+              <Grid item={ true } xs={12} key={i}>
               <ListItem key={template.id} button onClick={() => {this.handleAddIntoSelectedTemplates(template.id)}}>
                 <ListItemText primary={template.templateName}/>
                 <ListItemSecondaryAction onClick={() => {this.handleAddIntoSelectedTemplates(template.id)}}>

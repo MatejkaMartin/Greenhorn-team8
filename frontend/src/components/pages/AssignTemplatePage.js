@@ -30,9 +30,12 @@ const styles = theme => ({
 
 class AssignTemplatePage extends Component {
 
-  state = {
-    assignedTemplates: null,
-    opened: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      assignedTemplates: null,
+      opened: []
+    }
   }
 
   handleOpen = (id) => {
@@ -90,8 +93,8 @@ class AssignTemplatePage extends Component {
     return (
       <Layout className="ctp-2">
       <div className={classes.root}>
-          {this.state.assignedTemplates && this.state.assignedTemplates.map(assignment => (
-      <ExpansionPanel>
+          {this.state.assignedTemplates && this.state.assignedTemplates.map((assignment, index) => (
+      <ExpansionPanel key={index}>
       <AssignTemplateModal handleClose={ this.handleClose } opened={ this.state.opened } assignment={ assignment } templates={this.props.templates} add = { this.add }/>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <div className={classes.column}>
@@ -101,13 +104,14 @@ class AssignTemplatePage extends Component {
             <Typography className={classes.heading}><IconAdd className={classes.heading}/>Assign template</Typography>
         </div>
         </ExpansionPanelSummary>
-        { JSON.parse(assignment.templates).length === 0 &&         <ExpansionPanelDetails>
+        { JSON.parse(assignment.templates).length === 0 &&
+          <ExpansionPanelDetails>
                 <div className={classes.column}>
                   <Typography>No templates assigned</Typography>
                 </div>
-                </ExpansionPanelDetails>}
-        { JSON.parse(assignment.templates).map(template => (
-        <ExpansionPanelDetails>
+          </ExpansionPanelDetails>}
+        { JSON.parse(assignment.templates).map( (template, index) => (
+        <ExpansionPanelDetails key={index} >
         <div className={classes.column}>
           <Typography>{ template.template_name }</Typography>
         </div>
@@ -120,8 +124,8 @@ class AssignTemplatePage extends Component {
       }
       </ExpansionPanel>
                 ))}
-    </div>
-          </Layout>
+        </div>
+    </Layout>
     );
   }
 }

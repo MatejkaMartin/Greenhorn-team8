@@ -71,7 +71,6 @@ export const taskGetController = async (req, res, next) => {
     inner join user uo on uo.id=t.owner_id
     group by t.id`
 , {type: db.sequelize.QueryTypes.SELECT}).then((tasks) => {
-  console.log("THERE ARE MY TASKS" + tasks)
   return res.json({
     tasks
   })

@@ -40,13 +40,16 @@ const styles = theme => ({
 });
 
 class EmpGrid extends Component {
-  state = {
-    data: [],
-    dateFilter: '',
-    todayBadge: '',
-    weekBadge: '',
-    monthBadge: '',
-  }
+    constructor(props) {
+      super(props);
+      this.state ={
+        data: [],
+        dateFilter: '',
+        todayBadge: '',
+        weekBadge: '',
+        monthBadge: ''
+      };
+    }
 
   handleDateFilter = (days) => {
     this.setState({ dateFilter: days })
@@ -109,7 +112,7 @@ render () {
         </Grid>
     </Grid>
   </div>
-);
-}}
+  );}
+}
 
 export default withStyles(styles)(EmpGrid);
