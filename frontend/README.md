@@ -1,5 +1,12 @@
 #  Greenhorn - Team 8
 
+## How run frontend in local
+
+1. Setup address of the API server
+    in *frontend/src/api.js*
+    baseURL: 'http://localhost:3031/api/'
+2. Run script “npm start”
+
 ## First steps
 
 ### Clone project to your pc
@@ -31,14 +38,14 @@ If not install Node.js from https://nodejs.org/en/download/
 
 ### Create your branch, edit code and push your branch to the repository
 
-1. As above 
+1. As above
 * `git fetch`    - loads infomations about changes in repo
 * `git pull`     - loads all changes from remote branch on local branch
 - at this stage you have everything from repo in github
 2. Create the branch on your local machine and switch in this branch :
 `git checkout -b [name_of_your_new_branch]` i.e. `git checkout -b B-1_avatar_odhlasovani`
-3. Do the changes in the code 
-4. Add the files you changed to be tracked 
+3. Do the changes in the code
+4. Add the files you changed to be tracked
 `git add [file_name]` i.e. `git add readme.txt` - to track simple file
 or
 `git add .` - to track all modified files
@@ -51,9 +58,9 @@ or
 
 Read the rest at https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
 
-## UI 
+## UI
 
-In project we use two packages for design: 
+In project we use two packages for design:
 1. https://tailwindcss.com
 2. https://material-ui.com
 
@@ -63,9 +70,9 @@ In project we use two packages for design:
 
 #### Basic use
 Tailwind is pre-definiend classes which you can apply on components.
-Soo basicly you can find the name on the webside and entry it to a className of component. 
+Soo basicly you can find the name on the webside and entry it to a className of component.
 
-e.g. : one `<button className="text-black" />` or many `<button className="text-black text-xs text-letft bg-green />` and thats it. 
+e.g. : one `<button className="text-black" />` or many `<button className="text-black text-xs text-letft bg-green />` and thats it.
 
 #### Define own class
 You can define your own className in `src/css/tailwind.src.css`
@@ -76,7 +83,7 @@ e.g:
 ` }`
 You group many classNames together and than you can just use `<button className="btn" />`
 
-### How use *Material-ui* 
+### How use *Material-ui*
 
 Find a component and use it.
 
@@ -85,18 +92,18 @@ Find a component and use it.
 
 
 #### Icons
-Find you icon here: https://material.io/tools/icons/ -> name of icon e.g. `card-giftcard` -> 
--> text transform `CardGiftcard` 
--> you can add type of icon on the end 
+Find you icon here: https://material.io/tools/icons/ -> name of icon e.g. `card-giftcard` ->
+-> text transform `CardGiftcard`
+-> you can add type of icon on the end
 * Filled -> `CardGiftcardFilled`
 * Outlined -> `CardGiftcardOutlined`
-* Rounded ... 
-* Two Tone ... 
+* Rounded ...
+* Two Tone ...
 * Sharp ..
-* Edge-cases .. 
+* Edge-cases ..
 -> make import `import GiftIcon from '@material-ui/icons/CardGiftcardRounded`
 
-or many imports at ones 
+or many imports at ones
 `import { CardGiftcardRounded, Send } from '@material-ui/icons';`
 
 `<CardGiftcardRounded />
@@ -107,9 +114,3 @@ You can apply class names from tailwind on material-ui components.
 
 eg.
 `<AppBar className="bg-green">`
-
-
-
-
-
-
